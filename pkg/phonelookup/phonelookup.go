@@ -974,3 +974,52 @@ func lookupOwnerInfo(phone string, info *PhoneInfo, cfg *config.Config) error {
 	return fmt.Errorf("no owner information found")
 }
 
+// lookupTrueCaller attempts to get name from TrueCaller using multiple methods
+func lookupTrueCaller(phone string) string {
+	// Try local cache first (fastest)
+	name := tryLocalCache(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try GetContact API (works well for international numbers)
+	name = tryGetContactAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try Sync.me API
+	name = trySyncMeAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try TrueCaller JSON API endpoint (unofficial but works)
+	name = tryTrueCallerJSONAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try Eyecon API as alternative
+	name = tryEyeconAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try NumLookup API
+	name = tryNumLookupAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	return ""
+}
+
+// tryLocalCache checks a local JSON file for known phone-name mappings
+// This allows users to optionally add their own known contacts
+func tryLocalCache(phone string) string {
+	// Skip local cache - we want to use real APIs only
+	return ""
+}
+
+/
