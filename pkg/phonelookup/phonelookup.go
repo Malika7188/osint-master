@@ -92,4 +92,8 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 		// Try to determine carrier from country code
 		info.Carrier = guessCarrierFromNumber(phone, info.Country)
 	}
+	if info.Region == "" || info.Region == "Unknown" {
+		info.Region = info.Country // Use country as fallback
+	}
+
 	
