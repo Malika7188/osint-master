@@ -570,3 +570,11 @@ func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// makeHLRRequest makes a generic HLR lookup request
+func makeHLRRequest(url string, info *PhoneInfo) error {
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	
