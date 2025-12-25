@@ -686,4 +686,35 @@ func lookupCarrierFromAPI(phone string) string {
 	return ""
 }
 
-/
+// lookupNumverify uses numverify.com API (free tier: 100 requests/month)
+func lookupNumverify(phone string, info *PhoneInfo, cfg *config.Config) error {
+	// Skip if no API key configured
+	if cfg == nil || cfg.NumverifyKey == "" {
+		return fmt.Errorf("numverify API key not configured")
+	}
+
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Use configured API key
+	url := fmt.Sprintf("http://apilayer.net/api/validate?access_key=%s&number=%s&format=1", cfg.NumverifyKey, phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("numverify API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	
