@@ -1383,4 +1383,47 @@ func checkWhatsApp(phone string) (bool, string) {
 	return false, fmt.Sprintf("Not confirmed on WhatsApp (try manually: https://wa.me/%s)", cleanedPhone)
 }
 
+// checkTelegram checks if a phone number is registered on Telegram
+func checkTelegram(phone string) (bool, string) {
+	// Telegram has no official public API to check number registration without auth
+	// However, we can try some heuristic methods
+
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Method 1: Try to resolve using t.me link
+	// Telegram uses t.me/+phonenumber format
+	url := fmt.Sprintf("https://t.me/%s", cleanedPhone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	req, err := http.NewRequest("HEAD", url, nil)
+	if err != nil {
+		return false, "Unable to check (request error)"
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "Unable to check (network error)"
+	}
+	defer resp.Body.Close()
+
+	// If Telegram returns 200 or redirects, it might be a valid profile
+	// Note: This is not 100% reliable as Telegram protects user privacy
+	if resp.StatusCode == http.StatusOK {
+		return true, "Possibly on Telegram (profile found)"
+	}
+
+	// Alternative: Try unofficial Telegram checker
+	// Note: Most Telegram checkers require authentication
+	// For now, we'll indicate manual verification is needed
+	return false, fmt.Sprintf("Not confirmed on Telegram (try manually: https://t.me/%s)", phone)
+}
+
 /
