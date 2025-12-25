@@ -68,4 +68,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// 1. Try veriphone.io (free, no key)
 	_ = lookupPhoneFree(phone, info)
 
+	// 2. Try hlr-lookups.com (free tier)
+	_ = lookupHLR(phone, info)
+
 	
