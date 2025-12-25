@@ -310,3 +310,13 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 	if err := lookupPhoneFree(phone, info); err == nil {
 		return nil
 	}
+
+	// Fallback to paid API if available (numverify)
+	// Get free API key at: https://numverify.com/product (100 requests/month free)
+	apiKey := "demo_api_key" // Replace with actual key from environment
+	if apiKey == "demo_api_key" {
+		// No valid API key, return with free data already populated
+		return fmt.Errorf("no API key configured")
+	}
+
+	
