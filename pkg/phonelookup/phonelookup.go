@@ -319,4 +319,10 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 		return fmt.Errorf("no API key configured")
 	}
 
+	url := fmt.Sprintf("http://apilayer.net/api/validate?access_key=%s&number=%s", apiKey, phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
 	
