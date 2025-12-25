@@ -1149,4 +1149,53 @@ func tryTrueCallerJSONAPI(phone string) string {
 	return runTrueCallerPlaywright(phoneClean)
 }
 
+// tryEyeconAPI tries Eyecon caller ID API
+func tryEyeconAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	url := fmt.Sprintf("https://api.eyecon-app.com/app/getnames.jsp?cli=%s&lang=en", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "Eyecon/9.0.0")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return ""
+	}
+
+	// Extract name from Eyecon response
+	if names, ok := result["names"].([]interface{}); ok && len(names) > 0 {
+		if firstName, ok := names[0].(map[string]interface{}); ok {
+			if name, ok := firstName["name"].(string); ok && name != "" {
+				return name
+			}
+		}
+	}
+
+	return ""
+}
+
 /
