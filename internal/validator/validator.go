@@ -61,4 +61,5 @@ func ValidateName(name string) error {
 		return fmt.Errorf("name cannot be empty")
 	}
 
-	
+	if len(name) > 100 {
+		
