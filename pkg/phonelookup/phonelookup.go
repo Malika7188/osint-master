@@ -563,3 +563,10 @@ func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 	if operator, ok := result["operator"].(string); ok && operator != "" && info.Carrier == "" {
 		info.Carrier = operator
 	}
+
+	if lineType, ok := result["type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	return nil
+}
