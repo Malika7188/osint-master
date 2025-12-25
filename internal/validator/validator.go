@@ -62,4 +62,8 @@ func ValidateName(name string) error {
 	}
 
 	if len(name) > 100 {
-		
+		return fmt.Errorf("name too long (max 100 characters)")
+	}
+
+	return nil
+}
