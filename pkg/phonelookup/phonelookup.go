@@ -76,4 +76,6 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 		if cfg.NumverifyKey != "" {
 			_ = lookupNumverify(phone, info, cfg)
 		}
+		if cfg.AbstractAPIKey != "" && info.Carrier == "" {
+			_ = lookupPhoneValidator(phone, info, cfg)
 		
