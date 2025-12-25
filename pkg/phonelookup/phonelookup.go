@@ -1117,4 +1117,36 @@ func trySyncMeAPI(phone string) string {
 	return ""
 }
 
+// runTrueCallerPlaywright runs the Playwright scraper for TrueCaller
+func runTrueCallerPlaywright(phone string) string {
+	// Import exec package at runtime
+	cmd := exec.Command("node", "internal/scraper/truecaller_scraper.js", phone)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(output, &result); err != nil {
+		return ""
+	}
+
+	if success, ok := result["success"].(bool); ok && success {
+		if name, ok := result["name"].(string); ok && name != "" {
+			return name
+		}
+	}
+
+	return ""
+}
+
+// tryTrueCallerJSONAPI uses Playwright to scrape TrueCaller with JavaScript execution
+func tryTrueCallerJSONAPI(phone string) string {
+	phoneClean := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Use Playwright scraper for TrueCaller
+	return runTrueCallerPlaywright(phoneClean)
+}
+
 /
