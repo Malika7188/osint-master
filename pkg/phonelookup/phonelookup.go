@@ -1240,3 +1240,11 @@ func tryNumLookupAPI(phone string) string {
 
 	return ""
 }
+
+// lookupNumverifyExtended gets extended data including owner info if available
+func lookupNumverifyExtended(phone string, info *PhoneInfo, cfg *config.Config) error {
+	// Some phone APIs provide owner information
+	// This would require extended API access
+	return fmt.Errorf("extended data not available")
+}
+
