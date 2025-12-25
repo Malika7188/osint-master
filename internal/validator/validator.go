@@ -49,4 +49,10 @@ func ValidateUsername(username string) error {
 	// Basic alphanumeric check with underscores and hyphens
 	usernameRegex := regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 	if !usernameRegex.MatchString(username) {
-	
+		return fmt.Errorf("username contains invalid characters")
+	}
+
+	return nil
+}
+
+/
