@@ -60,4 +60,10 @@ func loadEnvFile() {
 		}
 	}
 
-	
+	// Read .env file
+	file, err := os.Open(envPath)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
