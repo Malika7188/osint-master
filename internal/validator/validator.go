@@ -46,4 +46,6 @@ func ValidateUsername(username string) error {
 		return fmt.Errorf("username too long (max 50 characters)")
 	}
 
+	// Basic alphanumeric check with underscores and hyphens
+	usernameRegex := regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 	
