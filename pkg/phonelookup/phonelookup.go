@@ -584,4 +584,10 @@ func makeHLRRequest(url string, info *PhoneInfo) error {
 
 	req.Header.Set("User-Agent", "OSINT-Master-Tool")
 
-	
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
