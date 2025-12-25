@@ -397,4 +397,9 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 		return err
 	}
 
+	// Parse veriphone response
+	if phoneValid, ok := result["phone_valid"].(bool); ok {
+		info.IsValid = phoneValid
+	}
+
 	
