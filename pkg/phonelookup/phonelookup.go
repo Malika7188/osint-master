@@ -545,3 +545,15 @@ func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("MCC-MNC API error: %d", resp.StatusCode)
 	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	
