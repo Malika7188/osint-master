@@ -71,4 +71,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// 2. Try hlr-lookups.com (free tier)
 	_ = lookupHLR(phone, info)
 
-	
+	// 3. Try paid APIs if configured
+	if cfg != nil {
+		if cfg.NumverifyKey != "" {
+		
