@@ -30,4 +30,7 @@ type PhoneInfo struct {
 	OnLine         bool
 	WhatsAppStatus string
 	TelegramStatus string
+	SignalStatus   string
+	ViberStatus    string
+	WeChatStatus   string
 	
