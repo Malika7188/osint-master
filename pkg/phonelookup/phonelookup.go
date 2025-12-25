@@ -117,3 +117,15 @@ func cleanPhoneNumber(phone string) string {
 	// Remove all non-digit characters except +
 	reg := regexp.MustCompile(`[^\d+]`)
 	cleaned := reg.ReplaceAllString(phone, "")
+
+	// Ensure it starts with +
+	if !strings.HasPrefix(cleaned, "+") {
+		// Try to add + if it looks like international format
+		if len(cleaned) > 10 {
+			cleaned = "+" + cleaned
+		}
+	}
+
+	return cleaned
+}
+
