@@ -54,4 +54,10 @@ func loadEnvFile() {
 	envPath := filepath.Join(home, ".osintmaster", ".env")
 	if _, err := os.Stat(envPath); os.IsNotExist(err) {
 		// Try current directory .env
-		
+		envPath = ".env"
+		if _, err := os.Stat(envPath); os.IsNotExist(err) {
+			return // No .env file found
+		}
+	}
+
+	
