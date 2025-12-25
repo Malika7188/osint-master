@@ -624,3 +624,11 @@ func makeHLRRequest(url string, info *PhoneInfo) error {
 func makeCarrierRequest(url string, info *PhoneInfo) error {
 	return makeHLRRequest(url, info) // Same logic
 }
+
+// guessCarrierFromNumber tries to determine carrier from number patterns using external data
+func guessCarrierFromNumber(phone string, country string) string {
+	// Try to lookup from online carrier database
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try carrier lookup API
+	
