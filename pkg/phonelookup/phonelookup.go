@@ -608,4 +608,14 @@ func makeHLRRequest(url string, info *PhoneInfo) error {
 		}
 	}
 
-	
+	// Try common field names for line type
+	typeFields := []string{"type", "line_type", "connection_type", "phone_type"}
+	for _, field := range typeFields {
+		if lineType, ok := result[field].(string); ok && lineType != "" {
+			info.LineType = lineType
+			break
+		}
+	}
+
+	return nil
+}
