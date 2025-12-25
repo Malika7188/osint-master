@@ -866,3 +866,75 @@ func lookupPhoneValidator(phone string, info *PhoneInfo, cfg *config.Config) err
 	return nil
 }
 
+// lookupIPQualityScore uses IPQualityScore phone validation API
+func lookupIPQualityScore(phone string, info *PhoneInfo, cfg *config.Config) error {
+	// Skip if no API key configured
+	if cfg == nil || cfg.IPQualityScoreKey == "" {
+		return fmt.Errorf("IPQualityScore API key not configured")
+	}
+
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Use configured API key
+	url := fmt.Sprintf("https://ipqualityscore.com/api/json/phone/%s/%s", cfg.IPQualityScoreKey, phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("IPQualityScore API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Check if API request was successful
+	if success, ok := result["success"].(bool); ok && !success {
+		return fmt.Errorf("IPQualityScore requires valid API key")
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok {
+		info.IsValid = valid
+	}
+
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if lineType, ok := result["line_type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	if country, ok := result["country"].(string); ok && country != "" {
+		info.Country = country
+	}
+
+	if region, ok := result["region"].(string); ok && region != "" {
+		info.Region = region
+	}
+
+	if city, ok := result["city"].(string); ok && city != "" && info.Region != "" {
+		info.Region = fmt.Sprintf("%s, %s", city, info.Region)
+	}
+
+	return nil
+}
+
+/
