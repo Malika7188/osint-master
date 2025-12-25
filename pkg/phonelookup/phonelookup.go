@@ -750,3 +750,60 @@ func lookupNumverify(phone string, info *PhoneInfo, cfg *config.Config) error {
 	return nil
 }
 
+// lookupNumValidate uses numvalidate.com API (free, no key required)
+func lookupNumValidate(phone string, info *PhoneInfo) error {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	url := fmt.Sprintf("https://numvalidate.com/api/v1/validate?number=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("numvalidate API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok {
+		info.IsValid = valid
+	}
+
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if phoneType, ok := result["type"].(string); ok && phoneType != "" {
+		info.LineType = phoneType
+	}
+
+	if location, ok := result["location"].(string); ok && location != "" {
+		info.Region = location
+	}
+
+	if country, ok := result["country"].(string); ok && country != "" {
+		info.Country = country
+	}
+
+	return nil
+}
+
+/
