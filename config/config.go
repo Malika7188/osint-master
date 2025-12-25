@@ -127,4 +127,11 @@ func CreateSampleEnvFile() error {
 		return err
 	}
 
+	envPath := filepath.Join(configDir, ".env")
+
+	// Check if file already exists
+	if _, err := os.Stat(envPath); err == nil {
+		return fmt.Errorf("config file already exists at: %s", envPath)
+	}
+
 	
