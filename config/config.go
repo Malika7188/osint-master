@@ -34,4 +34,9 @@ func LoadConfig() *Config {
 		PiplAPIKey:        os.Getenv("PIPL_API_KEY"),
 		SecurityTrailsKey: os.Getenv("SECURITYTRAILS_KEY"),
 		NumverifyKey:      os.Getenv("NUMVERIFY_KEY"),
-		
+		GoogleAPIKey:      os.Getenv("GOOGLE_API_KEY"),
+		TwitterAPIKey:     os.Getenv("TWITTER_API_KEY"),
+		TwitterAPISecret:  os.Getenv("TWITTER_API_SECRET"),
+	}
+
+	
