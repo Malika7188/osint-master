@@ -1248,3 +1248,53 @@ func lookupNumverifyExtended(phone string, info *PhoneInfo, cfg *config.Config) 
 	return fmt.Errorf("extended data not available")
 }
 
+// lookupPhoneDirectory searches public phone directories
+func lookupPhoneDirectory(phone string) string {
+	// Try free phone directory APIs
+	// Note: Most accurate directories are paid services
+
+	// Try phonevalidator.com directory
+	url := fmt.Sprintf("https://www.phonevalidator.com/api/lookup/%s", phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Try to extract owner name
+	if name, ok := result["name"].(string); ok && name != "" {
+		return name
+	}
+
+	if owner, ok := result["owner"].(string); ok && owner != "" {
+		return owner
+	}
+
+	if subscriber, ok := result["subscriber"].(string); ok && subscriber != "" {
+		return subscriber
+	}
+
+	return ""
+}
+
