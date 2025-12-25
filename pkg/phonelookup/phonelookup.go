@@ -482,4 +482,14 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 		if countryName, ok := country["name"].(string); ok && countryName != "" {
 			info.Country = countryName
 		}
-		
+		if countryCode, ok := country["code"].(string); ok && countryCode != "" {
+			info.CountryCode = "+" + countryCode
+		}
+	}
+
+	if location, ok := result["location"].(string); ok && location != "" {
+		info.Region = location
+	}
+
+	return nil
+}
