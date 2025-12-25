@@ -937,4 +937,40 @@ func lookupIPQualityScore(phone string, info *PhoneInfo, cfg *config.Config) err
 	return nil
 }
 
-/
+// lookupOwnerInfo tries to find the owner's information from various sources
+func lookupOwnerInfo(phone string, info *PhoneInfo, cfg *config.Config) error {
+	phoneClean := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Try multiple owner lookup sources
+
+	// 1. Try TrueCaller API (requires scraping or unofficial API)
+	if owner := lookupTrueCaller(phoneClean); owner != "" {
+		info.OwnerName = owner
+		info.OwnerSource = "TrueCaller (public data)"
+		return nil
+	}
+
+	// 2. Try Numverify extended data (if configured)
+	if cfg != nil && cfg.NumverifyKey != "" {
+		if err := lookupNumverifyExtended(phoneClean, info, cfg); err == nil && info.OwnerName != "" {
+			return nil
+		}
+	}
+
+	// 3. Try phone directory services
+	if owner := lookupPhoneDirectory(phoneClean); owner != "" {
+		info.OwnerName = owner
+		info.OwnerSource = "Public directory"
+		return nil
+	}
+
+	// 4. Try social media reverse lookup
+	if owner := lookupSocialMedia(phoneClean); owner != "" {
+		info.OwnerName = owner
+		info.OwnerSource = "Social media"
+		return nil
+	}
+
+	return fmt.Errorf("no owner information found")
+}
+
