@@ -33,3 +33,6 @@ func ValidateDomain(domain string) error {
 	return nil
 }
 
+// ValidateUsername validates if a username is reasonable
+func ValidateUsername(username string) error {
+	
