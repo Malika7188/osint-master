@@ -619,3 +619,8 @@ func makeHLRRequest(url string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// makeCarrierRequest makes a carrier lookup request
+func makeCarrierRequest(url string, info *PhoneInfo) error {
+	return makeHLRRequest(url, info) // Same logic
+}
