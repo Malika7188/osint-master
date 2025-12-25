@@ -23,4 +23,8 @@ func SaveToFile(filename string, content string) error {
 	// Write to file with proper permissions
 	err := os.WriteFile(filename, []byte(fullContent), 0644)
 	if err != nil {
-	
+		return fmt.Errorf("failed to write file: %v", err)
+	}
+
+	return nil
+}
