@@ -439,4 +439,8 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 	// Note: This requires an API key, but we'll try the demo endpoint
 	url := fmt.Sprintf("https://phonevalidation.abstractapi.com/v1/?api_key=test&phone=%s", phoneClean)
 
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
 	
