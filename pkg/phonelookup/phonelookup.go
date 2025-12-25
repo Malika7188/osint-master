@@ -349,3 +349,16 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 	if carrier, ok := result["carrier"].(string); ok {
 		info.Carrier = carrier
 	}
+
+	if lineType, ok := result["line_type"].(string); ok {
+		info.LineType = lineType
+	}
+
+	if location, ok := result["location"].(string); ok {
+		info.Region = location
+	}
+
+	return nil
+}
+
+/
