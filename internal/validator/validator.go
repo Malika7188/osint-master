@@ -16,3 +16,8 @@ func ValidateIP(ip string) error {
 	return nil
 }
 
+// ValidateDomain validates if a string is a valid domain name
+func ValidateDomain(domain string) error {
+	// Remove protocol if present
+	domain = strings.TrimPrefix(domain, "http://")
+	
