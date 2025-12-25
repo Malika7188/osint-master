@@ -409,3 +409,12 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 	if phoneType, ok := result["phone_type"].(string); ok && phoneType != "" {
 		info.LineType = phoneType
 	}
+
+	if country, ok := result["country"].(string); ok && country != "" {
+		// Update country if API provides better data
+		if info.Country == "Unknown" || info.Country == "" {
+			info.Country = country
+		}
+	}
+
+	
