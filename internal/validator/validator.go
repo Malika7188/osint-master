@@ -11,4 +11,8 @@ import (
 func ValidateIP(ip string) error {
 	parsedIP := net.ParseIP(ip)
 	if parsedIP == nil {
-	
+		return fmt.Errorf("invalid IP address format: %s", ip)
+	}
+	return nil
+}
+
