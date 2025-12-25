@@ -22,4 +22,9 @@ type Config struct {
 	TwitterAPISecret   string
 }
 
-/
+// LoadConfig loads configuration from environment variables and .env file
+func LoadConfig() *Config {
+	// Try to load from .env file first
+	loadEnvFile()
+
+	
