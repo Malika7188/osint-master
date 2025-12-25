@@ -30,4 +30,8 @@ func LoadConfig() *Config {
 	config := &Config{
 		HIBPAPIKey:        os.Getenv("HIBP_API_KEY"),
 		IPAPIKey:          os.Getenv("IPAPI_KEY"),
+		AbuseIPDBKey:      os.Getenv("ABUSEIPDB_KEY"),
+		PiplAPIKey:        os.Getenv("PIPL_API_KEY"),
+		SecurityTrailsKey: os.Getenv("SECURITYTRAILS_KEY"),
+		NumverifyKey:      os.Getenv("NUMVERIFY_KEY"),
 		
