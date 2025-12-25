@@ -9,4 +9,6 @@ import (
 
 // ValidateIP validates if a string is a valid IP address
 func ValidateIP(ip string) error {
+	parsedIP := net.ParseIP(ip)
+	if parsedIP == nil {
 	
