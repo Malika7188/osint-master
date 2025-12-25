@@ -340,4 +340,12 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 		return err
 	}
 
-	
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok && !valid {
+		info.IsValid = false
+		return fmt.Errorf("invalid phone number")
+	}
+
+	if carrier, ok := result["carrier"].(string); ok {
+		info.Carrier = carrier
+	}
