@@ -361,4 +361,10 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 	return nil
 }
 
-/
+// lookupPhoneFree uses FREE API (veriphone.io) - no API key required
+func lookupPhoneFree(phone string, info *PhoneInfo) error {
+	// Remove + from phone for API
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try veriphone.io first
+	
