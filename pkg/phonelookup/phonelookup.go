@@ -107,4 +107,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// Try to lookup owner information
 	_ = lookupOwnerInfo(phone, info, cfg)
 
-	
+	// Format output
+	result := formatPhoneInfo(info)
+	return result, nil
+}
