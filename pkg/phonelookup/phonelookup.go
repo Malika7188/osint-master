@@ -59,4 +59,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 		IsValid: true,
 	}
 
+	// Parse country code
+	info.CountryCode, info.Country = parseCountryCode(phone)
+
 	
