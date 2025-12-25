@@ -40,3 +40,7 @@ type PhoneInfo struct {
 	OwnerSource    string
 }
 
+// LookupPhone performs phone number lookup
+func LookupPhone(phone string) (string, error) {
+	return LookupPhoneWithConfig(phone, nil)
+}
