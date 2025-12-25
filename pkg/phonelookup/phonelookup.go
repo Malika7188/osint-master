@@ -266,4 +266,13 @@ func getCountryFromCodeFallback(callingCode string) string {
 		"248": "Seychelles", "249": "Sudan", "250": "Rwanda", "251": "Ethiopia",
 		"252": "Somalia", "253": "Djibouti", "254": "Kenya", "255": "Tanzania",
 		"256": "Uganda", "257": "Burundi", "258": "Mozambique", "260": "Zambia",
-		
+		"261": "Madagascar", "262": "Reunion", "263": "Zimbabwe", "264": "Namibia",
+		"265": "Malawi", "266": "Lesotho", "267": "Botswana", "268": "Eswatini",
+		"269": "Comoros", "290": "Saint Helena", "291": "Eritrea", "297": "Aruba",
+		"298": "Faroe Islands", "299": "Greenland", "350": "Gibraltar", "351": "Portugal",
+		"352": "Luxembourg", "353": "Ireland", "354": "Iceland", "355": "Albania",
+		"356": "Malta", "357": "Cyprus", "358": "Finland", "359": "Bulgaria",
+		"370": "Lithuania", "371": "Latvia", "372": "Estonia", "373": "Moldova",
+		"374": "Armenia", "375": "Belarus", "376": "Andorra", "377": "Monaco",
+		"378": "San Marino", "380": "Ukraine", "381": "Serbia", "382": "Montenegro",
+	
