@@ -44,3 +44,10 @@ type PhoneInfo struct {
 func LookupPhone(phone string) (string, error) {
 	return LookupPhoneWithConfig(phone, nil)
 }
+
+// LookupPhoneWithConfig performs phone number lookup with API configuration
+func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
+	// Clean phone number
+	phone = cleanPhoneNumber(phone)
+
+	
