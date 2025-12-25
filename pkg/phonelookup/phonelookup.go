@@ -50,4 +50,8 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// Clean phone number
 	phone = cleanPhoneNumber(phone)
 
+	if phone == "" {
+		return "", fmt.Errorf("invalid phone number format")
+	}
+
 	
