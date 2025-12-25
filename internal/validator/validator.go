@@ -38,4 +38,8 @@ func ValidateUsername(username string) error {
 	// Remove @ symbol if present
 	username = strings.TrimPrefix(username, "@")
 
+	if len(username) == 0 {
+		return fmt.Errorf("username cannot be empty")
+	}
+
 	
