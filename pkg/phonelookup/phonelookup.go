@@ -74,4 +74,6 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// 3. Try paid APIs if configured
 	if cfg != nil {
 		if cfg.NumverifyKey != "" {
+			_ = lookupNumverify(phone, info, cfg)
+		}
 		
