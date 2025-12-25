@@ -20,3 +20,8 @@ type PhoneInfo struct {
 	Country        string
 	Region         string
 	Carrier        string
+	LineType       string
+	IsValid        bool
+	OnWhatsApp     bool
+	OnTelegram     bool
+	
