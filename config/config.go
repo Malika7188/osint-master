@@ -12,4 +12,7 @@ import (
 type Config struct {
 	// API Keys (load from environment variables or .env file)
 	HIBPAPIKey         string // Have I Been Pwned
+	IPAPIKey           string
+	AbuseIPDBKey       string
+	PiplAPIKey         string
 	
