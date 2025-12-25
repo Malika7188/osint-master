@@ -212,3 +212,11 @@ func getCountryNameFromCode(code string) string {
 	client := &http.Client{
 		Timeout: 3 * time.Second,
 	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return code
+	}
+	defer resp.Body.Close()
+
+	
