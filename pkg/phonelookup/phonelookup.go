@@ -101,4 +101,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	info.OnTelegram, info.TelegramStatus = checkTelegram(phone)
 	info.OnSignal, info.SignalStatus = checkSignal(phone)
 	info.OnViber, info.ViberStatus = checkViber(phone)
+	info.OnWeChat, info.WeChatStatus = checkWeChat(phone)
+	info.OnLine, info.LineStatus = checkLine(phone)
+
 	
