@@ -35,4 +35,8 @@ type PhoneInfo struct {
 	WeChatStatus   string
 	LineStatus     string
 	OwnerName      string
-	
+	OwnerEmail     string
+	OwnerAddress   string
+	OwnerSource    string
+}
+
