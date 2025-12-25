@@ -177,4 +177,9 @@ func getCountryFromCallingCode(callingCode string) string {
 		Timeout: 3 * time.Second,
 	}
 
-	
+	resp, err := client.Get(url)
+	if err != nil {
+		// Fallback to basic reference if API fails
+		return getCountryFromCodeFallback(callingCode)
+	}
+	defer resp.Body.Close()
