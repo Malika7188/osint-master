@@ -387,4 +387,14 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		// Try alternative API
+		return lookupPhoneAlternative(phone, info)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
 	
