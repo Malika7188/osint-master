@@ -193,3 +193,14 @@ func getCountryFromCallingCode(callingCode string) string {
 		return getCountryFromCodeFallback(callingCode)
 	}
 
+	// The API returns country code -> calling code mapping
+	// We need to reverse lookup
+	for countryCode, phone := range phoneData {
+		if phone == callingCode {
+			// Get country name from country code
+			return getCountryNameFromCode(countryCode)
+		}
+	}
+
+	return getCountryFromCodeFallback(callingCode)
+}
