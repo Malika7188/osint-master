@@ -1298,3 +1298,24 @@ func lookupPhoneDirectory(phone string) string {
 	return ""
 }
 
+// lookupSocialMedia checks if phone is linked to social media profiles
+func lookupSocialMedia(phone string) string {
+	// Try to find name from social media
+	// This is limited due to privacy settings on most platforms
+
+	// Format phone for WhatsApp/Telegram lookup
+	formattedPhone := phone
+	if !strings.HasPrefix(formattedPhone, "+") {
+		formattedPhone = "+" + formattedPhone
+	}
+
+	// Note: Getting name from WhatsApp/Telegram requires:
+	// 1. Authentication
+	// 2. Contact in your address book
+	// 3. User's privacy settings allow it
+
+	// This is a placeholder - real implementation needs proper APIs
+	return ""
+}
+
+/
