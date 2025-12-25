@@ -17,6 +17,8 @@ type Config struct {
 	PiplAPIKey         string
 	SecurityTrailsKey  string
 	NumverifyKey       string // Phone number verification
+	IPQualityScoreKey  string // Phone/IP quality validation
+	AbstractAPIKey     string // Phone validation (AbstractAPI)
 	GoogleAPIKey       string
 	TwitterAPIKey      string
 	TwitterAPISecret   string
@@ -34,6 +36,8 @@ func LoadConfig() *Config {
 		PiplAPIKey:        os.Getenv("PIPL_API_KEY"),
 		SecurityTrailsKey: os.Getenv("SECURITYTRAILS_KEY"),
 		NumverifyKey:      os.Getenv("NUMVERIFY_KEY"),
+		IPQualityScoreKey: os.Getenv("IPQUALITYSCORE_KEY"),
+		AbstractAPIKey:    os.Getenv("ABSTRACTAPI_KEY"),
 		GoogleAPIKey:      os.Getenv("GOOGLE_API_KEY"),
 		TwitterAPIKey:     os.Getenv("TWITTER_API_KEY"),
 		TwitterAPISecret:  os.Getenv("TWITTER_API_SECRET"),
@@ -147,6 +151,16 @@ HIBP_API_KEY=your_hibp_api_key_here
 # Get key at: https://numverify.com/product (Free: 100 requests/month)
 # Enables: Phone carrier, line type, and location lookup
 NUMVERIFY_KEY=your_numverify_key_here
+
+# IPQualityScore Phone/IP Validation API
+# Get key at: https://www.ipqualityscore.com/create-account (Free: 5k requests/month)
+# Enables: Enhanced phone carrier, fraud detection, and IP validation
+IPQUALITYSCORE_KEY=your_ipqualityscore_key_here
+
+# AbstractAPI Phone Validation
+# Get key at: https://app.abstractapi.com/api/phone-validation/pricing (Free: 100 requests/month)
+# Enables: Phone number validation and carrier lookup
+ABSTRACTAPI_KEY=your_abstractapi_key_here
 
 # IPapi.co API Key (Optional - has free tier)
 # Get key at: https://ipapi.co/api/ (Free: 30k requests/month)
