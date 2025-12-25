@@ -76,4 +76,10 @@ func loadEnvFile() {
 			continue
 		}
 
+		// Parse KEY=VALUE
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) != 2 {
+			continue
+		}
+
 		
