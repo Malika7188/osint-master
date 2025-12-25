@@ -717,4 +717,36 @@ func lookupNumverify(phone string, info *PhoneInfo, cfg *config.Config) error {
 		return err
 	}
 
-	
+	// Check if API returned an error
+	if success, ok := result["success"].(bool); ok && !success {
+		return fmt.Errorf("numverify API requires valid key")
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok {
+		info.IsValid = valid
+	}
+
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if lineType, ok := result["line_type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	if location, ok := result["location"].(string); ok && location != "" {
+		info.Region = location
+	}
+
+	if country, ok := result["country_name"].(string); ok && country != "" {
+		info.Country = country
+	}
+
+	if countryCode, ok := result["country_prefix"].(string); ok && countryCode != "" {
+		info.CountryCode = "+" + countryCode
+	}
+
+	return nil
+}
+
