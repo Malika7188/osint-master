@@ -156,4 +156,15 @@ func parseCountryCode(phone string) (string, string) {
 		}
 	}
 
-	
+	// Try 1-digit codes (only +1 for USA/Canada, +7 for Russia)
+	if len(phoneDigits) >= 1 {
+		code := "+" + phoneDigits[:1]
+		country := getCountryFromCallingCode(phoneDigits[:1])
+		if country != "" {
+			return code, country
+		}
+	}
+
+	return "", ""
+}
+
