@@ -71,4 +71,9 @@ func loadEnvFile() {
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 
+		// Skip comments and empty lines
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+
 		
