@@ -35,4 +35,7 @@ func ValidateDomain(domain string) error {
 
 // ValidateUsername validates if a username is reasonable
 func ValidateUsername(username string) error {
+	// Remove @ symbol if present
+	username = strings.TrimPrefix(username, "@")
+
 	
