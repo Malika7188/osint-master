@@ -54,4 +54,9 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 		return "", fmt.Errorf("invalid phone number format")
 	}
 
+	info := &PhoneInfo{
+		Number:  phone,
+		IsValid: true,
+	}
+
 	
