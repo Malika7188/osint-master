@@ -534,4 +534,14 @@ func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 		return err
 	}
 
-	
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("MCC-MNC API error: %d", resp.StatusCode)
+	}
