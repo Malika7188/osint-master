@@ -98,4 +98,5 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 
 	// Check messaging platform availability
 	info.OnWhatsApp, info.WhatsAppStatus = checkWhatsApp(phone)
+	info.OnTelegram, info.TelegramStatus = checkTelegram(phone)
 	
