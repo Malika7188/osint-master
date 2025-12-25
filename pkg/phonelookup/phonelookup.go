@@ -334,3 +334,10 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("API returned status: %d", resp.StatusCode)
 	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	
