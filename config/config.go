@@ -15,4 +15,6 @@ type Config struct {
 	IPAPIKey           string
 	AbuseIPDBKey       string
 	PiplAPIKey         string
+	SecurityTrailsKey  string
+	NumverifyKey       string // Phone number verification
 	
