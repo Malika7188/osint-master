@@ -378,4 +378,13 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 		return err
 	}
 
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		// If veriphone fails, try alternative API
+		return lookupPhoneAlternative(phone, info)
+	}
+	defer resp.Body.Close()
+
 	
