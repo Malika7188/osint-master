@@ -246,4 +246,6 @@ func getCountryFromCodeFallback(callingCode string) string {
 		"1": "United States", "7": "Russia", "20": "Egypt", "27": "South Africa",
 		"30": "Greece", "31": "Netherlands", "32": "Belgium", "33": "France",
 		"34": "Spain", "36": "Hungary", "39": "Italy", "40": "Romania",
+		"41": "Switzerland", "43": "Austria", "44": "United Kingdom", "45": "Denmark",
+		"46": "Sweden", "47": "Norway", "48": "Poland", "49": "Germany",
 		
