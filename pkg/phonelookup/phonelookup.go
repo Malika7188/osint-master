@@ -402,4 +402,10 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 		info.IsValid = phoneValid
 	}
 
-	
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if phoneType, ok := result["phone_type"].(string); ok && phoneType != "" {
+		info.LineType = phoneType
+	}
