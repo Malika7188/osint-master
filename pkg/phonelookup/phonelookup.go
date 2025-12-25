@@ -477,3 +477,9 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 	if lineType, ok := result["type"].(string); ok && lineType != "" {
 		info.LineType = lineType
 	}
+
+	if country, ok := result["country"].(map[string]interface{}); ok {
+		if countryName, ok := country["name"].(string); ok && countryName != "" {
+			info.Country = countryName
+		}
+		
