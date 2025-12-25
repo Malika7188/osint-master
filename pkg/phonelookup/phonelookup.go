@@ -631,4 +631,15 @@ func guessCarrierFromNumber(phone string, country string) string {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
 	// Try carrier lookup API
-	
+	if carrier := lookupCarrierFromAPI(phoneClean); carrier != "" {
+		return carrier
+	}
+
+	// If all else fails, return generic info based on country
+	if country != "" && country != "Unknown" {
+		return fmt.Sprintf("%s mobile carrier", country)
+	}
+
+	return "Mobile carrier"
+}
+
