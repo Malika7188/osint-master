@@ -600,3 +600,12 @@ func makeHLRRequest(url string, info *PhoneInfo) error {
 	}
 
 	// Try common field names for carrier
+	carrierFields := []string{"carrier", "operator", "network", "provider", "mno"}
+	for _, field := range carrierFields {
+		if carrier, ok := result[field].(string); ok && carrier != "" {
+			info.Carrier = carrier
+			break
+		}
+	}
+
+	
