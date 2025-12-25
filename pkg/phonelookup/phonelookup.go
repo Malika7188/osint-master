@@ -443,4 +443,11 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 		Timeout: 10 * time.Second,
 	}
 
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
 	
