@@ -146,3 +146,14 @@ func parseCountryCode(phone string) (string, string) {
 			return code, country
 		}
 	}
+
+	// Try 2-digit codes (e.g., +44 UK, +91 India)
+	if len(phoneDigits) >= 2 {
+		code := "+" + phoneDigits[:2]
+		country := getCountryFromCallingCode(phoneDigits[:2])
+		if country != "" {
+			return code, country
+		}
+	}
+
+	
