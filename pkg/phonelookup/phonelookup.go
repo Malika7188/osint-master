@@ -219,4 +219,13 @@ func getCountryNameFromCode(code string) string {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return code
+	}
+
+	var result []map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return code
+	}
+
 	
