@@ -129,3 +129,10 @@ func cleanPhoneNumber(phone string) string {
 	return cleaned
 }
 
+// parseCountryCode extracts country code from phone number
+func parseCountryCode(phone string) (string, string) {
+	if !strings.HasPrefix(phone, "+") {
+		return "", ""
+	}
+
+	
