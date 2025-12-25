@@ -27,4 +27,9 @@ func ValidateDomain(domain string) error {
 	domainRegex := regexp.MustCompile(`^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$`)
 
 	if !domainRegex.MatchString(domain) {
-		
+		return fmt.Errorf("invalid domain format: %s", domain)
+	}
+
+	return nil
+}
+
