@@ -138,4 +138,11 @@ func parseCountryCode(phone string) (string, string) {
 	// Extract country code and get country name from online API
 	phoneDigits := strings.TrimPrefix(phone, "+")
 
-	
+	// Try 3-digit codes first (e.g., +254 Kenya, +234 Nigeria)
+	if len(phoneDigits) >= 3 && phoneDigits[0] >= '2' && phoneDigits[0] <= '9' {
+		code := "+" + phoneDigits[:3]
+		country := getCountryFromCallingCode(phoneDigits[:3])
+		if country != "" {
+			return code, country
+		}
+	}
