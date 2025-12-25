@@ -135,4 +135,7 @@ func parseCountryCode(phone string) (string, string) {
 		return "", ""
 	}
 
+	// Extract country code and get country name from online API
+	phoneDigits := strings.TrimPrefix(phone, "+")
+
 	
