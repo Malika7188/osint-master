@@ -228,4 +228,13 @@ func getCountryNameFromCode(code string) string {
 		return code
 	}
 
-	
+	if len(result) > 0 {
+		if name, ok := result[0]["name"].(map[string]interface{}); ok {
+			if common, ok := name["common"].(string); ok {
+				return common
+			}
+		}
+	}
+
+	return code
+}
