@@ -519,3 +519,19 @@ func lookupHLR(phone string, info *PhoneInfo) error {
 
 	return fmt.Errorf("no HLR data available")
 }
+
+// lookupMCCMNCOnline fetches carrier info from online MCC-MNC database
+func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
+	// Use mcc-mnc.com API for carrier lookup
+	url := fmt.Sprintf("https://mcc-mnc.net/api/?phone=%s", phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	
