@@ -1198,4 +1198,45 @@ func tryEyeconAPI(phone string) string {
 	return ""
 }
 
-/
+// tryNumLookupAPI tries NumLookup free API
+func tryNumLookupAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	url := fmt.Sprintf("https://www.numlookup.com/api/validate/%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Extract owner name if available
+	if owner, ok := result["owner"].(string); ok && owner != "" {
+		return owner
+	}
+	if name, ok := result["name"].(string); ok && name != "" {
+		return name
+	}
+
+	return ""
+}
