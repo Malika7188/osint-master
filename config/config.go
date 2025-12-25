@@ -122,4 +122,9 @@ func CreateSampleEnvFile() error {
 		return err
 	}
 
+	configDir, err := GetConfigPath()
+	if err != nil {
+		return err
+	}
+
 	
