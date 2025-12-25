@@ -288,4 +288,18 @@ func getCountryFromCodeFallback(callingCode string) string {
 		"683": "Niue", "685": "Samoa", "686": "Kiribati", "687": "New Caledonia",
 		"688": "Tuvalu", "689": "French Polynesia", "690": "Tokelau", "691": "Micronesia",
 		"692": "Marshall Islands", "850": "North Korea", "852": "Hong Kong", "853": "Macau",
-		"
+		"855": "Cambodia", "856": "Laos", "880": "Bangladesh", "886": "Taiwan",
+		"960": "Maldives", "961": "Lebanon", "962": "Jordan", "963": "Syria",
+		"964": "Iraq", "965": "Kuwait", "966": "Saudi Arabia", "967": "Yemen",
+		"968": "Oman", "970": "Palestine", "971": "United Arab Emirates", "972": "Israel",
+		"973": "Bahrain", "974": "Qatar", "975": "Bhutan", "976": "Mongolia",
+		"977": "Nepal", "992": "Tajikistan", "993": "Turkmenistan", "994": "Azerbaijan",
+		"995": "Georgia", "996": "Kyrgyzstan", "998": "Uzbekistan",
+	}
+
+	if country, exists := commonCodes[callingCode]; exists {
+		return country
+	}
+
+	return ""
+}
