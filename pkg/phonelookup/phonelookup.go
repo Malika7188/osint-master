@@ -17,4 +17,6 @@ import (
 type PhoneInfo struct {
 	Number         string
 	CountryCode    string
-	
+	Country        string
+	Region         string
+	Carrier        string
