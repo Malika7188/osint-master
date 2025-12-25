@@ -367,4 +367,15 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
 	// Try veriphone.io first
+	url := fmt.Sprintf("https://api.veriphone.io/v2/verify?phone=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
 	
