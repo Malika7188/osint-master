@@ -275,4 +275,17 @@ func getCountryFromCodeFallback(callingCode string) string {
 		"370": "Lithuania", "371": "Latvia", "372": "Estonia", "373": "Moldova",
 		"374": "Armenia", "375": "Belarus", "376": "Andorra", "377": "Monaco",
 		"378": "San Marino", "380": "Ukraine", "381": "Serbia", "382": "Montenegro",
-	
+		"383": "Kosovo", "385": "Croatia", "386": "Slovenia", "387": "Bosnia and Herzegovina",
+		"389": "North Macedonia", "420": "Czech Republic", "421": "Slovakia", "423": "Liechtenstein",
+		"500": "Falkland Islands", "501": "Belize", "502": "Guatemala", "503": "El Salvador",
+		"504": "Honduras", "505": "Nicaragua", "506": "Costa Rica", "507": "Panama",
+		"508": "Saint Pierre and Miquelon", "509": "Haiti", "590": "Guadeloupe", "591": "Bolivia",
+		"592": "Guyana", "593": "Ecuador", "594": "French Guiana", "595": "Paraguay",
+		"596": "Martinique", "597": "Suriname", "598": "Uruguay", "599": "Curacao",
+		"670": "East Timor", "672": "Antarctica", "673": "Brunei", "674": "Nauru",
+		"675": "Papua New Guinea", "676": "Tonga", "677": "Solomon Islands", "678": "Vanuatu",
+		"679": "Fiji", "680": "Palau", "681": "Wallis and Futuna", "682": "Cook Islands",
+		"683": "Niue", "685": "Samoa", "686": "Kiribati", "687": "New Caledonia",
+		"688": "Tuvalu", "689": "French Polynesia", "690": "Tokelau", "691": "Micronesia",
+		"692": "Marshall Islands", "850": "North Korea", "852": "Hong Kong", "853": "Macau",
+		"
