@@ -57,4 +57,5 @@ func ValidateUsername(username string) error {
 
 // ValidateName validates if a full name is reasonable
 func ValidateName(name string) error {
-	
+	if len(name) == 0 {
+		
