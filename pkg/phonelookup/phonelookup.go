@@ -96,4 +96,6 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 		info.Region = info.Country // Use country as fallback
 	}
 
+	// Check messaging platform availability
+	info.OnWhatsApp, info.WhatsAppStatus = checkWhatsApp(phone)
 	
