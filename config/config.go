@@ -137,3 +137,57 @@ func CreateSampleEnvFile() error {
 	content := `# OSINT Master API Configuration
 # Copy this file to ~/.osintmaster/.env and add your API keys
 # Get API keys from the URLs provided in comments
+
+# Have I Been Pwned API Key
+# Get key at: https://haveibeenpwned.com/API/Key ($3.50/month)
+# Enables: Full data breach checking for email addresses
+HIBP_API_KEY=your_hibp_api_key_here
+
+# Numverify Phone Number Validation API
+# Get key at: https://numverify.com/product (Free: 100 requests/month)
+# Enables: Phone carrier, line type, and location lookup
+NUMVERIFY_KEY=your_numverify_key_here
+
+# IPapi.co API Key (Optional - has free tier)
+# Get key at: https://ipapi.co/api/ (Free: 30k requests/month)
+# Enables: IP geolocation lookups
+IPAPI_KEY=your_ipapi_key_here
+
+# AbuseIPDB API Key (Optional)
+# Get key at: https://www.abuseipdb.com/api (Free: 1k requests/day)
+# Enables: IP abuse/blacklist checking
+ABUSEIPDB_KEY=your_abuseipdb_key_here
+
+# SecurityTrails API Key (Optional)
+# Get key at: https://securitytrails.com/app/account/credentials
+# Enables: Enhanced domain/subdomain enumeration
+SECURITYTRAILS_KEY=your_securitytrails_key_here
+
+# Twitter API Keys (Optional - requires paid plan)
+# Get keys at: https://developer.twitter.com/
+# Enables: Twitter username and email association lookup
+TWITTER_API_KEY=your_twitter_api_key_here
+TWITTER_API_SECRET=your_twitter_api_secret_here
+
+# Google API Key (Optional)
+# Get key at: https://console.cloud.google.com/apis/credentials
+# Enables: Enhanced Google account lookup
+GOOGLE_API_KEY=your_google_api_key_here
+
+# Instructions:
+# 1. Copy this file to ~/.osintmaster/.env
+# 2. Replace "your_*_key_here" with actual API keys
+# 3. Remove keys you don't have (tool works without them)
+# 4. Never commit this file to git!
+# 5. Keep your API keys secret!
+`
+
+	if err := os.WriteFile(envPath, []byte(content), 0600); err != nil {
+		return err
+	}
+
+	fmt.Printf("Sample config file created at: %s\n", envPath)
+	fmt.Println("Edit this file and add your API keys.")
+
+	return nil
+}
