@@ -89,4 +89,20 @@ func loadEnvFile() {
 		value = strings.Trim(value, "\"'")
 
 		// Set environment variable (don't override existing)
-		
+		if os.Getenv(key) == "" {
+			os.Setenv(key, value)
+		}
+	}
+}
+
+// GetConfigPath returns the path to the config directory
+func GetConfigPath() (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	configDir := filepath.Join(home, ".osintmaster")
+	return configDir, nil
+}
+
