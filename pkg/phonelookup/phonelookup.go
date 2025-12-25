@@ -173,4 +173,8 @@ func getCountryFromCallingCode(callingCode string) string {
 	// Try online country calling code API
 	url := fmt.Sprintf("https://country.io/phone.json")
 
+	client := &http.Client{
+		Timeout: 3 * time.Second,
+	}
+
 	
