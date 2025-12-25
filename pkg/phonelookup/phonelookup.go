@@ -33,4 +33,6 @@ type PhoneInfo struct {
 	SignalStatus   string
 	ViberStatus    string
 	WeChatStatus   string
+	LineStatus     string
+	OwnerName      string
 	
