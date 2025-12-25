@@ -1358,3 +1358,29 @@ func checkWhatsApp(phone string) (bool, string) {
 	}
 
 	// Alternative check: Use WhatsApp API check service
+	// Try free WhatsApp checker API
+	apiURL := fmt.Sprintf("https://api.wassenger.com/v1/numbers/%s/exists", cleanedPhone)
+
+	req2, err := http.NewRequest("GET", apiURL, nil)
+	if err == nil {
+		req2.Header.Set("User-Agent", "OSINT-Master-Tool")
+		resp2, err := client.Do(req2)
+		if err == nil {
+			defer resp2.Body.Close()
+
+			if resp2.StatusCode == http.StatusOK {
+				var result map[string]interface{}
+				if err := json.NewDecoder(resp2.Body).Decode(&result); err == nil {
+					if exists, ok := result["exists"].(bool); ok && exists {
+						return true, "Active on WhatsApp (verified)"
+					}
+				}
+			}
+		}
+	}
+
+	// If all checks fail, we can't confirm
+	return false, fmt.Sprintf("Not confirmed on WhatsApp (try manually: https://wa.me/%s)", cleanedPhone)
+}
+
+/
