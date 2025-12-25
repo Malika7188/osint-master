@@ -1022,4 +1022,51 @@ func tryLocalCache(phone string) string {
 	return ""
 }
 
-/
+// tryGetContactAPI tries GetContact caller ID service
+func tryGetContactAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// GetContact API endpoint
+	url := fmt.Sprintf("https://api.getcontact.com/search?phoneNumber=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "GetContact/4.8.1 (Android)")
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Extract name from GetContact response
+	if name, ok := result["displayName"].(string); ok && name != "" {
+		return name
+	}
+	if tags, ok := result["tags"].([]interface{}); ok && len(tags) > 0 {
+		if tag, ok := tags[0].(map[string]interface{}); ok {
+			if tagName, ok := tag["tag"].(string); ok && tagName != "" {
+				return tagName
+			}
+		}
+	}
+
+	return ""
+}
