@@ -20,4 +20,7 @@ func ValidateIP(ip string) error {
 func ValidateDomain(domain string) error {
 	// Remove protocol if present
 	domain = strings.TrimPrefix(domain, "http://")
+	domain = strings.TrimPrefix(domain, "https://")
+	domain = strings.TrimSuffix(domain, "/")
+
 	
