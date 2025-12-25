@@ -460,5 +460,14 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 		return fmt.Errorf("alternative API returned status: %d", resp.StatusCode)
 	}
 
-	
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok {
+		info.IsValid = valid
+	}
+
 	
