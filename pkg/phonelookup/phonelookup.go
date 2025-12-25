@@ -470,4 +470,10 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 		info.IsValid = valid
 	}
 
-	
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if lineType, ok := result["type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
