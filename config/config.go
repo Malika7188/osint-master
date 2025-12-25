@@ -45,4 +45,9 @@ func LoadConfig() *Config {
 // loadEnvFile loads environment variables from .env file
 func loadEnvFile() {
 	// Get user's home directory
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return
+	}
+
 	
