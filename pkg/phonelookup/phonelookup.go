@@ -104,4 +104,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	info.OnWeChat, info.WeChatStatus = checkWeChat(phone)
 	info.OnLine, info.LineStatus = checkLine(phone)
 
+	// Try to lookup owner information
+	_ = lookupOwnerInfo(phone, info, cfg)
+
 	
