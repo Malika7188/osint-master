@@ -83,3 +83,9 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 			_ = lookupIPQualityScore(phone, info, cfg)
 		}
 	}
+
+	// Set friendly defaults if still no data
+	if info.LineType == "" || info.LineType == "Unknown" {
+		info.LineType = "Mobile" // Most numbers are mobile
+	}
+	
