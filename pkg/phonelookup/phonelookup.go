@@ -417,4 +417,8 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 		}
 	}
 
-	
+	if countryCode, ok := result["country_code"].(string); ok && countryCode != "" {
+		if info.CountryCode == "Unknown" || info.CountryCode == "" {
+			info.CountryCode = "+" + countryCode
+		}
+	}
