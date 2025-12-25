@@ -50,4 +50,8 @@ func loadEnvFile() {
 		return
 	}
 
-	
+	// Try ~/.osintmaster/.env first
+	envPath := filepath.Join(home, ".osintmaster", ".env")
+	if _, err := os.Stat(envPath); os.IsNotExist(err) {
+		// Try current directory .env
+		
