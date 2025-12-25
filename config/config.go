@@ -82,4 +82,11 @@ func loadEnvFile() {
 			continue
 		}
 
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+
+		// Remove quotes if present
+		value = strings.Trim(value, "\"'")
+
+		// Set environment variable (don't override existing)
 		
