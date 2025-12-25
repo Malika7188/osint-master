@@ -62,4 +62,10 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// Parse country code
 	info.CountryCode, info.Country = parseCountryCode(phone)
 
+	// Try multiple phone number APIs for best coverage
+	// Try free APIs that actually work first, then paid ones if available
+
+	// 1. Try veriphone.io (free, no key)
+	_ = lookupPhoneFree(phone, info)
+
 	
