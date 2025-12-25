@@ -134,4 +134,6 @@ func CreateSampleEnvFile() error {
 		return fmt.Errorf("config file already exists at: %s", envPath)
 	}
 
-	
+	content := `# OSINT Master API Configuration
+# Copy this file to ~/.osintmaster/.env and add your API keys
+# Get API keys from the URLs provided in comments
