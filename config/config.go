@@ -17,4 +17,9 @@ type Config struct {
 	PiplAPIKey         string
 	SecurityTrailsKey  string
 	NumverifyKey       string // Phone number verification
-	
+	GoogleAPIKey       string
+	TwitterAPIKey      string
+	TwitterAPISecret   string
+}
+
+/
