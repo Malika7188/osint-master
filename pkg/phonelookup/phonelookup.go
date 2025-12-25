@@ -422,3 +422,12 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 			info.CountryCode = "+" + countryCode
 		}
 	}
+
+	// Region/location
+	if region, ok := result["region"].(string); ok && region != "" {
+		info.Region = region
+	}
+
+	return nil
+}
+
