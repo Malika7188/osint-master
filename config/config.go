@@ -27,4 +27,7 @@ func LoadConfig() *Config {
 	// Try to load from .env file first
 	loadEnvFile()
 
-	
+	config := &Config{
+		HIBPAPIKey:        os.Getenv("HIBP_API_KEY"),
+		IPAPIKey:          os.Getenv("IPAPI_KEY"),
+		
