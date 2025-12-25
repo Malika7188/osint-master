@@ -106,3 +106,13 @@ func GetConfigPath() (string, error) {
 	return configDir, nil
 }
 
+// EnsureConfigDir creates the config directory if it doesn't exist
+func EnsureConfigDir() error {
+	configDir, err := GetConfigPath()
+	if err != nil {
+		return err
+	}
+
+	return os.MkdirAll(configDir, 0700)
+}
+
