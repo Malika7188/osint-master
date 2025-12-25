@@ -1426,4 +1426,35 @@ func checkTelegram(phone string) (bool, string) {
 	return false, fmt.Sprintf("Not confirmed on Telegram (try manually: https://t.me/%s)", phone)
 }
 
-/
+// checkSignal checks if phone number is registered on Signal
+func checkSignal(phone string) (bool, string) {
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Signal is very privacy-focused and doesn't provide public APIs
+	// However, we can try using signal.me link or Signal CLI methods
+
+	// Try signal.me link (Signal's official link shortener)
+	url := fmt.Sprintf("https://signal.me/#p/%s", cleanedPhone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("HEAD", url, nil)
+	if err != nil {
+		return false, "Unable to check"
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "Unable to check"
+	}
+	defer resp.Body.Close()
+
+	// Signal doesn't reveal registration status publicly for privacy
+	// Best we can do is provide the signal.me link for manual check
+	return false, fmt.Sprintf("Check manually: signal.me/#p/%s", cleanedPhone)
+}
+
