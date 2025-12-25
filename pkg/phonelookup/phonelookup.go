@@ -263,4 +263,7 @@ func getCountryFromCodeFallback(callingCode string) string {
 		"237": "Cameroon", "238": "Cape Verde", "239": "Sao Tome and Principe", "240": "Equatorial Guinea",
 		"241": "Gabon", "242": "Republic of the Congo", "243": "Democratic Republic of the Congo",
 		"244": "Angola", "245": "Guinea-Bissau", "246": "British Indian Ocean Territory",
-	
+		"248": "Seychelles", "249": "Sudan", "250": "Rwanda", "251": "Ethiopia",
+		"252": "Somalia", "253": "Djibouti", "254": "Kenya", "255": "Tanzania",
+		"256": "Uganda", "257": "Burundi", "258": "Mozambique", "260": "Zambia",
+		
