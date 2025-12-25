@@ -183,3 +183,8 @@ func getCountryFromCallingCode(callingCode string) string {
 		return getCountryFromCodeFallback(callingCode)
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return getCountryFromCodeFallback(callingCode)
+	}
+
