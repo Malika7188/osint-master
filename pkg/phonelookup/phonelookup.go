@@ -1458,3 +1458,177 @@ func checkSignal(phone string) (bool, string) {
 	return false, fmt.Sprintf("Check manually: signal.me/#p/%s", cleanedPhone)
 }
 
+// checkViber checks if phone number is registered on Viber
+func checkViber(phone string) (bool, string) {
+	// Try Viber public API endpoint (unofficial)
+	url := fmt.Sprintf("https://chats.viber.com/%s", phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return false, "Unable to check"
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "Unable to check"
+	}
+	defer resp.Body.Close()
+
+	// If Viber responds with 200 or redirect, number might be registered
+	if resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusFound {
+		return true, "Possibly registered on Viber"
+	}
+
+	return false, fmt.Sprintf("Check manually via Viber app: viber://add?number=%s", phone)
+}
+
+// checkWeChat checks if phone number is registered on WeChat
+func checkWeChat(phone string) (bool, string) {
+	// WeChat is very closed and doesn't provide public APIs
+	// WeChat primarily uses WeChat IDs rather than phone numbers
+	// No reliable public API to check registration
+
+	// Try WeChat web interface (unlikely to work without auth)
+	url := fmt.Sprintf("https://web.wechat.com/")
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	req, err := http.NewRequest("HEAD", url, nil)
+	if err != nil {
+		return false, "Check manually via WeChat app"
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "Check manually via WeChat app"
+	}
+	defer resp.Body.Close()
+
+	// WeChat doesn't allow phone number lookup without authentication
+	return false, fmt.Sprintf("Check manually via WeChat: search for %s", phone)
+}
+
+// checkLine checks if phone number is registered on LINE
+func checkLine(phone string) (bool, string) {
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// LINE uses line.me for profiles but requires LINE ID, not phone number
+	// Try to check if number is associated with LINE account
+
+	// LINE's add friend URL
+	url := fmt.Sprintf("https://line.me/ti/p/~%s", cleanedPhone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return false, "Unable to check"
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "Unable to check"
+	}
+	defer resp.Body.Close()
+
+	// LINE doesn't publicly expose phone number registration
+	// Provide manual check link
+	return false, fmt.Sprintf("Check manually via LINE app (search contacts for %s)", phone)
+}
+
+// formatPhoneInfo formats phone information
+func formatPhoneInfo(info *PhoneInfo) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("Phone Number: %s\n", info.Number))
+	sb.WriteString(fmt.Sprintf("Valid: %v\n", info.IsValid))
+	sb.WriteString(fmt.Sprintf("Country Code: %s\n", info.CountryCode))
+	sb.WriteString(fmt.Sprintf("Country: %s\n", info.Country))
+	sb.WriteString(fmt.Sprintf("Carrier: %s\n", info.Carrier))
+	sb.WriteString(fmt.Sprintf("Line Type: %s\n", info.LineType))
+	sb.WriteString(fmt.Sprintf("Region: %s\n", info.Region))
+
+	// Owner Information (if found)
+	if info.OwnerName != "" {
+		sb.WriteString("\n👤 Owner Information:\n")
+		sb.WriteString(fmt.Sprintf("  Name: %s\n", info.OwnerName))
+		if info.OwnerEmail != "" {
+			sb.WriteString(fmt.Sprintf("  Email: %s\n", info.OwnerEmail))
+		}
+		if info.OwnerAddress != "" {
+			sb.WriteString(fmt.Sprintf("  Address: %s\n", info.OwnerAddress))
+		}
+		if info.OwnerSource != "" {
+			sb.WriteString(fmt.Sprintf("  Source: %s\n", info.OwnerSource))
+		}
+		sb.WriteString("\n  ⚠️  PRIVACY NOTICE:\n")
+		sb.WriteString("  This information is from public sources only.\n")
+		sb.WriteString("  Use responsibly and comply with all applicable laws.\n")
+		sb.WriteString("  Unauthorized use may violate privacy regulations.\n")
+	} else {
+		sb.WriteString("\n👤 Owner Information: Not available in public records\n")
+		sb.WriteString("  Manual lookup options:\n")
+		sb.WriteString(fmt.Sprintf("  - TrueCaller: https://www.truecaller.com/search?q=%s\n", strings.ReplaceAll(info.Number, "+", "")))
+		sb.WriteString(fmt.Sprintf("  - WhitePages: https://www.whitepages.com/phone/%s\n", strings.ReplaceAll(info.Number, "+", "")))
+		sb.WriteString("  - Spy Dialer: https://www.spydialer.com/\n")
+	}
+
+	sb.WriteString("\n📱 Messaging Platform Detection:\n")
+	if info.OnWhatsApp {
+		sb.WriteString(fmt.Sprintf("  WhatsApp: ✓ Registered\n"))
+	} else {
+		sb.WriteString(fmt.Sprintf("  WhatsApp: %s\n", info.WhatsAppStatus))
+	}
+
+	if info.OnTelegram {
+		sb.WriteString(fmt.Sprintf("  Telegram: ✓ Registered\n"))
+	} else {
+		sb.WriteString(fmt.Sprintf("  Telegram: %s\n", info.TelegramStatus))
+	}
+
+	if info.OnSignal {
+		sb.WriteString(fmt.Sprintf("  Signal: ✓ Registered\n"))
+	} else {
+		sb.WriteString(fmt.Sprintf("  Signal: %s\n", info.SignalStatus))
+	}
+
+	if info.OnViber {
+		sb.WriteString(fmt.Sprintf("  Viber: ✓ Registered\n"))
+	} else {
+		sb.WriteString(fmt.Sprintf("  Viber: %s\n", info.ViberStatus))
+	}
+
+	if info.OnWeChat {
+		sb.WriteString(fmt.Sprintf("  WeChat: ✓ Registered\n"))
+	} else {
+		sb.WriteString(fmt.Sprintf("  WeChat: %s\n", info.WeChatStatus))
+	}
+
+	if info.OnLine {
+		sb.WriteString(fmt.Sprintf("  LINE: ✓ Registered\n"))
+	} else {
+		sb.WriteString(fmt.Sprintf("  LINE: %s\n", info.LineStatus))
+	}
+
+	return sb.String()
+}
