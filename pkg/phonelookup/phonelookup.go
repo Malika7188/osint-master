@@ -78,4 +78,8 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 		}
 		if cfg.AbstractAPIKey != "" && info.Carrier == "" {
 			_ = lookupPhoneValidator(phone, info, cfg)
-		
+		}
+		if cfg.IPQualityScoreKey != "" && info.Carrier == "" {
+			_ = lookupIPQualityScore(phone, info, cfg)
+		}
+	}
