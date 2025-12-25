@@ -303,3 +303,10 @@ func getCountryFromCodeFallback(callingCode string) string {
 
 	return ""
 }
+
+// lookupPhoneAPI queries phone lookup API
+func lookupPhoneAPI(phone string, info *PhoneInfo) error {
+	// Try FREE API first (veriphone.io - no key required)
+	if err := lookupPhoneFree(phone, info); err == nil {
+		return nil
+	}
