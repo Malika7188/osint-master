@@ -116,3 +116,10 @@ func EnsureConfigDir() error {
 	return os.MkdirAll(configDir, 0700)
 }
 
+// CreateSampleEnvFile creates a sample .env file with instructions
+func CreateSampleEnvFile() error {
+	if err := EnsureConfigDir(); err != nil {
+		return err
+	}
+
+	
