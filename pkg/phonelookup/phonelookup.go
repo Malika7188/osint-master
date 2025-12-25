@@ -188,3 +188,8 @@ func getCountryFromCallingCode(callingCode string) string {
 		return getCountryFromCodeFallback(callingCode)
 	}
 
+	var phoneData map[string]string
+	if err := json.NewDecoder(resp.Body).Decode(&phoneData); err != nil {
+		return getCountryFromCodeFallback(callingCode)
+	}
+
