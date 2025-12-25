@@ -15,4 +15,7 @@ func SaveToFile(filename string, content string) error {
 	// Add timestamp header
 	timestamp := time.Now().Format("2006-01-02 15:04:05")
 	// header := fmt.Sprintf("=== OSINT Master Report ===\n")
+	header := fmt.Sprintf("Generated: %s\n", timestamp)
+	// header += fmt.Sprintf("===========================\n\n")
+
 	
