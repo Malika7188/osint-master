@@ -18,4 +18,9 @@ func SaveToFile(filename string, content string) error {
 	header := fmt.Sprintf("Generated: %s\n", timestamp)
 	// header += fmt.Sprintf("===========================\n\n")
 
+	fullContent := header + content
+
+	// Write to file with proper permissions
+	err := os.WriteFile(filename, []byte(fullContent), 0644)
+	if err != nil {
 	
