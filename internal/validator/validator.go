@@ -42,4 +42,8 @@ func ValidateUsername(username string) error {
 		return fmt.Errorf("username cannot be empty")
 	}
 
+	if len(username) > 50 {
+		return fmt.Errorf("username too long (max 50 characters)")
+	}
+
 	
