@@ -39,4 +39,10 @@ func LoadConfig() *Config {
 		TwitterAPISecret:  os.Getenv("TWITTER_API_SECRET"),
 	}
 
+	return config
+}
+
+// loadEnvFile loads environment variables from .env file
+func loadEnvFile() {
+	// Get user's home directory
 	
