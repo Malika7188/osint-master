@@ -55,4 +55,6 @@ func ValidateUsername(username string) error {
 	return nil
 }
 
-/
+// ValidateName validates if a full name is reasonable
+func ValidateName(name string) error {
+	
