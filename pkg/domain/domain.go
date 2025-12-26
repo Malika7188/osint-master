@@ -111,3 +111,27 @@ func getSubdomainsFromCrtSh(domain string) ([]string, error) {
 
 	return subdomains, nil
 }
+
+// checkSubdomain checks a subdomain for IP, SSL, and takeover risks
+func checkSubdomain(subdomain string) Subdomain {
+	info := Subdomain{
+		Name:   subdomain,
+		IP:     "Unknown",
+		SSLCert: "Not checked",
+		IsTakeover: false,
+	}
+
+	// Resolve IP address
+	ips, err := net.LookupIP(subdomain)
+	if err == nil && len(ips) > 0 {
+		info.IP = ips[0].String()
+	}
+
+	// Check SSL certificate
+	info.SSLCert = checkSSLCert(subdomain)
+
+	// Check for potential subdomain takeover
+	info.IsTakeover, info.TakeoverMsg = checkTakeoverRisk(subdomain)
+
+	return info
+}
