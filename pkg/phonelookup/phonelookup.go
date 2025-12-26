@@ -1409,3 +1409,15 @@ func checkSignal(phone string) (bool, string) {
 
 	return false, fmt.Sprintf("Check manually via Signal app (Signal prioritizes privacy)")
 }
+
+// checkViber checks if a phone number is registered on Viber
+func checkViber(phone string) (bool, string) {
+	// Viber doesn't provide a public API for checking registration
+	// Similar to other messaging apps, verification requires the app
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Viber verification can only be done through the app
+	url := fmt.Sprintf("viber://add?number=%s", cleanedPhone)
+
+	return false, fmt.Sprintf("Manual check required (try opening: %s in Viber app)", url)
+}
