@@ -36,3 +36,8 @@ func AdvancedLookupIP(ip string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - IPInfo.io: https://ipinfo.io/%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - MaxMind: https://www.maxmind.com/en/geoip2-precision-demo\n"))
 	result.WriteString(fmt.Sprintf("  - IP2Location: https://www.ip2location.com/%s\n", ip))
+
+	result.WriteString("\nReverse DNS & WHOIS:\n")
+	result.WriteString(fmt.Sprintf("  - ARIN WHOIS: https://search.arin.net/rdap/?query=%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - RIPE: https://apps.db.ripe.net/db-web-ui/query?searchtext=%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - MXToolbox: https://mxtoolbox.com/SuperTool.aspx?action=ptr%%3A%s\n", ip))
