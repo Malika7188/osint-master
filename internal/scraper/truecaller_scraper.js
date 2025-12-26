@@ -70,4 +70,24 @@ async function scrapeTrueCaller(phoneNumber) {
                     const text = await element.textContent();
                     const name = text.trim();
 
-                   
+                    // Validate the name
+                    if (name &&
+                        name !== 'Unknown' &&
+                        !name.toLowerCase().includes('truecaller') &&
+                        !name.toLowerCase().includes('search') &&
+                        !name.toLowerCase().includes('lookup') &&
+                        !name.toLowerCase().includes('reverse') &&
+                        !name.toLowerCase().includes('phone') &&
+                        name.length > 2 &&
+                        name.length < 100) {
+                        console.log(JSON.stringify({ success: true, name: name, source: 'truecaller_web' }));
+                        await browser.close();
+                        return;
+                    }
+                }
+            } catch (e) {
+                // Continue to next selector
+            }
+        }
+
+      
