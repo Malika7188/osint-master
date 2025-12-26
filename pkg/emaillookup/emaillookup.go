@@ -157,3 +157,22 @@ func checkEmailReputation(email string, info *EmailInfo) {
 	if resp.StatusCode != http.StatusOK {
 		return
 	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return
+	}
+
+	// Parse reputation data
+	if reputation, ok := result["reputation"].(string); ok {
+		info.Reputation = reputation
+	}
+
+	if suspicious, ok := result["suspicious"].(bool); ok {
+		info.Suspicious = suspicious
+	}
+
+	if references, ok := result["references"].(float64); ok {
+		info.References = int(references)
+	}
+}
