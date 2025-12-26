@@ -227,3 +227,22 @@ func checkHIBPWithKey(email, apiKey string) ([]string, error) {
 			return []string{"API key invalid - Check your HIBP_API_KEY"}, nil
 		}
 	}
+
+	// 200 means breaches found
+	if resp.StatusCode == http.StatusOK {
+		var breaches []map[string]interface{}
+		if err := json.NewDecoder(resp.Body).Decode(&breaches); err != nil {
+			return nil, err
+		}
+
+		breachNames := make([]string, 0, len(breaches))
+		for _, breach := range breaches {
+			if name, ok := breach["Name"].(string); ok {
+				breachNames = append(breachNames, name)
+			}
+		}
+		return breachNames, nil
+	}
+
+	return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+}
