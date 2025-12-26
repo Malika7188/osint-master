@@ -154,3 +154,23 @@ func checkSSLCert(subdomain string) string {
 
 	return "Not found"
 }
+
+// checkTakeoverRisk checks for potential subdomain takeover vulnerabilities
+func checkTakeoverRisk(subdomain string) (bool, string) {
+	// Check CNAME records
+	cname, err := net.LookupCNAME(subdomain)
+	if err != nil {
+		return false, ""
+	}
+
+	// Common patterns indicating potential takeover
+	takeoverPatterns := map[string]string{
+		"amazonaws.com":     "AWS S3 bucket",
+		"azurewebsites.net": "Azure website",
+		"github.io":         "GitHub Pages",
+		"herokuapp.com":     "Heroku app",
+		"shopify.com":       "Shopify store",
+		"tumblr.com":        "Tumblr blog",
+		"wordpress.com":     "WordPress site",
+		"ghost.io":          "Ghost blog",
+	}
