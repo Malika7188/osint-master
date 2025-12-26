@@ -1382,3 +1382,18 @@ func checkWhatsApp(phone string) (bool, string) {
 	// If all checks fail, we can't confirm
 	return false, fmt.Sprintf("Not confirmed on WhatsApp (try manually: https://wa.me/%s)", cleanedPhone)
 }
+
+// checkTelegram checks if a phone number is registered on Telegram
+func checkTelegram(phone string) (bool, string) {
+	// Telegram doesn't provide a public API for checking registration
+	// We can only provide the link for manual verification
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Try to use Telegram's t.me link (requires Telegram app to verify)
+	url := fmt.Sprintf("https://t.me/%s", cleanedPhone)
+
+	// Note: Without Telegram Bot API token, we cannot verify programmatically
+	// The user would need to check manually or use a bot
+
+	return false, fmt.Sprintf("Manual check required (try: %s or search in Telegram app)", url)
+}
