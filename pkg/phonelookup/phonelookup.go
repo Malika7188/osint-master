@@ -1451,3 +1451,12 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	// Header section
 	sb.WriteString(fmt.Sprintf("Phone Number: %s\n", info.Number))
 	sb.WriteString(strings.Repeat("=", 70) + "\n\n")
+
+	// Validation status
+	sb.WriteString("Validation:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+	if info.IsValid {
+		sb.WriteString("Status:       ✓ Valid phone number\n")
+	} else {
+		sb.WriteString("Status:       ✗ Invalid or unverified\n")
+	}
