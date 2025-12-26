@@ -94,3 +94,10 @@ func AdvancedLookupPhoneWithConfig(phone string, cfg *config.Config) (string, er
 	result.WriteString(fmt.Sprintf("  - WhitePages: https://www.whitepages.com/phone/%s\n", strings.ReplaceAll(cleanedPhone, "+", "")))
 	(fmt.Println("  - Spy Dialer: https://www.spydialer.com/"))
 	fmt.Println("  - NumLookup: https://www.numlookup.com/")
+
+	result.WriteString("\nSocial Media Registration:\n")
+	result.WriteString("  Some platforms allow phone number registration\n")
+	result.WriteString("  - Facebook: May be linked to account\n")
+	result.WriteString("  - Twitter: May be linked to account\n")
+	result.WriteString("  - Instagram: May be linked to account\n")
+	result.WriteString("  - LinkedIn: May be linked to account\n")
