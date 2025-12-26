@@ -24,3 +24,10 @@ func AdvancedLookupIP(ip string) (string, error) {
 	result.WriteString("\n" + strings.Repeat("-", 70) + "\n")
 	result.WriteString("ADVANCED CHECKS:\n")
 	result.WriteString(strings.Repeat("-", 70) + "\n\n")
+
+	result.WriteString("Security & Reputation Checks:\n")
+	result.WriteString(fmt.Sprintf("  - AbuseIPDB: https://www.abuseipdb.com/check/%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - VirusTotal: https://www.virustotal.com/gui/ip-address/%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - IPVoid: https://www.ipvoid.com/ip-blacklist-check/\n"))
+	result.WriteString(fmt.Sprintf("  - Shodan: https://www.shodan.io/host/%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - Censys: https://search.censys.io/hosts/%s\n", ip))
