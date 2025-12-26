@@ -87,3 +87,10 @@ func AdvancedLookupPhoneWithConfig(phone string, cfg *config.Config) (string, er
 	} else {
 		result.WriteString(fmt.Sprintf("  ✗ LINE: %s\n", lineStatus))
 	}
+
+	// Additional lookup services
+	result.WriteString("\nAdditional Lookup Services:\n")
+	result.WriteString(fmt.Sprintf("  - TrueCaller: https://www.truecaller.com/search/us/%s\n", cleanedPhone))
+	result.WriteString(fmt.Sprintf("  - WhitePages: https://www.whitepages.com/phone/%s\n", strings.ReplaceAll(cleanedPhone, "+", "")))
+	(fmt.Println("  - Spy Dialer: https://www.spydialer.com/"))
+	fmt.Println("  - NumLookup: https://www.numlookup.com/")
