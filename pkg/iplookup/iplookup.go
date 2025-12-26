@@ -21,3 +21,16 @@ type IPInfo struct {
 	Latitude    float64 `json:"latitude"`
 	Longitude   float64 `json:"longitude"`
 }
+
+// LookupIP performs IP geolocation lookup using multiple API providers
+func LookupIP(ip string) (string, error) {
+	// Validate IP address
+	if ip == "" {
+		return "", fmt.Errorf("IP address cannot be empty")
+	}
+
+	ip = strings.TrimSpace(ip)
+
+	// Try multiple APIs for redundancy
+	var info *IPInfo
+	var err error
