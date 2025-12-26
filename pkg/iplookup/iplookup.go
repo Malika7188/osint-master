@@ -443,3 +443,6 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString("\n" + strings.Repeat("=", 50) + "\n")
 	sb.WriteString("Note: Use 'Advanced Mode' for comprehensive security analysis\n")
 	sb.WriteString("      and additional threat intelligence resources.\n")
+
+	return sb.String()
+}
