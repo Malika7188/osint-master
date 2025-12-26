@@ -1460,3 +1460,16 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString("Status:       ✗ Invalid or unverified\n")
 	}
+
+	// Location information
+	sb.WriteString("\nLocation Information:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+	if info.CountryCode != "" {
+		sb.WriteString(fmt.Sprintf("Country Code: +%s\n", info.CountryCode))
+	}
+	if info.Country != "" {
+		sb.WriteString(fmt.Sprintf("Country:      %s\n", info.Country))
+	}
+	if info.Region != "" {
+		sb.WriteString(fmt.Sprintf("Region:       %s\n", info.Region))
+	}
