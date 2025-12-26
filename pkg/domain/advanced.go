@@ -24,3 +24,8 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	result.WriteString("\n" + strings.Repeat("-", 70) + "\n")
 	result.WriteString("ADVANCED CHECKS:\n")
 	result.WriteString(strings.Repeat("-", 70) + "\n\n")
+
+	// Clean domain
+	cleanDomain := strings.TrimPrefix(domain, "http://")
+	cleanDomain = strings.TrimPrefix(cleanDomain, "https://")
+	cleanDomain = strings.TrimSuffix(cleanDomain, "/")
