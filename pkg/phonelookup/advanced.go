@@ -101,3 +101,7 @@ func AdvancedLookupPhoneWithConfig(phone string, cfg *config.Config) (string, er
 	result.WriteString("  - Twitter: May be linked to account\n")
 	result.WriteString("  - Instagram: May be linked to account\n")
 	result.WriteString("  - LinkedIn: May be linked to account\n")
+
+	result.WriteString("\nCarrier & CNAM Lookup:\n")
+	(fmt.Println("  - FreeCarrierLookup: https://freecarrierlookup.com/"))
+	(fmt.Println("  - Carrier Lookup: https://www.carrierlookup.com/"))
