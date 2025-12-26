@@ -71,3 +71,19 @@ func AdvancedLookupPhoneWithConfig(phone string, cfg *config.Config) (string, er
 	} else {
 		result.WriteString(fmt.Sprintf("  ✗ Viber: %s\n", viberStatus))
 	}
+
+	result.WriteString("  Checking WeChat registration...\n")
+	onWeChat, wechatStatus := checkWeChat(cleanedPhone)
+	if onWeChat {
+		result.WriteString(fmt.Sprintf("  ✓ WeChat: %s\n", wechatStatus))
+	} else {
+		result.WriteString(fmt.Sprintf("  ✗ WeChat: %s\n", wechatStatus))
+	}
+
+	result.WriteString("  Checking LINE registration...\n")
+	onLine, lineStatus := checkLine(cleanedPhone)
+	if onLine {
+		result.WriteString(fmt.Sprintf("  ✓ LINE: %s\n", lineStatus))
+	} else {
+		result.WriteString(fmt.Sprintf("  ✗ LINE: %s\n", lineStatus))
+	}
