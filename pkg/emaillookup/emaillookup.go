@@ -29,3 +29,10 @@ type EmailInfo struct {
 func LookupEmail(email string) (string, error) {
 	return LookupEmailWithConfig(email, "")
 }
+
+// LookupEmailWithConfig performs email lookup with API key support
+func LookupEmailWithConfig(email, hibpAPIKey string) (string, error) {
+	// Validate email format
+	if !isValidEmail(email) {
+		return "", fmt.Errorf("invalid email format: %s", email)
+	}
