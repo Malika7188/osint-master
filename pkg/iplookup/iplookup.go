@@ -265,3 +265,69 @@ func lookupIPApiCo(ip string) (*IPInfo, error) {
 
 	return info, nil
 }
+
+// lookupIPWhois queries ipwhois.app for IP information
+func lookupIPWhois(ip string) (*IPInfo, error) {
+	url := fmt.Sprintf("https://ipwhois.app/json/%s", ip)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("ipwhois.app returned status: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	// Check for error or success field
+	if success, ok := result["success"].(bool); ok && !success {
+		if msg, ok := result["message"].(string); ok {
+			return nil, fmt.Errorf("ipwhois.app error: %s", msg)
+		}
+		return nil, fmt.Errorf("ipwhois.app lookup failed")
+	}
+
+	info := &IPInfo{
+		IP: ip,
+	}
+
+	if city, ok := result["city"].(string); ok {
+		info.City = city
+	}
+	if region, ok := result["region"].(string); ok {
+		info.Region = region
+	}
+	if country, ok := result["country"].(string); ok {
+		info.Country = country
+	}
+	if countryCode, ok := result["country_code"].(string); ok {
+		info.CountryCode = countryCode
+	}
+	if isp, ok := result["isp"].(string); ok {
+		info.ISP = isp
+	}
+	if asn, ok := result["asn"].(string); ok {
+		info.ASN = asn
+	}
+	if timezone, ok := result["timezone"].(string); ok {
+		info.Timezone = timezone
+	}
+	if lat, ok := result["latitude"].(string); ok {
+		fmt.Sscanf(lat, "%f", &info.Latitude)
+	}
+	if lon, ok := result["longitude"].(string); ok {
+		fmt.Sscanf(lon, "%f", &info.Longitude)
+	}
+
+	return info, nil
+}
