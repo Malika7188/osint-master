@@ -78,3 +78,12 @@ func isValidEmail(email string) bool {
 	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`)
 	return emailRegex.MatchString(email)
 }
+
+// extractDomain extracts domain from email
+func extractDomain(email string) string {
+	parts := strings.Split(email, "@")
+	if len(parts) == 2 {
+		return parts[1]
+	}
+	return ""
+}
