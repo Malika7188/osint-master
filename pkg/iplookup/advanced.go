@@ -31,3 +31,8 @@ func AdvancedLookupIP(ip string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - IPVoid: https://www.ipvoid.com/ip-blacklist-check/\n"))
 	result.WriteString(fmt.Sprintf("  - Shodan: https://www.shodan.io/host/%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - Censys: https://search.censys.io/hosts/%s\n", ip))
+
+	result.WriteString("\nGeolocation & Network Info:\n")
+	result.WriteString(fmt.Sprintf("  - IPInfo.io: https://ipinfo.io/%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - MaxMind: https://www.maxmind.com/en/geoip2-precision-demo\n"))
+	result.WriteString(fmt.Sprintf("  - IP2Location: https://www.ip2location.com/%s\n", ip))
