@@ -45,3 +45,6 @@ func LookupEmailWithConfig(email, hibpAPIKey string) (string, error) {
 		Domain:   extractDomain(email),
 		Breaches: make([]string, 0),
 	}
+
+	// Check if disposable email
+	info.IsDisposable = isDisposableEmail(info.Domain)
