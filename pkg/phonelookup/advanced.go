@@ -55,3 +55,19 @@ func AdvancedLookupPhoneWithConfig(phone string, cfg *config.Config) (string, er
 	} else {
 		result.WriteString(fmt.Sprintf("  ✗ Telegram: %s\n", telegramStatus))
 	}
+
+	result.WriteString("  Checking Signal registration...\n")
+	onSignal, signalStatus := checkSignal(cleanedPhone)
+	if onSignal {
+		result.WriteString(fmt.Sprintf("  ✓ Signal: %s\n", signalStatus))
+	} else {
+		result.WriteString(fmt.Sprintf("  ✗ Signal: %s\n", signalStatus))
+	}
+
+	result.WriteString("  Checking Viber registration...\n")
+	onViber, viberStatus := checkViber(cleanedPhone)
+	if onViber {
+		result.WriteString(fmt.Sprintf("  ✓ Viber: %s\n", viberStatus))
+	} else {
+		result.WriteString(fmt.Sprintf("  ✗ Viber: %s\n", viberStatus))
+	}
