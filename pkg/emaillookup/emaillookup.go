@@ -54,3 +54,20 @@ func LookupEmailWithConfig(email, hibpAPIKey string) (string, error) {
 
 	// Check email reputation (FREE - no API key needed)
 	checkEmailReputation(email, info)
+
+	// Check Have I Been Pwned (HIBP)
+	breaches, err := checkHIBPWithKey(email, hibpAPIKey)
+	if err == nil {
+		info.Breaches = breaches
+		info.BreachCount = len(breaches)
+	}
+
+	// Automatically check social media accounts
+	fmt.Println("\nChecking social media accounts...")
+	socialAccounts := checkSocialMediaAccounts(email)
+
+	// Format output
+	result := formatEmailInfo(info)
+	result += "\n" + formatSocialAccounts(socialAccounts)
+	return result, nil
+}
