@@ -366,3 +366,13 @@ func getCountryName(code string) string {
 
 	return code
 }
+
+// formatIPInfo formats IP information into readable string
+func formatIPInfo(info *IPInfo) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("IP Address: %s\n", info.IP))
+	sb.WriteString(strings.Repeat("=", 50) + "\n\n")
+
+	sb.WriteString("Location Information:\n")
+	sb.WriteString(strings.Repeat("-", 50) + "\n")
