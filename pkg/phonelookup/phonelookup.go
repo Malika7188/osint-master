@@ -1483,3 +1483,21 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	if info.LineType != "" {
 		sb.WriteString(fmt.Sprintf("Line Type:    %s\n", info.LineType))
 	}
+
+	// Owner information
+	if info.OwnerName != "" || info.OwnerEmail != "" || info.OwnerAddress != "" {
+		sb.WriteString("\nOwner Information:\n")
+		sb.WriteString(strings.Repeat("-", 70) + "\n")
+		if info.OwnerName != "" {
+			sb.WriteString(fmt.Sprintf("Name:         %s\n", info.OwnerName))
+		}
+		if info.OwnerEmail != "" {
+			sb.WriteString(fmt.Sprintf("Email:        %s\n", info.OwnerEmail))
+		}
+		if info.OwnerAddress != "" {
+			sb.WriteString(fmt.Sprintf("Address:      %s\n", info.OwnerAddress))
+		}
+		if info.OwnerSource != "" {
+			sb.WriteString(fmt.Sprintf("Source:       %s\n", info.OwnerSource))
+		}
+	}
