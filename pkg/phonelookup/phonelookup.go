@@ -1501,3 +1501,7 @@ func formatPhoneInfo(info *PhoneInfo) string {
 			sb.WriteString(fmt.Sprintf("Source:       %s\n", info.OwnerSource))
 		}
 	}
+
+	// Messaging platforms
+	sb.WriteString("\nMessaging Platforms:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
