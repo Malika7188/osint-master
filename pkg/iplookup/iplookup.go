@@ -409,3 +409,10 @@ func formatIPInfo(info *IPInfo) string {
 	if info.ASN != "" {
 		sb.WriteString(fmt.Sprintf("ASN:          %s\n", info.ASN))
 	}
+
+	sb.WriteString("\nAdditional Lookup Resources:\n")
+	sb.WriteString(strings.Repeat("-", 50) + "\n")
+	sb.WriteString(fmt.Sprintf("IP-API:       http://ip-api.com/#%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("IPInfo:       https://ipinfo.io/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("WhoIs:        https://who.is/whois-ip/ip-address/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("ViewDNS:      https://viewdns.info/iphistory/?domain=%s\n", info.IP))
