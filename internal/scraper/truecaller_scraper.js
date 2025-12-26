@@ -102,4 +102,10 @@ async function scrapeTrueCaller(phoneNumber) {
     }
 }
 
+const phoneNumber = process.argv[2];
+if (!phoneNumber) {
+    console.log(JSON.stringify({ success: false, error: 'No phone number provided' }));
+    process.exit(1);
+}
 
+scrapeTrueCaller(phoneNumber);
