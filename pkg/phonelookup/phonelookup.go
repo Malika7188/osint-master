@@ -1551,3 +1551,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	// Additional lookup resources
 	sb.WriteString("\nAdditional Lookup Resources:\n")
 	sb.WriteString(strings.Repeat("-", 70) + "\n")
+
+	cleanedForURL := strings.ReplaceAll(info.Number, "+", "")
+	sb.WriteString("\nCaller ID & Reverse Lookup:\n")
+	sb.WriteString(fmt.Sprintf("  - TrueCaller:    https://www.truecaller.com/search/us/%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - WhitePages:    https://www.whitepages.com/phone/%s\n", cleanedForURL))
+	sb.WriteString("  - Spy Dialer:    https://www.spydialer.com/\n")
+	sb.WriteString("  - NumLookup:     https://www.numlookup.com/\n")
