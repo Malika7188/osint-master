@@ -112,3 +112,22 @@ func checkGravatar(email string) (bool, string) {
 	hashStr := fmt.Sprintf("%x", hash)
 
 	gravatarURL := fmt.Sprintf("https://www.gravatar.com/avatar/%s?d=404", hashStr)
+
+	// Check if Gravatar exists
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	resp, err := client.Get(gravatarURL)
+	if err != nil {
+		return false, ""
+	}
+	defer resp.Body.Close()
+
+	// If status is 200, Gravatar exists
+	if resp.StatusCode == http.StatusOK {
+		return true, fmt.Sprintf("https://www.gravatar.com/avatar/%s", hashStr)
+	}
+
+	return false, ""
+}
