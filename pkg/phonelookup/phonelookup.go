@@ -1317,3 +1317,68 @@ func lookupSocialMedia(phone string) string {
 	// This is a placeholder - real implementation needs proper APIs
 	return ""
 }
+
+// checkWhatsApp checks if a phone number is registered on WhatsApp
+func checkWhatsApp(phone string) (bool, string) {
+	// Method: Try to access the WhatsApp Web API endpoint
+	// Remove + and spaces from phone number
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Try using wa.me link which is an official WhatsApp redirect service
+	url := fmt.Sprintf("https://wa.me/%s", cleanedPhone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			// Don't follow redirects, just check the response
+			return http.ErrUseLastResponse
+		},
+	}
+
+	req, err := http.NewRequest("HEAD", url, nil)
+	if err != nil {
+		return false, "Unable to check (request error)"
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, "Unable to check (network error)"
+	}
+	defer resp.Body.Close()
+
+	// If WhatsApp redirects to web.whatsapp.com or api.whatsapp.com, the number likely exists
+	// Status code 302 (redirect) typically means the number is valid
+	if resp.StatusCode == http.StatusFound || resp.StatusCode == http.StatusMovedPermanently {
+		location := resp.Header.Get("Location")
+		if strings.Contains(location, "web.whatsapp.com") || strings.Contains(location, "api.whatsapp.com") {
+			return true, "Active on WhatsApp"
+		}
+	}
+
+	// Alternative check: Use WhatsApp API check service
+	// Try free WhatsApp checker API
+	apiURL := fmt.Sprintf("https://api.wassenger.com/v1/numbers/%s/exists", cleanedPhone)
+
+	req2, err := http.NewRequest("GET", apiURL, nil)
+	if err == nil {
+		req2.Header.Set("User-Agent", "OSINT-Master-Tool")
+		resp2, err := client.Do(req2)
+		if err == nil {
+			defer resp2.Body.Close()
+
+			if resp2.StatusCode == http.StatusOK {
+				var result map[string]interface{}
+				if err := json.NewDecoder(resp2.Body).Decode(&result); err == nil {
+					if exists, ok := result["exists"].(bool); ok && exists {
+						return true, "Active on WhatsApp (verified)"
+					}
+				}
+			}
+		}
+	}
+
+	// If all checks fail, we can't confirm
+	return false, fmt.Sprintf("Not confirmed on WhatsApp (try manually: https://wa.me/%s)", cleanedPhone)
+}
