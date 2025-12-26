@@ -1512,3 +1512,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("WhatsApp:     ✗ %s\n", info.WhatsAppStatus))
 	}
+
+	// Telegram
+	if info.OnTelegram {
+		sb.WriteString(fmt.Sprintf("Telegram:     ✓ Registered (%s)\n", info.TelegramStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("Telegram:     ✗ %s\n", info.TelegramStatus))
+	}
