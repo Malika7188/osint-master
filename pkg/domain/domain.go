@@ -58,3 +58,21 @@ func EnumerateDomain(domain string) (string, error) {
 	result := formatDomainInfo(domainInfo)
 	return result, nil
 }
+
+// getSubdomainsFromCrtSh queries crt.sh for subdomains via Certificate Transparency
+func getSubdomainsFromCrtSh(domain string) ([]string, error) {
+	url := fmt.Sprintf("https://crt.sh/?q=%%25.%s&output=json", domain)
+
+	client := &http.Client{
+		Timeout: 30 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("crt.sh returned status: %d", resp.StatusCode)
+	}
