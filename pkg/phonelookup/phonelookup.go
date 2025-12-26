@@ -1443,3 +1443,11 @@ func checkLine(phone string) (bool, string) {
 
 	return false, fmt.Sprintf("Manual check required (try: %s or search in LINE app)", url)
 }
+
+// formatPhoneInfo formats phone information into readable string
+func formatPhoneInfo(info *PhoneInfo) string {
+	var sb strings.Builder
+
+	// Header section
+	sb.WriteString(fmt.Sprintf("Phone Number: %s\n", info.Number))
+	sb.WriteString(strings.Repeat("=", 70) + "\n\n")
