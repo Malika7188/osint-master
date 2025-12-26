@@ -51,3 +51,11 @@ func AdvancedLookupIP(ip string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - Talos Intelligence: https://www.talosintelligence.com/reputation_center/lookup?search=%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - AlienVault OTX: https://otx.alienvault.com/indicator/ip/%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - GreyNoise: https://viz.greynoise.io/ip/%s\n", ip))
+
+	elapsed := time.Since(startTime)
+	result.WriteString("\n" + strings.Repeat("=", 70) + "\n")
+	result.WriteString(fmt.Sprintf("⏱️  Advanced search completed in %.2f seconds\n", elapsed.Seconds()))
+	result.WriteString("Note: Advanced mode provides comprehensive security and threat analysis\n")
+
+	return result.String(), nil
+}
