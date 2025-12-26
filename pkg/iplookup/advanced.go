@@ -41,3 +41,8 @@ func AdvancedLookupIP(ip string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - ARIN WHOIS: https://search.arin.net/rdap/?query=%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - RIPE: https://apps.db.ripe.net/db-web-ui/query?searchtext=%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - MXToolbox: https://mxtoolbox.com/SuperTool.aspx?action=ptr%%3A%s\n", ip))
+
+	result.WriteString("\nPort Scanning & Services:\n")
+	result.WriteString("  ⚠️  Only scan IPs you own or have permission to scan\n")
+	result.WriteString(fmt.Sprintf("  - Shodan Scan: https://www.shodan.io/host/%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - Censys Scan: https://search.censys.io/hosts/%s\n", ip))
