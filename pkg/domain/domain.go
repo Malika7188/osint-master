@@ -24,3 +24,9 @@ type DomainInfo struct {
 	MainDomain string
 	Subdomains []Subdomain
 }
+
+// EnumerateDomain enumerates subdomains and checks for takeover risks
+func EnumerateDomain(domain string) (string, error) {
+	if domain == "" {
+		return "", fmt.Errorf("domain cannot be empty")
+	}
