@@ -418,3 +418,10 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString(fmt.Sprintf("ViewDNS:      https://viewdns.info/iphistory/?domain=%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("DNSChecker:   https://dnschecker.org/ip-location.php?ip=%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("IPVoid:       https://www.ipvoid.com/ip-blacklist-check/\n"))
+
+	sb.WriteString("\nThreat Intelligence:\n")
+	sb.WriteString(strings.Repeat("-", 50) + "\n")
+	sb.WriteString(fmt.Sprintf("AbuseIPDB:    https://www.abuseipdb.com/check/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("VirusTotal:   https://www.virustotal.com/gui/ip-address/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("Shodan:       https://www.shodan.io/host/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("Censys:       https://search.censys.io/hosts/%s\n", info.IP))
