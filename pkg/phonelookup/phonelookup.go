@@ -1519,3 +1519,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("Telegram:     ✗ %s\n", info.TelegramStatus))
 	}
+
+	// Signal
+	if info.OnSignal {
+		sb.WriteString(fmt.Sprintf("Signal:       ✓ Registered (%s)\n", info.SignalStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("Signal:       ✗ %s\n", info.SignalStatus))
+	}
