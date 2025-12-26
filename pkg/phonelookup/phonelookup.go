@@ -111,3 +111,59 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	result := formatPhoneInfo(info)
 	return result, nil
 }
+
+// cleanPhoneNumber removes non-digit characters
+func cleanPhoneNumber(phone string) string {
+	// Remove all non-digit characters except +
+	reg := regexp.MustCompile(`[^\d+]`)
+	cleaned := reg.ReplaceAllString(phone, "")
+
+	// Ensure it starts with +
+	if !strings.HasPrefix(cleaned, "+") {
+		// Try to add + if it looks like international format
+		if len(cleaned) > 10 {
+			cleaned = "+" + cleaned
+		}
+	}
+
+	return cleaned
+}
+
+// parseCountryCode extracts country code from phone number
+func parseCountryCode(phone string) (string, string) {
+	if !strings.HasPrefix(phone, "+") {
+		return "", ""
+	}
+
+	// Extract country code and get country name from online API
+	phoneDigits := strings.TrimPrefix(phone, "+")
+
+	// Try 3-digit codes first (e.g., +254 Kenya, +234 Nigeria)
+	if len(phoneDigits) >= 3 && phoneDigits[0] >= '2' && phoneDigits[0] <= '9' {
+		code := "+" + phoneDigits[:3]
+		country := getCountryFromCallingCode(phoneDigits[:3])
+		if country != "" {
+			return code, country
+		}
+	}
+
+	// Try 2-digit codes (e.g., +44 UK, +91 India)
+	if len(phoneDigits) >= 2 {
+		code := "+" + phoneDigits[:2]
+		country := getCountryFromCallingCode(phoneDigits[:2])
+		if country != "" {
+			return code, country
+		}
+	}
+
+	// Try 1-digit codes (only +1 for USA/Canada, +7 for Russia)
+	if len(phoneDigits) >= 1 {
+		code := "+" + phoneDigits[:1]
+		country := getCountryFromCallingCode(phoneDigits[:1])
+		if country != "" {
+			return code, country
+		}
+	}
+
+	return "", ""
+}
