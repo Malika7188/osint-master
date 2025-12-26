@@ -1116,3 +1116,204 @@ func trySyncMeAPI(phone string) string {
 
 	return ""
 }
+
+// runTrueCallerPlaywright runs the Playwright scraper for TrueCaller
+func runTrueCallerPlaywright(phone string) string {
+	// Import exec package at runtime
+	cmd := exec.Command("node", "internal/scraper/truecaller_scraper.js", phone)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(output, &result); err != nil {
+		return ""
+	}
+
+	if success, ok := result["success"].(bool); ok && success {
+		if name, ok := result["name"].(string); ok && name != "" {
+			return name
+		}
+	}
+
+	return ""
+}
+
+// tryTrueCallerJSONAPI uses Playwright to scrape TrueCaller with JavaScript execution
+func tryTrueCallerJSONAPI(phone string) string {
+	phoneClean := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Use Playwright scraper for TrueCaller
+	return runTrueCallerPlaywright(phoneClean)
+}
+
+// tryEyeconAPI tries Eyecon caller ID API
+func tryEyeconAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	url := fmt.Sprintf("https://api.eyecon-app.com/app/getnames.jsp?cli=%s&lang=en", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "Eyecon/9.0.0")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return ""
+	}
+
+	// Extract name from Eyecon response
+	if names, ok := result["names"].([]interface{}); ok && len(names) > 0 {
+		if firstName, ok := names[0].(map[string]interface{}); ok {
+			if name, ok := firstName["name"].(string); ok && name != "" {
+				return name
+			}
+		}
+	}
+
+	return ""
+}
+
+// tryNumLookupAPI tries NumLookup free API
+func tryNumLookupAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	url := fmt.Sprintf("https://www.numlookup.com/api/validate/%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Extract owner name if available
+	if owner, ok := result["owner"].(string); ok && owner != "" {
+		return owner
+	}
+	if name, ok := result["name"].(string); ok && name != "" {
+		return name
+	}
+
+	return ""
+}
+
+// lookupNumverifyExtended gets extended data including owner info if available
+func lookupNumverifyExtended(phone string, info *PhoneInfo, cfg *config.Config) error {
+	// Some phone APIs provide owner information
+	// This would require extended API access
+	return fmt.Errorf("extended data not available")
+}
+
+// lookupPhoneDirectory searches public phone directories
+func lookupPhoneDirectory(phone string) string {
+	// Try free phone directory APIs
+	// Note: Most accurate directories are paid services
+
+	// Try phonevalidator.com directory
+	url := fmt.Sprintf("https://www.phonevalidator.com/api/lookup/%s", phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Try to extract owner name
+	if name, ok := result["name"].(string); ok && name != "" {
+		return name
+	}
+
+	if owner, ok := result["owner"].(string); ok && owner != "" {
+		return owner
+	}
+
+	if subscriber, ok := result["subscriber"].(string); ok && subscriber != "" {
+		return subscriber
+	}
+
+	return ""
+}
+
+// lookupSocialMedia checks if phone is linked to social media profiles
+func lookupSocialMedia(phone string) string {
+	// Try to find name from social media
+	// This is limited due to privacy settings on most platforms
+
+	// Format phone for WhatsApp/Telegram lookup
+	formattedPhone := phone
+	if !strings.HasPrefix(formattedPhone, "+") {
+		formattedPhone = "+" + formattedPhone
+	}
+
+	// Note: Getting name from WhatsApp/Telegram requires:
+	// 1. Authentication
+	// 2. Contact in your address book
+	// 3. User's privacy settings allow it
+
+	// This is a placeholder - real implementation needs proper APIs
+	return ""
+}
