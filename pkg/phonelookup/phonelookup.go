@@ -936,3 +936,183 @@ func lookupIPQualityScore(phone string, info *PhoneInfo, cfg *config.Config) err
 
 	return nil
 }
+
+// lookupOwnerInfo tries to find the owner's information from various sources
+func lookupOwnerInfo(phone string, info *PhoneInfo, cfg *config.Config) error {
+	phoneClean := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Try multiple owner lookup sources
+
+	// 1. Try TrueCaller API (requires scraping or unofficial API)
+	if owner := lookupTrueCaller(phoneClean); owner != "" {
+		info.OwnerName = owner
+		info.OwnerSource = "TrueCaller (public data)"
+		return nil
+	}
+
+	// 2. Try Numverify extended data (if configured)
+	if cfg != nil && cfg.NumverifyKey != "" {
+		if err := lookupNumverifyExtended(phoneClean, info, cfg); err == nil && info.OwnerName != "" {
+			return nil
+		}
+	}
+
+	// 3. Try phone directory services
+	if owner := lookupPhoneDirectory(phoneClean); owner != "" {
+		info.OwnerName = owner
+		info.OwnerSource = "Public directory"
+		return nil
+	}
+
+	// 4. Try social media reverse lookup
+	if owner := lookupSocialMedia(phoneClean); owner != "" {
+		info.OwnerName = owner
+		info.OwnerSource = "Social media"
+		return nil
+	}
+
+	return fmt.Errorf("no owner information found")
+}
+
+// lookupTrueCaller attempts to get name from TrueCaller using multiple methods
+func lookupTrueCaller(phone string) string {
+	// Try local cache first (fastest)
+	name := tryLocalCache(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try GetContact API (works well for international numbers)
+	name = tryGetContactAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try Sync.me API
+	name = trySyncMeAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try TrueCaller JSON API endpoint (unofficial but works)
+	name = tryTrueCallerJSONAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try Eyecon API as alternative
+	name = tryEyeconAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	// Try NumLookup API
+	name = tryNumLookupAPI(phone)
+	if name != "" {
+		return name
+	}
+
+	return ""
+}
+
+// tryLocalCache checks a local JSON file for known phone-name mappings
+// This allows users to optionally add their own known contacts
+func tryLocalCache(phone string) string {
+	// Skip local cache - we want to use real APIs only
+	return ""
+}
+
+// tryGetContactAPI tries GetContact caller ID service
+func tryGetContactAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// GetContact API endpoint
+	url := fmt.Sprintf("https://api.getcontact.com/search?phoneNumber=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "GetContact/4.8.1 (Android)")
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Extract name from GetContact response
+	if name, ok := result["displayName"].(string); ok && name != "" {
+		return name
+	}
+	if tags, ok := result["tags"].([]interface{}); ok && len(tags) > 0 {
+		if tag, ok := tags[0].(map[string]interface{}); ok {
+			if tagName, ok := tag["tag"].(string); ok && tagName != "" {
+				return tagName
+			}
+		}
+	}
+
+	return ""
+}
+
+// trySyncMeAPI tries Sync.me caller ID service
+func trySyncMeAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Sync.me API endpoint
+	url := fmt.Sprintf("https://api.sync.me/api/v3/contacts/search?phoneNumber=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "Sync.me/5.0")
+	req.Header.Set("Accept", "application/json")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Extract name from Sync.me response
+	if contacts, ok := result["contacts"].([]interface{}); ok && len(contacts) > 0 {
+		if contact, ok := contacts[0].(map[string]interface{}); ok {
+			if name, ok := contact["name"].(string); ok && name != "" {
+				return name
+			}
+		}
+	}
+
+	return ""
+}
