@@ -174,3 +174,19 @@ func checkTakeoverRisk(subdomain string) (bool, string) {
 		"wordpress.com":     "WordPress site",
 		"ghost.io":          "Ghost blog",
 	}
+
+	for pattern, service := range takeoverPatterns {
+		if strings.Contains(cname, pattern) {
+			// Try to access the service
+			client := &http.Client{
+				Timeout: 5 * time.Second,
+			}
+			resp, err := client.Get("https://" + subdomain)
+			if err != nil || resp.StatusCode == 404 {
+				return true, fmt.Sprintf("CNAME points to %s that may not exist", service)
+			}
+		}
+	}
+
+	return false, ""
+}
