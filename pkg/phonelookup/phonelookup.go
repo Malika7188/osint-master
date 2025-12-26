@@ -28,3 +28,14 @@ type PhoneInfo struct {
 	OnViber        bool
 	OnWeChat       bool
 	OnLine         bool
+	WhatsAppStatus string
+	TelegramStatus string
+	SignalStatus   string
+	ViberStatus    string
+	WeChatStatus   string
+	LineStatus     string
+	OwnerName      string
+	OwnerEmail     string
+	OwnerAddress   string
+	OwnerSource    string
+}
