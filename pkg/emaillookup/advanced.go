@@ -60,3 +60,9 @@ func AdvancedLookupEmail(email, hibpAPIKey string) (string, error) {
 	for _, platform := range advancedPlatforms {
 		result.WriteString(fmt.Sprintf("  - %s: %s\n", platform.name, platform.url))
 	}
+
+	result.WriteString("\n" + strings.Repeat("-", 70) + "\n")
+	result.WriteString("Domain Analysis:\n")
+	result.WriteString(fmt.Sprintf("  MX Records: Check at https://mxtoolbox.com/SuperTool.aspx?action=mx%%3A%s\n", domain))
+	result.WriteString(fmt.Sprintf("  WHOIS: https://who.is/whois/%s\n", domain))
+	result.WriteString(fmt.Sprintf("  Email verification: https://email-checker.net/validate\n"))
