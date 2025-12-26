@@ -131,3 +131,29 @@ func checkGravatar(email string) (bool, string) {
 
 	return false, ""
 }
+
+// checkEmailReputation checks email reputation using EmailRep.io (FREE - no API key needed)
+func checkEmailReputation(email string, info *EmailInfo) {
+	url := fmt.Sprintf("https://emailrep.io/%s", email)
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return
+	}
+
+	// EmailRep.io requires User-Agent
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return
+	}
