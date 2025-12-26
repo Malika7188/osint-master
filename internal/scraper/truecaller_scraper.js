@@ -19,4 +19,7 @@ async function scrapeTrueCaller(phoneNumber) {
         // Try Kenya-specific URL first
         const url = `https://www.truecaller.com/search/ke/${phoneNumber}`;
 
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+        // Wait for page to load
      
