@@ -46,3 +46,8 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - VirusTotal: https://www.virustotal.com/gui/domain/%s\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - URLVoid: https://www.urlvoid.com/scan/%s\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - Google Safe Browsing: Check at transparencyreport.google.com\n"))
+
+	result.WriteString("\nDNS & Infrastructure:\n")
+	result.WriteString(fmt.Sprintf("  - MX Records: https://mxtoolbox.com/SuperTool.aspx?action=mx%%3A%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - DNS Records: https://dnschecker.org/all-dns-records-of-domain.php?query=%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - SPF/DMARC Check: https://mxtoolbox.com/dmarc.aspx\n"))
