@@ -49,3 +49,12 @@ func EnumerateDomain(domain string) (string, error) {
 		MainDomain: domain,
 		Subdomains: make([]Subdomain, 0),
 	}
+
+	for _, sub := range subdomains {
+		info := checkSubdomain(sub)
+		domainInfo.Subdomains = append(domainInfo.Subdomains, info)
+	}
+
+	result := formatDomainInfo(domainInfo)
+	return result, nil
+}
