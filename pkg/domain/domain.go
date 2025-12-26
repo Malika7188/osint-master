@@ -76,3 +76,38 @@ func getSubdomainsFromCrtSh(domain string) ([]string, error) {
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("crt.sh returned status: %d", resp.StatusCode)
 	}
+
+	var certs []struct {
+		NameValue string `json:"name_value"`
+	}
+
+	if err := json.NewDecoder(resp.Body).Decode(&certs); err != nil {
+		return nil, err
+	}
+
+	// Extract unique subdomains
+	subdomainMap := make(map[string]bool)
+	for _, cert := range certs {
+		names := strings.Split(cert.NameValue, "\n")
+		for _, name := range names {
+			name = strings.TrimSpace(name)
+			// Skip wildcards and duplicates
+			if !strings.HasPrefix(name, "*") && name != "" {
+				subdomainMap[name] = true
+			}
+		}
+	}
+
+	// Convert map to slice
+	subdomains := make([]string, 0, len(subdomainMap))
+	for sub := range subdomainMap {
+		subdomains = append(subdomains, sub)
+	}
+
+	// Limit to first 10 for demo purposes
+	if len(subdomains) > 10 {
+		subdomains = subdomains[:10]
+	}
+
+	return subdomains, nil
+}
