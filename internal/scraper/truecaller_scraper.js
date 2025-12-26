@@ -22,4 +22,9 @@ async function scrapeTrueCaller(phoneNumber) {
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
         // Wait for page to load
-     
+        await page.waitForTimeout(5000);
+
+        // Get page content for debugging
+        const content = await page.content();
+
+      
