@@ -63,4 +63,11 @@ async function scrapeTrueCaller(phoneNumber) {
             'h1'
         ];
 
-       
+        for (const selector of selectors) {
+            try {
+                const elements = await page.$$(selector);
+                for (const element of elements) {
+                    const text = await element.textContent();
+                    const name = text.trim();
+
+                   
