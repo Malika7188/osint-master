@@ -135,3 +135,22 @@ func checkSubdomain(subdomain string) Subdomain {
 
 	return info
 }
+
+// checkSSLCert checks the SSL certificate validity
+func checkSSLCert(subdomain string) string {
+	conn, err := tls.Dial("tcp", subdomain+":443", &tls.Config{
+		InsecureSkipVerify: true,
+	})
+	if err != nil {
+		return "Not found"
+	}
+	defer conn.Close()
+
+	certs := conn.ConnectionState().PeerCertificates
+	if len(certs) > 0 {
+		expiry := certs[0].NotAfter
+		return fmt.Sprintf("Valid until %s", expiry.Format("2006-01-02"))
+	}
+
+	return "Not found"
+}
