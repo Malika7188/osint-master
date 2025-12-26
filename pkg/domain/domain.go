@@ -30,3 +30,10 @@ func EnumerateDomain(domain string) (string, error) {
 	if domain == "" {
 		return "", fmt.Errorf("domain cannot be empty")
 	}
+
+	// Remove protocol if present
+	domain = strings.TrimPrefix(domain, "http://")
+	domain = strings.TrimPrefix(domain, "https://")
+	domain = strings.TrimSuffix(domain, "/")
+
+	fmt.Println("\nEnumerating subdomains... This may take a moment.")
