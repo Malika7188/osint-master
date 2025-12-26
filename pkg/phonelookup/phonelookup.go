@@ -1547,3 +1547,7 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("LINE:         ✗ %s\n", info.LineStatus))
 	}
+
+	// Additional lookup resources
+	sb.WriteString("\nAdditional Lookup Resources:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
