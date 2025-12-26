@@ -238,3 +238,20 @@ func getCountryNameFromCode(code string) string {
 
 	return code
 }
+
+// getCountryFromCodeFallback provides fallback country names for common calling codes
+func getCountryFromCodeFallback(callingCode string) string {
+	// Minimal reference for most common codes
+	commonCodes := map[string]string{
+		"1": "United States", "7": "Russia", "20": "Egypt", "27": "South Africa",
+		"30": "Greece", "31": "Netherlands", "32": "Belgium", "33": "France",
+		"34": "Spain", "36": "Hungary", "39": "Italy", "40": "Romania",
+		"41": "Switzerland", "43": "Austria", "44": "United Kingdom", "45": "Denmark",
+		"46": "Sweden", "47": "Norway", "48": "Poland", "49": "Germany",
+		"51": "Peru", "52": "Mexico", "53": "Cuba", "54": "Argentina",
+		"55": "Brazil", "56": "Chile", "57": "Colombia", "58": "Venezuela",
+		"60": "Malaysia", "61": "Australia", "62": "Indonesia", "63": "Philippines",
+		"64": "New Zealand", "65": "Singapore", "66": "Thailand", "81": "Japan",
+		"82": "South Korea", "84": "Vietnam", "86": "China", "90": "Turkey",
+		"91": "India", "92": "Pakistan", "93": "Afghanistan", "94": "Sri Lanka",
+		"95": "Myanmar", "98": "Iran", "211": "South Sudan", "212": "Morocco",
