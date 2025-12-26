@@ -29,3 +29,10 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	cleanDomain := strings.TrimPrefix(domain, "http://")
 	cleanDomain = strings.TrimPrefix(cleanDomain, "https://")
 	cleanDomain = strings.TrimSuffix(cleanDomain, "/")
+
+	result.WriteString("Additional Subdomain Enumeration Tools:\n")
+	result.WriteString("  - Sublist3r: Automated subdomain enumeration tool\n")
+	result.WriteString("  - Amass: In-depth DNS enumeration\n")
+	result.WriteString("  - Subfinder: Fast passive subdomain enumeration\n")
+	result.WriteString(fmt.Sprintf("  - SecurityTrails: https://securitytrails.com/domain/%s/dns\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - DNSDumpster: https://dnsdumpster.com/\n"))
