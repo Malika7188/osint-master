@@ -55,3 +55,8 @@ func AdvancedLookupEmail(email, hibpAPIKey string) (string, error) {
 		{"TikTok", fmt.Sprintf("https://www.tiktok.com/@%s", username)},
 		{"Twitch", fmt.Sprintf("https://www.twitch.tv/%s", username)},
 	}
+
+	result.WriteString("Extended Platform URLs (manual verification):\n")
+	for _, platform := range advancedPlatforms {
+		result.WriteString(fmt.Sprintf("  - %s: %s\n", platform.name, platform.url))
+	}
