@@ -22,3 +22,9 @@ type PhoneInfo struct {
 	Carrier        string
 	LineType       string
 	IsValid        bool
+	OnWhatsApp     bool
+	OnTelegram     bool
+	OnSignal       bool
+	OnViber        bool
+	OnWeChat       bool
+	OnLine         bool
