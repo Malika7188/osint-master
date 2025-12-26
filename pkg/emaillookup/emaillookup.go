@@ -104,3 +104,11 @@ func isDisposableEmail(domain string) bool {
 	}
 	return false
 }
+
+// checkGravatar checks if email has associated Gravatar
+func checkGravatar(email string) (bool, string) {
+	// Generate MD5 hash of email
+	hash := md5.Sum([]byte(strings.ToLower(strings.TrimSpace(email))))
+	hashStr := fmt.Sprintf("%x", hash)
+
+	gravatarURL := fmt.Sprintf("https://www.gravatar.com/avatar/%s?d=404", hashStr)
