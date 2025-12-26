@@ -439,3 +439,7 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString(fmt.Sprintf("MXToolbox:    https://mxtoolbox.com/SuperTool.aspx?action=ptr%%3A%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("SecurityTrails: https://securitytrails.com/list/ip/%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("Robtex:       https://www.robtex.com/ip-lookup/%s\n", info.IP))
+
+	sb.WriteString("\n" + strings.Repeat("=", 50) + "\n")
+	sb.WriteString("Note: Use 'Advanced Mode' for comprehensive security analysis\n")
+	sb.WriteString("      and additional threat intelligence resources.\n")
