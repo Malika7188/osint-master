@@ -37,3 +37,15 @@ func EnumerateDomain(domain string) (string, error) {
 	domain = strings.TrimSuffix(domain, "/")
 
 	fmt.Println("\nEnumerating subdomains... This may take a moment.")
+
+	// Get subdomains from Certificate Transparency logs
+	subdomains, err := getSubdomainsFromCrtSh(domain)
+	if err != nil {
+		return "", fmt.Errorf("failed to enumerate subdomains: %v", err)
+	}
+
+	// Check each subdomain for details
+	domainInfo := &DomainInfo{
+		MainDomain: domain,
+		Subdomains: make([]Subdomain, 0),
+	}
