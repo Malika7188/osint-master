@@ -1540,3 +1540,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("WeChat:       ✗ %s\n", info.WeChatStatus))
 	}
+
+	// LINE
+	if info.OnLine {
+		sb.WriteString(fmt.Sprintf("LINE:         ✓ Registered (%s)\n", info.LineStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("LINE:         ✗ %s\n", info.LineStatus))
+	}
