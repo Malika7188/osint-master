@@ -24,3 +24,8 @@ type EmailInfo struct {
 	Suspicious      bool
 	References      int
 }
+
+// LookupEmail performs comprehensive email address lookup
+func LookupEmail(email string) (string, error) {
+	return LookupEmailWithConfig(email, "")
+}
