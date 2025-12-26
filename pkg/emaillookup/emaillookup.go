@@ -287,3 +287,55 @@ func checkSocialMediaAccounts(email string) []SocialAccount {
 
 	return accounts
 }
+
+// checkGoogle checks if email is a Gmail/Google account
+func checkGoogle(email, username string) (bool, string) {
+	// If it's a gmail.com email, account definitely exists
+	if strings.HasSuffix(email, "@gmail.com") {
+		return true, fmt.Sprintf("https://mail.google.com/mail/u/%s", email)
+	}
+	return false, ""
+}
+
+// checkGitHub checks if email is associated with GitHub
+func checkGitHub(email, username string) (bool, string) {
+	// Try to check GitHub API for user by username (from email)
+	url := fmt.Sprintf("https://api.github.com/users/%s", username)
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return false, ""
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusOK {
+		return true, fmt.Sprintf("https://github.com/%s", username)
+	}
+
+	return false, ""
+}
+
+// checkTwitterByEmail checks Twitter
+func checkTwitterByEmail(email, username string) (bool, string) {
+	// Twitter doesn't allow email-based lookup without API key
+	// Return search URL for manual verification
+	return false, fmt.Sprintf("https://twitter.com/search?q=%s", email)
+}
+
+// checkFacebook checks Facebook
+func checkFacebook(email, username string) (bool, string) {
+	// Facebook requires login for email-based search
+	// Return search URL for manual verification
+	return false, fmt.Sprintf("https://www.facebook.com/search/people/?q=%s", email)
+}
