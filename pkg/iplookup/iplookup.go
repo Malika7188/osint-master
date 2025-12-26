@@ -433,3 +433,9 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString(fmt.Sprintf("ARIN WHOIS:   https://search.arin.net/rdap/?query=%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("RIPE:         https://apps.db.ripe.net/db-web-ui/query?searchtext=%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("APNIC:        https://wq.apnic.net/query?searchtext=%s\n", info.IP))
+
+	sb.WriteString("\nReverse DNS & Domain History:\n")
+	sb.WriteString(strings.Repeat("-", 50) + "\n")
+	sb.WriteString(fmt.Sprintf("MXToolbox:    https://mxtoolbox.com/SuperTool.aspx?action=ptr%%3A%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("SecurityTrails: https://securitytrails.com/list/ip/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("Robtex:       https://www.robtex.com/ip-lookup/%s\n", info.IP))
