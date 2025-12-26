@@ -331,3 +331,38 @@ func lookupIPWhois(ip string) (*IPInfo, error) {
 
 	return info, nil
 }
+
+// getCountryName converts country code to full country name
+func getCountryName(code string) string {
+	// Try to get full country name from restcountries.com API
+	url := fmt.Sprintf("https://restcountries.com/v3.1/alpha/%s", code)
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return code
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return code
+	}
+
+	var countries []map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&countries); err != nil {
+		return code
+	}
+
+	if len(countries) > 0 {
+		if name, ok := countries[0]["name"].(map[string]interface{}); ok {
+			if common, ok := name["common"].(string); ok {
+				return common
+			}
+		}
+	}
+
+	return code
+}
