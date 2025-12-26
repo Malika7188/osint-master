@@ -246,3 +246,44 @@ func checkHIBPWithKey(email, apiKey string) ([]string, error) {
 
 	return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 }
+
+// SocialAccount represents a social media account
+type SocialAccount struct {
+	Platform string
+	Found    bool
+	URL      string
+	Method   string // How it was detected
+}
+
+// checkSocialMediaAccounts automatically checks for social media accounts
+func checkSocialMediaAccounts(email string) []SocialAccount {
+	accounts := []SocialAccount{}
+
+	// Extract username from email for some platforms
+	username := strings.Split(email, "@")[0]
+
+	// Check various platforms
+	platforms := []struct {
+		name      string
+		checkFunc func(string, string) (bool, string)
+	}{
+		{"Google/Gmail", checkGoogle},
+		{"GitHub", checkGitHub},
+		{"Twitter", checkTwitterByEmail},
+		{"Facebook", checkFacebook},
+		{"LinkedIn", checkLinkedIn},
+		{"Instagram", checkInstagram},
+	}
+
+	for _, platform := range platforms {
+		found, url := platform.checkFunc(email, username)
+		accounts = append(accounts, SocialAccount{
+			Platform: platform.name,
+			Found:    found,
+			URL:      url,
+			Method:   "Automatic check",
+		})
+	}
+
+	return accounts
+}
