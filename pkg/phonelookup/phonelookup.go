@@ -1533,3 +1533,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("Viber:        ✗ %s\n", info.ViberStatus))
 	}
+
+	// WeChat
+	if info.OnWeChat {
+		sb.WriteString(fmt.Sprintf("WeChat:       ✓ Registered (%s)\n", info.WeChatStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("WeChat:       ✗ %s\n", info.WeChatStatus))
+	}
