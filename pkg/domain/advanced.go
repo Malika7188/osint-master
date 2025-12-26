@@ -60,3 +60,16 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	result.WriteString("  - Subjack: Automated subdomain takeover detection\n")
 	result.WriteString("  - Can-I-Take-Over-XYZ: Community-maintained takeover list\n")
 	result.WriteString("  - SubOver: Fast subdomain takeover tool\n")
+
+	result.WriteString("\nAdditional Reconnaissance:\n")
+	result.WriteString(fmt.Sprintf("  - Shodan: https://www.shodan.io/search?query=hostname:%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - Censys: https://search.censys.io/search?resource=hosts&q=%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - Hunter.io: https://hunter.io/search/%s (email addresses)\n", cleanDomain))
+
+	elapsed := time.Since(startTime)
+	result.WriteString("\n" + strings.Repeat("=", 70) + "\n")
+	result.WriteString(fmt.Sprintf("⏱️  Advanced search completed in %.2f seconds\n", elapsed.Seconds()))
+	result.WriteString("Note: Advanced mode provides comprehensive domain intelligence\n")
+
+	return result.String(), nil
+}
