@@ -36,4 +36,7 @@ async function scrapeTrueCaller(phoneNumber) {
             const namePatterns = [
                 /Name:\s*([^\n]+)/i,
                 /Owner:\s*([^\n]+)/i,
-           
+                /Registered to:\s*([^\n]+)/i
+            ];
+
+         
