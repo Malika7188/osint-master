@@ -398,3 +398,40 @@ func formatSocialAccounts(accounts []SocialAccount) string {
 
 	return sb.String()
 }
+
+// formatEmailInfo formats email information into readable string
+func formatEmailInfo(info *EmailInfo) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("Email Address: %s\n", info.Email))
+	sb.WriteString(fmt.Sprintf("Domain: %s\n", info.Domain))
+	sb.WriteString(fmt.Sprintf("Valid Format: %v\n", info.IsValid))
+	sb.WriteString(fmt.Sprintf("Disposable Email: %v\n", info.IsDisposable))
+
+	if info.IsDisposable {
+		sb.WriteString("⚠️  Warning: This is a temporary/disposable email service\n")
+	}
+
+	// Email Reputation (FREE API - EmailRep.io)
+	sb.WriteString("\nEmail Reputation (via EmailRep.io - FREE):\n")
+	if info.Reputation != "" {
+		sb.WriteString(fmt.Sprintf("  Reputation: %s\n", info.Reputation))
+		sb.WriteString(fmt.Sprintf("  Suspicious: %v\n", info.Suspicious))
+		if info.References > 0 {
+			sb.WriteString(fmt.Sprintf("  References: %d (times seen in data)\n", info.References))
+		}
+		if info.Suspicious {
+			sb.WriteString("  ⚠️  Warning: Email marked as suspicious by reputation database\n")
+		}
+	} else {
+		sb.WriteString("  Status: No reputation data available\n")
+		sb.WriteString("  Note: This is a free service that may not have all emails\n")
+	}
+
+	sb.WriteString("\nGravatar:\n")
+	if info.GravatarExists {
+		sb.WriteString(fmt.Sprintf("  Found: Yes\n"))
+		sb.WriteString(fmt.Sprintf("  URL: %s\n", info.GravatarURL))
+	} else {
+		sb.WriteString("  Found: No\n")
+	}
