@@ -87,3 +87,12 @@ func extractDomain(email string) string {
 	}
 	return ""
 }
+
+// isDisposableEmail checks if email is from disposable email service
+func isDisposableEmail(domain string) bool {
+	// List of common disposable email domains
+	disposableDomains := []string{
+		"tempmail.com", "10minutemail.com", "guerrillamail.com",
+		"mailinator.com", "throwaway.email", "temp-mail.org",
+		"yopmail.com", "maildrop.cc", "trashmail.com",
+	}
