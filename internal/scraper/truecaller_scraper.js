@@ -39,4 +39,6 @@ async function scrapeTrueCaller(phoneNumber) {
                 /Registered to:\s*([^\n]+)/i
             ];
 
-         
+            for (const pattern of namePatterns) {
+                const match = pageText.match(pattern);
+                
