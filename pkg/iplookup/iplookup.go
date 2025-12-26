@@ -399,3 +399,13 @@ func formatIPInfo(info *IPInfo) string {
 		sb.WriteString(fmt.Sprintf("Coordinates:  %.6f, %.6f\n", info.Latitude, info.Longitude))
 		sb.WriteString(fmt.Sprintf("Map:          https://www.google.com/maps?q=%.6f,%.6f\n", info.Latitude, info.Longitude))
 	}
+
+	sb.WriteString("\nNetwork Information:\n")
+	sb.WriteString(strings.Repeat("-", 50) + "\n")
+
+	if info.ISP != "" {
+		sb.WriteString(fmt.Sprintf("ISP:          %s\n", info.ISP))
+	}
+	if info.ASN != "" {
+		sb.WriteString(fmt.Sprintf("ASN:          %s\n", info.ASN))
+	}
