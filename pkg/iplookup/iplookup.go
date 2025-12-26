@@ -191,3 +191,77 @@ func lookupIPInfo(ip string) (*IPInfo, error) {
 
 	return info, nil
 }
+
+// lookupIPApiCo queries ipapi.co for IP information
+func lookupIPApiCo(ip string) (*IPInfo, error) {
+	url := fmt.Sprintf("https://ipapi.co/%s/json/", ip)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// ipapi.co requires User-Agent header
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("ipapi.co returned status: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	// Check for error response
+	if errMsg, ok := result["error"].(bool); ok && errMsg {
+		if reason, ok := result["reason"].(string); ok {
+			return nil, fmt.Errorf("ipapi.co error: %s", reason)
+		}
+		return nil, fmt.Errorf("ipapi.co lookup failed")
+	}
+
+	info := &IPInfo{
+		IP: ip,
+	}
+
+	if city, ok := result["city"].(string); ok {
+		info.City = city
+	}
+	if region, ok := result["region"].(string); ok {
+		info.Region = region
+	}
+	if country, ok := result["country_name"].(string); ok {
+		info.Country = country
+	}
+	if countryCode, ok := result["country_code"].(string); ok {
+		info.CountryCode = countryCode
+	}
+	if org, ok := result["org"].(string); ok {
+		info.ISP = org
+	}
+	if asn, ok := result["asn"].(string); ok {
+		info.ASN = asn
+	}
+	if timezone, ok := result["timezone"].(string); ok {
+		info.Timezone = timezone
+	}
+	if lat, ok := result["latitude"].(float64); ok {
+		info.Latitude = lat
+	}
+	if lon, ok := result["longitude"].(float64); ok {
+		info.Longitude = lon
+	}
+
+	return info, nil
+}
