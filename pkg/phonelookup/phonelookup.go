@@ -1562,3 +1562,8 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	sb.WriteString("\nCarrier & CNAM Lookup:\n")
 	sb.WriteString("  - FreeCarrierLookup: https://freecarrierlookup.com/\n")
 	sb.WriteString("  - Carrier Lookup:    https://www.carrierlookup.com/\n")
+
+	sb.WriteString("\nSocial Media Search:\n")
+	sb.WriteString(fmt.Sprintf("  - Facebook:      https://www.facebook.com/search/people/?q=%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - Twitter:       https://twitter.com/search?q=%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - LinkedIn:      https://www.linkedin.com/search/results/people/?keywords=%s\n", cleanedForURL))
