@@ -176,3 +176,8 @@ func checkEmailReputation(email string, info *EmailInfo) {
 		info.References = int(references)
 	}
 }
+
+// checkHIBP checks Have I Been Pwned API for data breaches (without API key)
+func checkHIBP(email string) ([]string, error) {
+	return checkHIBPWithKey(email, "")
+}
