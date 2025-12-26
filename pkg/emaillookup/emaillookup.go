@@ -339,3 +339,33 @@ func checkFacebook(email, username string) (bool, string) {
 	// Return search URL for manual verification
 	return false, fmt.Sprintf("https://www.facebook.com/search/people/?q=%s", email)
 }
+
+// checkLinkedIn checks LinkedIn
+func checkLinkedIn(email, username string) (bool, string) {
+	// LinkedIn requires login for email-based search
+	// Return search URL for manual verification
+	return false, fmt.Sprintf("https://www.linkedin.com/search/results/people/?keywords=%s", email)
+}
+
+// checkInstagram checks Instagram
+func checkInstagram(email, username string) (bool, string) {
+	// Instagram doesn't allow email-based lookup
+	// Try username instead
+	url := fmt.Sprintf("https://www.instagram.com/%s/", username)
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return false, ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusOK {
+		return true, url
+	}
+
+	return false, ""
+}
