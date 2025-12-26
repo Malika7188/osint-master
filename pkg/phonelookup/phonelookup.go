@@ -268,3 +268,38 @@ func getCountryFromCodeFallback(callingCode string) string {
 		"256": "Uganda", "257": "Burundi", "258": "Mozambique", "260": "Zambia",
 		"261": "Madagascar", "262": "Reunion", "263": "Zimbabwe", "264": "Namibia",
 		"265": "Malawi", "266": "Lesotho", "267": "Botswana", "268": "Eswatini",
+		"269": "Comoros", "290": "Saint Helena", "291": "Eritrea", "297": "Aruba",
+		"298": "Faroe Islands", "299": "Greenland", "350": "Gibraltar", "351": "Portugal",
+		"352": "Luxembourg", "353": "Ireland", "354": "Iceland", "355": "Albania",
+		"356": "Malta", "357": "Cyprus", "358": "Finland", "359": "Bulgaria",
+		"370": "Lithuania", "371": "Latvia", "372": "Estonia", "373": "Moldova",
+		"374": "Armenia", "375": "Belarus", "376": "Andorra", "377": "Monaco",
+		"378": "San Marino", "380": "Ukraine", "381": "Serbia", "382": "Montenegro",
+		"383": "Kosovo", "385": "Croatia", "386": "Slovenia", "387": "Bosnia and Herzegovina",
+		"389": "North Macedonia", "420": "Czech Republic", "421": "Slovakia", "423": "Liechtenstein",
+		"500": "Falkland Islands", "501": "Belize", "502": "Guatemala", "503": "El Salvador",
+		"504": "Honduras", "505": "Nicaragua", "506": "Costa Rica", "507": "Panama",
+		"508": "Saint Pierre and Miquelon", "509": "Haiti", "590": "Guadeloupe", "591": "Bolivia",
+		"592": "Guyana", "593": "Ecuador", "594": "French Guiana", "595": "Paraguay",
+		"596": "Martinique", "597": "Suriname", "598": "Uruguay", "599": "Curacao",
+		"670": "East Timor", "672": "Antarctica", "673": "Brunei", "674": "Nauru",
+		"675": "Papua New Guinea", "676": "Tonga", "677": "Solomon Islands", "678": "Vanuatu",
+		"679": "Fiji", "680": "Palau", "681": "Wallis and Futuna", "682": "Cook Islands",
+		"683": "Niue", "685": "Samoa", "686": "Kiribati", "687": "New Caledonia",
+		"688": "Tuvalu", "689": "French Polynesia", "690": "Tokelau", "691": "Micronesia",
+		"692": "Marshall Islands", "850": "North Korea", "852": "Hong Kong", "853": "Macau",
+		"855": "Cambodia", "856": "Laos", "880": "Bangladesh", "886": "Taiwan",
+		"960": "Maldives", "961": "Lebanon", "962": "Jordan", "963": "Syria",
+		"964": "Iraq", "965": "Kuwait", "966": "Saudi Arabia", "967": "Yemen",
+		"968": "Oman", "970": "Palestine", "971": "United Arab Emirates", "972": "Israel",
+		"973": "Bahrain", "974": "Qatar", "975": "Bhutan", "976": "Mongolia",
+		"977": "Nepal", "992": "Tajikistan", "993": "Turkmenistan", "994": "Azerbaijan",
+		"995": "Georgia", "996": "Kyrgyzstan", "998": "Uzbekistan",
+	}
+
+	if country, exists := commonCodes[callingCode]; exists {
+		return country
+	}
+
+	return ""
+}
