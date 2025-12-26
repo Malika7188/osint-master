@@ -51,3 +51,12 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - MX Records: https://mxtoolbox.com/SuperTool.aspx?action=mx%%3A%s\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - DNS Records: https://dnschecker.org/all-dns-records-of-domain.php?query=%s\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - SPF/DMARC Check: https://mxtoolbox.com/dmarc.aspx\n"))
+
+	result.WriteString("\nCertificate Transparency:\n")
+	result.WriteString(fmt.Sprintf("  - crt.sh: https://crt.sh/?q=%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - Censys Certificates: https://search.censys.io/certificates?q=%s\n", cleanDomain))
+
+	result.WriteString("\nSubdomain Takeover Verification:\n")
+	result.WriteString("  - Subjack: Automated subdomain takeover detection\n")
+	result.WriteString("  - Can-I-Take-Over-XYZ: Community-maintained takeover list\n")
+	result.WriteString("  - SubOver: Fast subdomain takeover tool\n")
