@@ -1526,3 +1526,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("Signal:       ✗ %s\n", info.SignalStatus))
 	}
+
+	// Viber
+	if info.OnViber {
+		sb.WriteString(fmt.Sprintf("Viber:        ✓ Registered (%s)\n", info.ViberStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("Viber:        ✗ %s\n", info.ViberStatus))
+	}
