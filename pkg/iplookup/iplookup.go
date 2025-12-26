@@ -128,3 +128,66 @@ func lookupIPAPI(ip string) (*IPInfo, error) {
 
 	return info, nil
 }
+
+// lookupIPInfo queries ipinfo.io for IP information
+func lookupIPInfo(ip string) (*IPInfo, error) {
+	url := fmt.Sprintf("https://ipinfo.io/%s/json", ip)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("ipinfo.io returned status: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, err
+	}
+
+	info := &IPInfo{
+		IP: ip,
+	}
+
+	if city, ok := result["city"].(string); ok {
+		info.City = city
+	}
+	if region, ok := result["region"].(string); ok {
+		info.Region = region
+	}
+	if country, ok := result["country"].(string); ok {
+		info.CountryCode = country
+		// Convert country code to full name
+		info.Country = getCountryName(country)
+	}
+	if org, ok := result["org"].(string); ok {
+		info.ISP = org
+		// Extract ASN if present in org field (format: "AS15169 Google LLC")
+		if strings.Contains(org, "AS") {
+			parts := strings.Fields(org)
+			if len(parts) > 0 && strings.HasPrefix(parts[0], "AS") {
+				info.ASN = parts[0]
+			}
+		}
+	}
+	if timezone, ok := result["timezone"].(string); ok {
+		info.Timezone = timezone
+	}
+	if loc, ok := result["loc"].(string); ok {
+		// loc format: "latitude,longitude"
+		parts := strings.Split(loc, ",")
+		if len(parts) == 2 {
+			fmt.Sscanf(parts[0], "%f", &info.Latitude)
+			fmt.Sscanf(parts[1], "%f", &info.Longitude)
+		}
+	}
+
+	return info, nil
+}
