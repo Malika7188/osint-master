@@ -33,4 +33,7 @@ async function scrapeTrueCaller(phoneNumber) {
             const pageText = await page.evaluate(() => document.body.innerText);
 
             // Sometimes TrueCaller shows partial info even without login
-          
+            const namePatterns = [
+                /Name:\s*([^\n]+)/i,
+                /Owner:\s*([^\n]+)/i,
+           
