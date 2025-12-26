@@ -27,4 +27,7 @@ async function scrapeTrueCaller(phoneNumber) {
         // Get page content for debugging
         const content = await page.content();
 
-      
+        // Check if we need to login
+        if (content.includes('Log in') || content.includes('Sign in') || content.includes('login-button')) {
+            // TrueCaller requires login, try to extract any visible info
+           
