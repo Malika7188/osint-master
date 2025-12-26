@@ -57,4 +57,10 @@ async function scrapeTrueCaller(phoneNumber) {
             '[data-testid="profile-name"]',
             '.profile-name',
             'h1[class*="name"]',
-          
+            'div[class*="profile"] h1',
+            'span[class*="name"]',
+            'div.name',
+            'h1'
+        ];
+
+       
