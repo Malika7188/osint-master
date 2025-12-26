@@ -181,3 +181,49 @@ func checkEmailReputation(email string, info *EmailInfo) {
 func checkHIBP(email string) ([]string, error) {
 	return checkHIBPWithKey(email, "")
 }
+
+// checkHIBPWithKey checks Have I Been Pwned API with optional API key
+func checkHIBPWithKey(email, apiKey string) ([]string, error) {
+	// HIBP API v3 requires API key for email search
+	// For educational purposes, we'll use the public breach list
+	// In production, get API key from: https://haveibeenpwned.com/API/Key
+
+	url := fmt.Sprintf("https://haveibeenpwned.com/api/v3/breachedaccount/%s?truncateResponse=false", email)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Add required headers
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
+	// Add API key if provided
+	if apiKey != "" {
+		req.Header.Set("hibp-api-key", apiKey)
+		fmt.Println("Using HIBP API key for breach check...")
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	// 404 means no breaches found
+	if resp.StatusCode == http.StatusNotFound {
+		return []string{}, nil
+	}
+
+	// 401/403 means API key required or invalid
+	if resp.StatusCode == http.StatusUnauthorized || resp.StatusCode == http.StatusForbidden {
+		if apiKey == "" {
+			return []string{"API key required - Get yours at: https://haveibeenpwned.com/API/Key"}, nil
+		} else {
+			return []string{"API key invalid - Check your HIBP_API_KEY"}, nil
+		}
+	}
