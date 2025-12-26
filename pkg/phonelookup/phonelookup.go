@@ -1558,3 +1558,7 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	sb.WriteString(fmt.Sprintf("  - WhitePages:    https://www.whitepages.com/phone/%s\n", cleanedForURL))
 	sb.WriteString("  - Spy Dialer:    https://www.spydialer.com/\n")
 	sb.WriteString("  - NumLookup:     https://www.numlookup.com/\n")
+
+	sb.WriteString("\nCarrier & CNAM Lookup:\n")
+	sb.WriteString("  - FreeCarrierLookup: https://freecarrierlookup.com/\n")
+	sb.WriteString("  - Carrier Lookup:    https://www.carrierlookup.com/\n")
