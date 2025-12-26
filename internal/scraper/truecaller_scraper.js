@@ -41,4 +41,15 @@ async function scrapeTrueCaller(phoneNumber) {
 
             for (const pattern of namePatterns) {
                 const match = pageText.match(pattern);
-                
+                if (match && match[1]) {
+                    const name = match[1].trim();
+                    if (name.length > 2 && name.length < 100 && !name.includes('Unknown')) {
+                        console.log(JSON.stringify({ success: true, name: name, source: 'truecaller_partial' }));
+                        await browser.close();
+                        return;
+                    }
+                }
+            }
+        }
+
+      
