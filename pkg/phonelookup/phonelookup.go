@@ -1421,3 +1421,13 @@ func checkViber(phone string) (bool, string) {
 
 	return false, fmt.Sprintf("Manual check required (try opening: %s in Viber app)", url)
 }
+
+// checkWeChat checks if a phone number is registered on WeChat
+func checkWeChat(phone string) (bool, string) {
+	// WeChat doesn't provide a public API for phone number verification
+	// WeChat primarily uses WeChat IDs rather than phone numbers for contact
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// WeChat verification requires the app and potentially region-specific access
+	return false, fmt.Sprintf("Manual check required via WeChat app (primarily uses WeChat ID)")
+}
