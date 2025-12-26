@@ -14,4 +14,6 @@ async function scrapeTrueCaller(phoneNumber) {
             viewport: { width: 1280, height: 720 }
         });
 
-   
+        const page = await context.newPage();
+
+     
