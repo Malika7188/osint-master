@@ -190,3 +190,18 @@ func checkTakeoverRisk(subdomain string) (bool, string) {
 
 	return false, ""
 }
+
+// formatDomainInfo formats the domain information into a readable string
+func formatDomainInfo(info *DomainInfo) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("Main Domain: %s\n\n", info.MainDomain))
+	sb.WriteString(fmt.Sprintf("Subdomains found: %d\n", len(info.Subdomains)))
+
+	for _, sub := range info.Subdomains {
+		sb.WriteString(fmt.Sprintf("  - %s (IP: %s)\n", sub.Name, sub.IP))
+		sb.WriteString(fmt.Sprintf("    SSL Certificate: %s\n", sub.SSLCert))
+		if sub.IsTakeover {
+			sb.WriteString(fmt.Sprintf("    ⚠️  TAKEOVER RISK: %s\n", sub.TakeoverMsg))
+		}
+	}
