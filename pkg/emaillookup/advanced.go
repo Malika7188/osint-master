@@ -32,3 +32,11 @@ func AdvancedLookupEmail(email, hibpAPIKey string) (string, error) {
 
 	// Additional advanced checks
 	result.WriteString("Enhanced Social Media Discovery:\n")
+
+	// Check more platforms in advanced mode
+	username := strings.Split(email, "@")[0]
+	domain := extractDomain(email)
+
+	result.WriteString(fmt.Sprintf("  Username pattern: %s\n", username))
+	result.WriteString(fmt.Sprintf("  Domain: %s\n", domain))
+	result.WriteString("  Checking extended platforms...\n\n")
