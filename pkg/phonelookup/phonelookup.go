@@ -1473,3 +1473,13 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	if info.Region != "" {
 		sb.WriteString(fmt.Sprintf("Region:       %s\n", info.Region))
 	}
+
+	// Carrier information
+	sb.WriteString("\nCarrier Information:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+	if info.Carrier != "" {
+		sb.WriteString(fmt.Sprintf("Carrier:      %s\n", info.Carrier))
+	}
+	if info.LineType != "" {
+		sb.WriteString(fmt.Sprintf("Line Type:    %s\n", info.LineType))
+	}
