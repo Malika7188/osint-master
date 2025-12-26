@@ -18,3 +18,9 @@ type Subdomain struct {
 	IsTakeover  bool
 	TakeoverMsg string
 }
+
+// DomainInfo holds all information about a domain
+type DomainInfo struct {
+	MainDomain string
+	Subdomains []Subdomain
+}
