@@ -50,3 +50,8 @@ func AdvancedLookupEmail(email, hibpAPIKey string) (string, error) {
 		{"Medium", fmt.Sprintf("https://medium.com/@%s", username)},
 		{"Dev.to", fmt.Sprintf("https://dev.to/%s", username)},
 		{"Behance", fmt.Sprintf("https://www.behance.net/%s", username)},
+		{"Dribbble", fmt.Sprintf("https://dribbble.com/%s", username)},
+		{"Pinterest", fmt.Sprintf("https://www.pinterest.com/%s", username)},
+		{"TikTok", fmt.Sprintf("https://www.tiktok.com/@%s", username)},
+		{"Twitch", fmt.Sprintf("https://www.twitch.tv/%s", username)},
+	}
