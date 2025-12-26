@@ -369,3 +369,32 @@ func checkInstagram(email, username string) (bool, string) {
 
 	return false, ""
 }
+
+// formatSocialAccounts formats social media account results
+func formatSocialAccounts(accounts []SocialAccount) string {
+	var sb strings.Builder
+
+	sb.WriteString("Social Media Account Detection:\n")
+	sb.WriteString("================================\n\n")
+
+	foundCount := 0
+	for _, account := range accounts {
+		if account.Found {
+			foundCount++
+			sb.WriteString(fmt.Sprintf("✓ %s: FOUND\n", account.Platform))
+			sb.WriteString(fmt.Sprintf("  URL: %s\n", account.URL))
+		} else {
+			sb.WriteString(fmt.Sprintf("✗ %s: Not found (or requires login to verify)\n", account.Platform))
+			if account.URL != "" {
+				sb.WriteString(fmt.Sprintf("  Search: %s\n", account.URL))
+			}
+		}
+		sb.WriteString("\n")
+	}
+
+	sb.WriteString(fmt.Sprintf("Summary: %d accounts found automatically\n", foundCount))
+	sb.WriteString("\nNote: Some platforms require login to search by email.\n")
+	sb.WriteString("      Links provided for manual verification where needed.\n")
+
+	return sb.String()
+}
