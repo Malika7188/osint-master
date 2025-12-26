@@ -1431,3 +1431,15 @@ func checkWeChat(phone string) (bool, string) {
 	// WeChat verification requires the app and potentially region-specific access
 	return false, fmt.Sprintf("Manual check required via WeChat app (primarily uses WeChat ID)")
 }
+
+// checkLine checks if a phone number is registered on LINE
+func checkLine(phone string) (bool, string) {
+	// LINE doesn't provide a public API for phone number verification
+	// LINE is popular in Asia (Japan, Thailand, Taiwan) and uses phone numbers for registration
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// LINE verification requires the app
+	url := fmt.Sprintf("line://ti/p/~%s", cleanedPhone)
+
+	return false, fmt.Sprintf("Manual check required (try: %s or search in LINE app)", url)
+}
