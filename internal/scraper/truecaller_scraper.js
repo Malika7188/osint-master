@@ -16,4 +16,7 @@ async function scrapeTrueCaller(phoneNumber) {
 
         const page = await context.newPage();
 
+        // Try Kenya-specific URL first
+        const url = `https://www.truecaller.com/search/ke/${phoneNumber}`;
+
      
