@@ -40,3 +40,13 @@ func AdvancedLookupEmail(email, hibpAPIKey string) (string, error) {
 	result.WriteString(fmt.Sprintf("  Username pattern: %s\n", username))
 	result.WriteString(fmt.Sprintf("  Domain: %s\n", domain))
 	result.WriteString("  Checking extended platforms...\n\n")
+
+	// Additional platforms to check in advanced mode
+	advancedPlatforms := []struct {
+		name string
+		url  string
+	}{
+		{"Reddit", fmt.Sprintf("https://www.reddit.com/user/%s", username)},
+		{"Medium", fmt.Sprintf("https://medium.com/@%s", username)},
+		{"Dev.to", fmt.Sprintf("https://dev.to/%s", username)},
+		{"Behance", fmt.Sprintf("https://www.behance.net/%s", username)},
