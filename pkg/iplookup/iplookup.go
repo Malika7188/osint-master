@@ -425,3 +425,5 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString(fmt.Sprintf("VirusTotal:   https://www.virustotal.com/gui/ip-address/%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("Shodan:       https://www.shodan.io/host/%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("Censys:       https://search.censys.io/hosts/%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("Talos Intel:  https://www.talosintelligence.com/reputation_center/lookup?search=%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("GreyNoise:    https://viz.greynoise.io/ip/%s\n", info.IP))
