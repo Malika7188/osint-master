@@ -1397,3 +1397,15 @@ func checkTelegram(phone string) (bool, string) {
 
 	return false, fmt.Sprintf("Manual check required (try: %s or search in Telegram app)", url)
 }
+
+// checkSignal checks if a phone number is registered on Signal
+func checkSignal(phone string) (bool, string) {
+	// Signal is privacy-focused and doesn't provide public APIs for registration checks
+	// The only way to verify is through the Signal app itself
+	cleanedPhone := strings.ReplaceAll(phone, "+", "")
+
+	// Signal requires the app to check registration
+	// We can only provide guidance for manual verification
+
+	return false, fmt.Sprintf("Check manually via Signal app (Signal prioritizes privacy)")
+}
