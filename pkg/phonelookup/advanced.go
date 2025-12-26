@@ -105,3 +105,11 @@ func AdvancedLookupPhoneWithConfig(phone string, cfg *config.Config) (string, er
 	result.WriteString("\nCarrier & CNAM Lookup:\n")
 	(fmt.Println("  - FreeCarrierLookup: https://freecarrierlookup.com/"))
 	(fmt.Println("  - Carrier Lookup: https://www.carrierlookup.com/"))
+
+	elapsed := time.Since(startTime)
+	result.WriteString("\n" + strings.Repeat("=", 70) + "\n")
+	result.WriteString(fmt.Sprintf("⏱️  Advanced search completed in %.2f seconds\n", elapsed.Seconds()))
+	result.WriteString("Note: Advanced mode provides automated platform detection and extended verification\n")
+
+	return result.String(), nil
+}
