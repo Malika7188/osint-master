@@ -48,3 +48,9 @@ func LookupEmailWithConfig(email, hibpAPIKey string) (string, error) {
 
 	// Check if disposable email
 	info.IsDisposable = isDisposableEmail(info.Domain)
+
+	// Check Gravatar
+	info.GravatarExists, info.GravatarURL = checkGravatar(email)
+
+	// Check email reputation (FREE - no API key needed)
+	checkEmailReputation(email, info)
