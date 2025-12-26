@@ -46,3 +46,8 @@ func AdvancedLookupIP(ip string) (string, error) {
 	result.WriteString("  ⚠️  Only scan IPs you own or have permission to scan\n")
 	result.WriteString(fmt.Sprintf("  - Shodan Scan: https://www.shodan.io/host/%s\n", ip))
 	result.WriteString(fmt.Sprintf("  - Censys Scan: https://search.censys.io/hosts/%s\n", ip))
+
+	result.WriteString("\nThreat Intelligence:\n")
+	result.WriteString(fmt.Sprintf("  - Talos Intelligence: https://www.talosintelligence.com/reputation_center/lookup?search=%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - AlienVault OTX: https://otx.alienvault.com/indicator/ip/%s\n", ip))
+	result.WriteString(fmt.Sprintf("  - GreyNoise: https://viz.greynoise.io/ip/%s\n", ip))
