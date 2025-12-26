@@ -376,3 +376,26 @@ func formatIPInfo(info *IPInfo) string {
 
 	sb.WriteString("Location Information:\n")
 	sb.WriteString(strings.Repeat("-", 50) + "\n")
+
+	if info.City != "" {
+		sb.WriteString(fmt.Sprintf("City:         %s\n", info.City))
+	}
+	if info.Region != "" {
+		sb.WriteString(fmt.Sprintf("Region:       %s\n", info.Region))
+	}
+	if info.Country != "" {
+		sb.WriteString(fmt.Sprintf("Country:      %s", info.Country))
+		if info.CountryCode != "" {
+			sb.WriteString(fmt.Sprintf(" (%s)", info.CountryCode))
+		}
+		sb.WriteString("\n")
+	} else if info.CountryCode != "" {
+		sb.WriteString(fmt.Sprintf("Country:      %s\n", info.CountryCode))
+	}
+	if info.Timezone != "" {
+		sb.WriteString(fmt.Sprintf("Timezone:     %s\n", info.Timezone))
+	}
+	if info.Latitude != 0 || info.Longitude != 0 {
+		sb.WriteString(fmt.Sprintf("Coordinates:  %.6f, %.6f\n", info.Latitude, info.Longitude))
+		sb.WriteString(fmt.Sprintf("Map:          https://www.google.com/maps?q=%.6f,%.6f\n", info.Latitude, info.Longitude))
+	}
