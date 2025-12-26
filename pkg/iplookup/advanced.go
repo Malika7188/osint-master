@@ -21,3 +21,6 @@ func AdvancedLookupIP(ip string) (string, error) {
 	}
 
 	result.WriteString(standardResult)
+	result.WriteString("\n" + strings.Repeat("-", 70) + "\n")
+	result.WriteString("ADVANCED CHECKS:\n")
+	result.WriteString(strings.Repeat("-", 70) + "\n\n")
