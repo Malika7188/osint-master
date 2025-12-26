@@ -435,3 +435,22 @@ func formatEmailInfo(info *EmailInfo) string {
 	} else {
 		sb.WriteString("  Found: No\n")
 	}
+
+	sb.WriteString("\nData Breach Check (Have I Been Pwned):\n")
+	if info.BreachCount == 0 {
+		sb.WriteString("  Status: No breaches found (or API key required)\n")
+		sb.WriteString(fmt.Sprintf("  🔗 Check directly: https://haveibeenpwned.com/account/%s\n", info.Email))
+		sb.WriteString("  Note: Visit the link above to see detailed breach information\n")
+	} else {
+		sb.WriteString(fmt.Sprintf("  Breaches Found: %d\n", info.BreachCount))
+		sb.WriteString("  Breach Names:\n")
+		for _, breach := range info.Breaches {
+			sb.WriteString(fmt.Sprintf("    - %s\n", breach))
+		}
+		sb.WriteString("\n⚠️  WARNING: This email has been found in data breaches!\n")
+		sb.WriteString("  Recommendation: Change passwords immediately\n")
+		sb.WriteString(fmt.Sprintf("  🔗 View details: https://haveibeenpwned.com/account/%s\n", info.Email))
+	}
+
+	return sb.String()
+}
