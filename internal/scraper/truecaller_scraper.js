@@ -52,4 +52,9 @@ async function scrapeTrueCaller(phoneNumber) {
             }
         }
 
-      
+        // Try to extract the name from various selectors
+        const selectors = [
+            '[data-testid="profile-name"]',
+            '.profile-name',
+            'h1[class*="name"]',
+          
