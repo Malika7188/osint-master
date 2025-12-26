@@ -430,3 +430,197 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// lookupPhoneAlternative tries alternative free phone APIs
+func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try numverify free tier (limited requests per month)
+	// Note: This requires an API key, but we'll try the demo endpoint
+	url := fmt.Sprintf("https://phonevalidation.abstractapi.com/v1/?api_key=test&phone=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("alternative API returned status: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok {
+		info.IsValid = valid
+	}
+
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if lineType, ok := result["type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	if country, ok := result["country"].(map[string]interface{}); ok {
+		if countryName, ok := country["name"].(string); ok && countryName != "" {
+			info.Country = countryName
+		}
+		if countryCode, ok := country["code"].(string); ok && countryCode != "" {
+			info.CountryCode = "+" + countryCode
+		}
+	}
+
+	if location, ok := result["location"].(string); ok && location != "" {
+		info.Region = location
+	}
+
+	return nil
+}
+
+// lookupHLR uses HLR (Home Location Register) lookup from multiple sources
+func lookupHLR(phone string, info *PhoneInfo) error {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try multiple HLR/carrier lookup APIs
+
+	// 1. Try mccmnc.com API (free carrier database)
+	if err := lookupMCCMNCOnline(phoneClean, info); err == nil && info.Carrier != "" {
+		return nil
+	}
+
+	// 2. Try hlr-lookups.com
+	url := fmt.Sprintf("https://hlr-lookups.com/api/free/%s", phoneClean)
+	if err := makeHLRRequest(url, info); err == nil && info.Carrier != "" {
+		return nil
+	}
+
+	// 3. Try freecarrierlookup.com API
+	url = fmt.Sprintf("https://www.freecarrierlookup.com/api/%s", phoneClean)
+	if err := makeCarrierRequest(url, info); err == nil && info.Carrier != "" {
+		return nil
+	}
+
+	return fmt.Errorf("no HLR data available")
+}
+
+// lookupMCCMNCOnline fetches carrier info from online MCC-MNC database
+func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
+	// Use mcc-mnc.com API for carrier lookup
+	url := fmt.Sprintf("https://mcc-mnc.net/api/?phone=%s", phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("MCC-MNC API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if network, ok := result["network"].(string); ok && network != "" && info.Carrier == "" {
+		info.Carrier = network
+	}
+
+	if operator, ok := result["operator"].(string); ok && operator != "" && info.Carrier == "" {
+		info.Carrier = operator
+	}
+
+	if lineType, ok := result["type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	return nil
+}
+
+// makeHLRRequest makes a generic HLR lookup request
+func makeHLRRequest(url string, info *PhoneInfo) error {
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("HLR API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Try common field names for carrier
+	carrierFields := []string{"carrier", "operator", "network", "provider", "mno"}
+	for _, field := range carrierFields {
+		if carrier, ok := result[field].(string); ok && carrier != "" {
+			info.Carrier = carrier
+			break
+		}
+	}
+
+	// Try common field names for line type
+	typeFields := []string{"type", "line_type", "connection_type", "phone_type"}
+	for _, field := range typeFields {
+		if lineType, ok := result[field].(string); ok && lineType != "" {
+			info.LineType = lineType
+			break
+		}
+	}
+
+	return nil
+}
+
+// makeCarrierRequest makes a carrier lookup request
+func makeCarrierRequest(url string, info *PhoneInfo) error {
+	return makeHLRRequest(url, info) // Same logic
+}
