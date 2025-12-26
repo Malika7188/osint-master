@@ -36,3 +36,8 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	result.WriteString("  - Subfinder: Fast passive subdomain enumeration\n")
 	result.WriteString(fmt.Sprintf("  - SecurityTrails: https://securitytrails.com/domain/%s/dns\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - DNSDumpster: https://dnsdumpster.com/\n"))
+
+	result.WriteString("\nDomain Intelligence:\n")
+	result.WriteString(fmt.Sprintf("  - WHOIS: https://who.is/whois/%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - Domain History: https://whoisrequest.com/history/%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - Wayback Machine: https://web.archive.org/web/*/%s\n", cleanDomain))
