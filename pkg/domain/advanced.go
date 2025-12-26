@@ -41,3 +41,8 @@ func AdvancedEnumerateDomain(domain string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - WHOIS: https://who.is/whois/%s\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - Domain History: https://whoisrequest.com/history/%s\n", cleanDomain))
 	result.WriteString(fmt.Sprintf("  - Wayback Machine: https://web.archive.org/web/*/%s\n", cleanDomain))
+
+	result.WriteString("\nSecurity & Reputation:\n")
+	result.WriteString(fmt.Sprintf("  - VirusTotal: https://www.virustotal.com/gui/domain/%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - URLVoid: https://www.urlvoid.com/scan/%s\n", cleanDomain))
+	result.WriteString(fmt.Sprintf("  - Google Safe Browsing: Check at transparencyreport.google.com\n"))
