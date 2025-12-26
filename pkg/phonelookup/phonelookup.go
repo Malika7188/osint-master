@@ -1505,3 +1505,10 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	// Messaging platforms
 	sb.WriteString("\nMessaging Platforms:\n")
 	sb.WriteString(strings.Repeat("-", 70) + "\n")
+
+	// WhatsApp
+	if info.OnWhatsApp {
+		sb.WriteString(fmt.Sprintf("WhatsApp:     ✓ Registered (%s)\n", info.WhatsAppStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("WhatsApp:     ✗ %s\n", info.WhatsAppStatus))
+	}
