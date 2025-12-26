@@ -90,4 +90,9 @@ async function scrapeTrueCaller(phoneNumber) {
             }
         }
 
-      
+        // Take screenshot for debugging (save to tmp)
+        await page.screenshot({ path: '/tmp/truecaller_debug.png' });
+
+        console.log(JSON.stringify({ success: false, error: 'Name not found - TrueCaller may require login', debug: 'Screenshot saved to /tmp/truecaller_debug.png' }));
+
+ 
