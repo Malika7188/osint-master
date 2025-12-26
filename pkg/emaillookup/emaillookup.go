@@ -96,3 +96,11 @@ func isDisposableEmail(domain string) bool {
 		"mailinator.com", "throwaway.email", "temp-mail.org",
 		"yopmail.com", "maildrop.cc", "trashmail.com",
 	}
+
+	for _, disposable := range disposableDomains {
+		if strings.Contains(domain, disposable) {
+			return true
+		}
+	}
+	return false
+}
