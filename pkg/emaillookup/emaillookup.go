@@ -71,3 +71,10 @@ func LookupEmailWithConfig(email, hibpAPIKey string) (string, error) {
 	result += "\n" + formatSocialAccounts(socialAccounts)
 	return result, nil
 }
+
+// isValidEmail validates email format using regex
+func isValidEmail(email string) bool {
+	// RFC 5322 compliant email regex (simplified)
+	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$`)
+	return emailRegex.MatchString(email)
+}
