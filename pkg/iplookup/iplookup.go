@@ -416,3 +416,5 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString(fmt.Sprintf("IPInfo:       https://ipinfo.io/%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("WhoIs:        https://who.is/whois-ip/ip-address/%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("ViewDNS:      https://viewdns.info/iphistory/?domain=%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("DNSChecker:   https://dnschecker.org/ip-location.php?ip=%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("IPVoid:       https://www.ipvoid.com/ip-blacklist-check/\n"))
