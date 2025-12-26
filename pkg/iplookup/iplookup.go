@@ -427,3 +427,9 @@ func formatIPInfo(info *IPInfo) string {
 	sb.WriteString(fmt.Sprintf("Censys:       https://search.censys.io/hosts/%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("Talos Intel:  https://www.talosintelligence.com/reputation_center/lookup?search=%s\n", info.IP))
 	sb.WriteString(fmt.Sprintf("GreyNoise:    https://viz.greynoise.io/ip/%s\n", info.IP))
+
+	sb.WriteString("\nWHOIS & Network Details:\n")
+	sb.WriteString(strings.Repeat("-", 50) + "\n")
+	sb.WriteString(fmt.Sprintf("ARIN WHOIS:   https://search.arin.net/rdap/?query=%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("RIPE:         https://apps.db.ripe.net/db-web-ui/query?searchtext=%s\n", info.IP))
+	sb.WriteString(fmt.Sprintf("APNIC:        https://wq.apnic.net/query?searchtext=%s\n", info.IP))
