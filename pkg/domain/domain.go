@@ -205,3 +205,24 @@ func formatDomainInfo(info *DomainInfo) string {
 			sb.WriteString(fmt.Sprintf("    ⚠️  TAKEOVER RISK: %s\n", sub.TakeoverMsg))
 		}
 	}
+
+	// List takeover risks separately
+	hasRisks := false
+	for _, sub := range info.Subdomains {
+		if sub.IsTakeover {
+			if !hasRisks {
+				sb.WriteString("\n⚠️  Potential Subdomain Takeover Risks:\n")
+				hasRisks = true
+			}
+			sb.WriteString(fmt.Sprintf("  - Subdomain: %s\n", sub.Name))
+			sb.WriteString(fmt.Sprintf("    %s\n", sub.TakeoverMsg))
+			sb.WriteString("    Recommended Action: Verify ownership or remove DNS record\n\n")
+		}
+	}
+
+	if !hasRisks {
+		sb.WriteString("\nNo obvious subdomain takeover risks detected.\n")
+	}
+
+	return sb.String()
+}
