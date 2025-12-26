@@ -30,4 +30,7 @@ async function scrapeTrueCaller(phoneNumber) {
         // Check if we need to login
         if (content.includes('Log in') || content.includes('Sign in') || content.includes('login-button')) {
             // TrueCaller requires login, try to extract any visible info
-           
+            const pageText = await page.evaluate(() => document.body.innerText);
+
+            // Sometimes TrueCaller shows partial info even without login
+          
