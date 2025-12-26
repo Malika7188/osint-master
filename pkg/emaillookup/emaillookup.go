@@ -36,3 +36,12 @@ func LookupEmailWithConfig(email, hibpAPIKey string) (string, error) {
 	if !isValidEmail(email) {
 		return "", fmt.Errorf("invalid email format: %s", email)
 	}
+
+	email = strings.ToLower(strings.TrimSpace(email))
+
+	info := &EmailInfo{
+		Email:    email,
+		IsValid:  true,
+		Domain:   extractDomain(email),
+		Breaches: make([]string, 0),
+	}
