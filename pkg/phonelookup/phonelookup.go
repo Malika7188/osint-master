@@ -1743,3 +1743,11 @@ const (
 	MinPhoneLength = 10
 	MaxPhoneLength = 15
 )
+
+// Error messages
+const (
+	ErrInvalidFormat  = "invalid phone number format"
+	ErrTooShort       = "phone number too short"
+	ErrTooLong        = "phone number too long"
+	ErrNoCountryCode  = "missing country code"
+)
