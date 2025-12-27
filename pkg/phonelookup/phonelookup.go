@@ -1649,3 +1649,15 @@ func getPhoneType(lineType string) string {
 		return "Unknown"
 	}
 }
+
+// extractAreaCode extracts area code from a phone number
+func extractAreaCode(phone string) string {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Remove + and country code
+	if strings.HasPrefix(cleaned, "+1") {
+		cleaned = strings.TrimPrefix(cleaned, "+1")
+	} else if strings.HasPrefix(cleaned, "+") {
+		// For other countries, logic would be different
+		cleaned = strings.TrimPrefix(cleaned, "+")
+	}
