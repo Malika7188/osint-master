@@ -1835,3 +1835,17 @@ func isLandlineNumber(lineType string) bool {
 
 	return false
 }
+
+// isVoIPNumber checks if a phone number is likely a VoIP number
+func isVoIPNumber(lineType string) bool {
+	lineType = strings.ToLower(lineType)
+	voipKeywords := []string{"voip", "voice over ip", "internet"}
+
+	for _, keyword := range voipKeywords {
+		if strings.Contains(lineType, keyword) {
+			return true
+		}
+	}
+
+	return false
+}
