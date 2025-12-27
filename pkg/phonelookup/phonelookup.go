@@ -1786,3 +1786,12 @@ func sanitizePhoneInput(phone string) string {
 	}
 	return result.String()
 }
+
+// Usage examples and best practices:
+//
+// Example 1: Basic lookup
+//   result, err := LookupPhone("+14155552671")
+//   if err != nil {
+//       log.Fatal(err)
+//   }
+//   fmt.Println(result)
