@@ -1585,3 +1585,13 @@ func formatPhoneInfo(info *PhoneInfo) string {
 
 	return sb.String()
 }
+
+// isValidPhoneNumber performs basic phone number validation
+func isValidPhoneNumber(phone string) bool {
+	// Remove common separators
+	cleaned := strings.Map(func(r rune) rune {
+		if r >= '0' && r <= '9' || r == '+' {
+			return r
+		}
+		return -1
+	}, phone)
