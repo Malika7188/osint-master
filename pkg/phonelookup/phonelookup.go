@@ -1807,3 +1807,17 @@ func sanitizePhoneInput(phone string) string {
 // - Validate phone numbers before lookup
 // - Handle API rate limits appropriately
 // - Cache results when possible
+
+// isMobileNumber checks if a phone number is likely a mobile number
+func isMobileNumber(lineType string) bool {
+	lineType = strings.ToLower(lineType)
+	mobileKeywords := []string{"mobile", "cellular", "cell", "wireless"}
+
+	for _, keyword := range mobileKeywords {
+		if strings.Contains(lineType, keyword) {
+			return true
+		}
+	}
+
+	return false
+}
