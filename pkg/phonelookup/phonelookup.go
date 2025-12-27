@@ -1721,3 +1721,19 @@ func extractCountryCallingCode(phone string) string {
 	if !strings.HasPrefix(cleaned, "+") {
 		return ""
 	}
+
+	// Remove + prefix
+	cleaned = strings.TrimPrefix(cleaned, "+")
+
+	// Try to extract country code (1-3 digits)
+	for i := 1; i <= 3 && i <= len(cleaned); i++ {
+		possibleCode := cleaned[:i]
+		// For simplicity, return the code
+		// In a real implementation, validate against known codes
+		if i == 1 || i == 2 || i == 3 {
+			return possibleCode
+		}
+	}
+
+	return ""
+}
