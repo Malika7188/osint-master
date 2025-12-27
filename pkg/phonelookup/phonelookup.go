@@ -1915,3 +1915,5 @@ func isVoIPNumber(lineType string) bool {
 // - If lookups fail, check your internet connection
 // - Verify API keys are correctly configured in environment variables
 // - Check API rate limits if getting 429 errors
+// - Ensure phone numbers are in valid E.164 format
+// - Review error messages for specific API failures
