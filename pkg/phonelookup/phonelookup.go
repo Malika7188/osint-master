@@ -1866,3 +1866,8 @@ func isVoIPNumber(lineType string) bool {
 // - Viber (viber:// protocol check)
 // - WeChat (manual verification required)
 // - LINE (line:// protocol check)
+//
+// Rate Limiting Considerations:
+// Different APIs have different rate limits:
+// - Veriphone.io: 45 requests/minute (free tier)
+// - Numverify: Varies by subscription plan
