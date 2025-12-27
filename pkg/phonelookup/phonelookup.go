@@ -1894,3 +1894,5 @@ func isVoIPNumber(lineType string) bool {
 // - All API failures are logged but don't stop the lookup process
 // - Fallback APIs are tried when primary APIs fail
 // - User-friendly error messages are returned
+// - HTTP errors, timeouts, and parsing errors are handled gracefully
+// - Invalid phone numbers return clear validation errors
