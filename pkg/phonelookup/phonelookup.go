@@ -1613,3 +1613,8 @@ func isValidPhoneNumber(phone string) bool {
 
 	return true
 }
+
+// normalizePhoneNumber normalizes a phone number to E.164 format
+func normalizePhoneNumber(phone, defaultCountryCode string) string {
+	// Clean the phone number
+	cleaned := cleanPhoneNumber(phone)
