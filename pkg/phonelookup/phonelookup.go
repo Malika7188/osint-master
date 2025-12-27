@@ -1901,3 +1901,5 @@ func isVoIPNumber(lineType string) bool {
 // - This tool is for educational and authorized research purposes only
 // - Always obtain proper authorization before looking up phone numbers
 // - Comply with local laws and regulations (GDPR, CCPA, etc.)
+// - Do not use for harassment, stalking, or unauthorized surveillance
+// - Respect individual privacy rights and data protection laws
