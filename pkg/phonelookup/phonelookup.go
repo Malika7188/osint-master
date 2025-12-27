@@ -1712,3 +1712,12 @@ func isTollFree(phone string) bool {
 
 	return false
 }
+
+// extractCountryCallingCode extracts the country calling code from a phone number
+func extractCountryCallingCode(phone string) string {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Must start with +
+	if !strings.HasPrefix(cleaned, "+") {
+		return ""
+	}
