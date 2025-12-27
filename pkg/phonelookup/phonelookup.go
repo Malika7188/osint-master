@@ -1595,3 +1595,13 @@ func isValidPhoneNumber(phone string) bool {
 		}
 		return -1
 	}, phone)
+
+	// Check minimum length (international numbers)
+	if len(cleaned) < 10 {
+		return false
+	}
+
+	// Check maximum length
+	if len(cleaned) > 15 {
+		return false
+	}
