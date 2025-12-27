@@ -1801,3 +1801,9 @@ func sanitizePhoneInput(phone string) string {
 //       NumverifyAPIKey: "your-api-key",
 //   }
 //   result, err := AdvancedLookupPhoneWithConfig("+14155552671", cfg)
+//
+// Best Practices:
+// - Always use E.164 format (+country code + number)
+// - Validate phone numbers before lookup
+// - Handle API rate limits appropriately
+// - Cache results when possible
