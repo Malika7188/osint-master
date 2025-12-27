@@ -1632,3 +1632,20 @@ func normalizePhoneNumber(phone, defaultCountryCode string) string {
 	// Default to + prefix
 	return "+" + cleaned
 }
+
+// getPhoneType determines the type of phone number (mobile, landline, etc.)
+func getPhoneType(lineType string) string {
+	lineType = strings.ToLower(lineType)
+	switch {
+	case strings.Contains(lineType, "mobile"):
+		return "Mobile"
+	case strings.Contains(lineType, "landline"):
+		return "Landline"
+	case strings.Contains(lineType, "voip"):
+		return "VoIP"
+	case strings.Contains(lineType, "toll"):
+		return "Toll-Free"
+	default:
+		return "Unknown"
+	}
+}
