@@ -1690,3 +1690,15 @@ func formatForDisplay(phone string) string {
 	// Default: return cleaned
 	return cleaned
 }
+
+// isTollFree checks if a phone number is toll-free
+func isTollFree(phone string) bool {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Remove +1 prefix for US/Canada
+	if strings.HasPrefix(cleaned, "+1") {
+		cleaned = strings.TrimPrefix(cleaned, "+1")
+	}
+
+	// Toll-free area codes in North America
+	tollFreeAreaCodes := []string{"800", "888", "877", "866", "855", "844", "833"}
