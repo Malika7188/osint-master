@@ -1737,3 +1737,9 @@ func extractCountryCallingCode(phone string) string {
 
 	return ""
 }
+
+// Constants for phone validation
+const (
+	MinPhoneLength = 10
+	MaxPhoneLength = 15
+)
