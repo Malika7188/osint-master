@@ -1874,3 +1874,8 @@ func isVoIPNumber(lineType string) bool {
 // - Abstract API: Depends on plan
 // - IPQualityScore: Depends on plan
 // Implement appropriate retry logic and backoff strategies
+//
+// Security Considerations:
+// - Never log or store API keys in code
+// - Use environment variables for sensitive configuration
+// - Validate all phone number inputs before processing
