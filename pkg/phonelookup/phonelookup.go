@@ -1882,3 +1882,8 @@ func isVoIPNumber(lineType string) bool {
 // - Implement proper error handling to avoid information leakage
 // - Use HTTPS for all API calls
 // - Consider privacy implications when using OSINT tools
+//
+// Performance Optimizations:
+// - Results are fetched sequentially from multiple APIs
+// - Free APIs are tried first before paid services
+// - Implement caching to reduce redundant API calls
