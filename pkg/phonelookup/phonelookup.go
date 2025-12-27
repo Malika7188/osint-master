@@ -1924,3 +1924,7 @@ func isVoIPNumber(lineType string) bool {
 // - Add more messaging platform detection methods
 // - Support for more international carrier databases
 // - Integration with additional OSINT data sources
+//
+// Package Version: 1.0.0
+// Last Updated: 2025
+// For more information, see the project README
