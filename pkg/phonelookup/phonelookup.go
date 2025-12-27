@@ -1903,3 +1903,8 @@ func isVoIPNumber(lineType string) bool {
 // - Comply with local laws and regulations (GDPR, CCPA, etc.)
 // - Do not use for harassment, stalking, or unauthorized surveillance
 // - Respect individual privacy rights and data protection laws
+//
+// Known Limitations:
+// - Accuracy depends on third-party API data quality
+// - Some APIs may not have coverage for all countries
+// - Messaging platform detection may require manual verification
