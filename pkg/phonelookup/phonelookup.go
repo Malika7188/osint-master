@@ -1577,3 +1577,11 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	sb.WriteString("  - Australia:       https://www.whitepages.com.au/\n")
 	sb.WriteString("  - UK:              https://www.192.com/\n")
 	sb.WriteString("  - Canada:          https://www.canada411.ca/\n")
+
+	// Footer note
+	sb.WriteString("\n" + strings.Repeat("=", 70) + "\n")
+	sb.WriteString("Note: Use 'Advanced Mode' for automated platform checks and\n")
+	sb.WriteString("      additional verification resources.\n")
+
+	return sb.String()
+}
