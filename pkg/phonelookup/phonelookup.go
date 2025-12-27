@@ -1862,3 +1862,7 @@ func isVoIPNumber(lineType string) bool {
 // The package can detect if a phone number is registered on:
 // - WhatsApp (wa.me link validation)
 // - Telegram (t.me link check)
+// - Signal (privacy-focused, manual check required)
+// - Viber (viber:// protocol check)
+// - WeChat (manual verification required)
+// - LINE (line:// protocol check)
