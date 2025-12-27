@@ -1821,3 +1821,17 @@ func isMobileNumber(lineType string) bool {
 
 	return false
 }
+
+// isLandlineNumber checks if a phone number is likely a landline
+func isLandlineNumber(lineType string) bool {
+	lineType = strings.ToLower(lineType)
+	landlineKeywords := []string{"landline", "fixed", "fixedline"}
+
+	for _, keyword := range landlineKeywords {
+		if strings.Contains(lineType, keyword) {
+			return true
+		}
+	}
+
+	return false
+}
