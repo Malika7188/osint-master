@@ -1795,3 +1795,9 @@ func sanitizePhoneInput(phone string) string {
 //       log.Fatal(err)
 //   }
 //   fmt.Println(result)
+//
+// Example 2: Advanced lookup with config
+//   cfg := &config.Config{
+//       NumverifyAPIKey: "your-api-key",
+//   }
+//   result, err := AdvancedLookupPhoneWithConfig("+14155552671", cfg)
