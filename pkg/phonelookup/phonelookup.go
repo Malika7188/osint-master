@@ -1896,3 +1896,8 @@ func isVoIPNumber(lineType string) bool {
 // - User-friendly error messages are returned
 // - HTTP errors, timeouts, and parsing errors are handled gracefully
 // - Invalid phone numbers return clear validation errors
+//
+// Data Privacy:
+// - This tool is for educational and authorized research purposes only
+// - Always obtain proper authorization before looking up phone numbers
+// - Comply with local laws and regulations (GDPR, CCPA, etc.)
