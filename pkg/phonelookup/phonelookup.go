@@ -1879,3 +1879,6 @@ func isVoIPNumber(lineType string) bool {
 // - Never log or store API keys in code
 // - Use environment variables for sensitive configuration
 // - Validate all phone number inputs before processing
+// - Implement proper error handling to avoid information leakage
+// - Use HTTPS for all API calls
+// - Consider privacy implications when using OSINT tools
