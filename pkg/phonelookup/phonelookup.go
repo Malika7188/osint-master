@@ -1605,3 +1605,11 @@ func isValidPhoneNumber(phone string) bool {
 	if len(cleaned) > 15 {
 		return false
 	}
+
+	// If starts with +, must have country code
+	if strings.HasPrefix(cleaned, "+") && len(cleaned) < 11 {
+		return false
+	}
+
+	return true
+}
