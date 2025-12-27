@@ -1623,3 +1623,12 @@ func normalizePhoneNumber(phone, defaultCountryCode string) string {
 	if strings.HasPrefix(cleaned, "+") {
 		return cleaned
 	}
+
+	// Add default country code if provided
+	if defaultCountryCode != "" {
+		return "+" + defaultCountryCode + cleaned
+	}
+
+	// Default to + prefix
+	return "+" + cleaned
+}
