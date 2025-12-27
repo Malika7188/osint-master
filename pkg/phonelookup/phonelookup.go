@@ -1680,3 +1680,13 @@ func formatForDisplay(phone string) string {
 		return fmt.Sprintf("+1 (%s) %s-%s",
 			cleaned[2:5], cleaned[5:8], cleaned[8:12])
 	}
+
+	// Handle international numbers with +
+	if strings.HasPrefix(cleaned, "+") {
+		// Keep as is for international
+		return cleaned
+	}
+
+	// Default: return cleaned
+	return cleaned
+}
