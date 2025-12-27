@@ -1857,3 +1857,8 @@ func isVoIPNumber(lineType string) bool {
 // 3. Abstract API - Paid service with phone validation
 // 4. IPQualityScore - Advanced fraud detection
 // 5. HLR Lookup - Carrier and network information
+//
+// Messaging Platform Detection:
+// The package can detect if a phone number is registered on:
+// - WhatsApp (wa.me link validation)
+// - Telegram (t.me link check)
