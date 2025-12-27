@@ -1661,3 +1661,11 @@ func extractAreaCode(phone string) string {
 		// For other countries, logic would be different
 		cleaned = strings.TrimPrefix(cleaned, "+")
 	}
+
+	// For US/Canada numbers, area code is first 3 digits
+	if len(cleaned) >= 3 {
+		return cleaned[:3]
+	}
+
+	return ""
+}
