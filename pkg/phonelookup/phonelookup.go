@@ -1572,3 +1572,8 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	sb.WriteString(fmt.Sprintf("  - Should I Answer: https://www.shouldianswer.com/phone-number/%s\n", cleanedForURL))
 	sb.WriteString(fmt.Sprintf("  - 800notes:        https://800notes.com/Phone.aspx/%s\n", cleanedForURL))
 	sb.WriteString(fmt.Sprintf("  - CallerSmart:     https://www.callersmart.com/number/%s\n", cleanedForURL))
+
+	sb.WriteString("\nInternational Directories:\n")
+	sb.WriteString("  - Australia:       https://www.whitepages.com.au/\n")
+	sb.WriteString("  - UK:              https://www.192.com/\n")
+	sb.WriteString("  - Canada:          https://www.canada411.ca/\n")
