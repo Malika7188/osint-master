@@ -1908,3 +1908,5 @@ func isVoIPNumber(lineType string) bool {
 // - Accuracy depends on third-party API data quality
 // - Some APIs may not have coverage for all countries
 // - Messaging platform detection may require manual verification
+// - Free tier APIs have rate limits and may be slower
+// - Owner information may not be available for all numbers
