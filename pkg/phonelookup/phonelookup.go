@@ -1871,3 +1871,6 @@ func isVoIPNumber(lineType string) bool {
 // Different APIs have different rate limits:
 // - Veriphone.io: 45 requests/minute (free tier)
 // - Numverify: Varies by subscription plan
+// - Abstract API: Depends on plan
+// - IPQualityScore: Depends on plan
+// Implement appropriate retry logic and backoff strategies
