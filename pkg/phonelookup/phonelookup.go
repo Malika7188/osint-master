@@ -1922,3 +1922,5 @@ func isVoIPNumber(lineType string) bool {
 // - Add support for batch phone number lookups
 // - Implement result caching with TTL
 // - Add more messaging platform detection methods
+// - Support for more international carrier databases
+// - Integration with additional OSINT data sources
