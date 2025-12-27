@@ -1567,3 +1567,8 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	sb.WriteString(fmt.Sprintf("  - Facebook:      https://www.facebook.com/search/people/?q=%s\n", cleanedForURL))
 	sb.WriteString(fmt.Sprintf("  - Twitter:       https://twitter.com/search?q=%s\n", cleanedForURL))
 	sb.WriteString(fmt.Sprintf("  - LinkedIn:      https://www.linkedin.com/search/results/people/?keywords=%s\n", cleanedForURL))
+
+	sb.WriteString("\nSpam & Scam Databases:\n")
+	sb.WriteString(fmt.Sprintf("  - Should I Answer: https://www.shouldianswer.com/phone-number/%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - 800notes:        https://800notes.com/Phone.aspx/%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - CallerSmart:     https://www.callersmart.com/number/%s\n", cleanedForURL))
