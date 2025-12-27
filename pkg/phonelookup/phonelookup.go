@@ -1669,3 +1669,14 @@ func extractAreaCode(phone string) string {
 
 	return ""
 }
+
+// formatForDisplay formats a phone number for human-readable display
+func formatForDisplay(phone string) string {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Handle US/Canada numbers (+1)
+	if strings.HasPrefix(cleaned, "+1") && len(cleaned) == 12 {
+		// Format as +1 (XXX) XXX-XXXX
+		return fmt.Sprintf("+1 (%s) %s-%s",
+			cleaned[2:5], cleaned[5:8], cleaned[8:12])
+	}
