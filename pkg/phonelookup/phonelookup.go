@@ -1618,3 +1618,8 @@ func isValidPhoneNumber(phone string) bool {
 func normalizePhoneNumber(phone, defaultCountryCode string) string {
 	// Clean the phone number
 	cleaned := cleanPhoneNumber(phone)
+
+	// If already has +, return as is
+	if strings.HasPrefix(cleaned, "+") {
+		return cleaned
+	}
