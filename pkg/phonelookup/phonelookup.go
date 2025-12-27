@@ -1889,3 +1889,8 @@ func isVoIPNumber(lineType string) bool {
 // - Implement caching to reduce redundant API calls
 // - Set appropriate HTTP client timeouts (10s default)
 // - Consider connection pooling for high-volume usage
+//
+// Error Handling:
+// - All API failures are logged but don't stop the lookup process
+// - Fallback APIs are tried when primary APIs fail
+// - User-friendly error messages are returned
