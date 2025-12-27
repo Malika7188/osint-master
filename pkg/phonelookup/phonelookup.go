@@ -1702,3 +1702,13 @@ func isTollFree(phone string) bool {
 
 	// Toll-free area codes in North America
 	tollFreeAreaCodes := []string{"800", "888", "877", "866", "855", "844", "833"}
+
+	// Check if starts with any toll-free area code
+	for _, code := range tollFreeAreaCodes {
+		if strings.HasPrefix(cleaned, code) {
+			return true
+		}
+	}
+
+	return false
+}
