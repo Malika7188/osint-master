@@ -1775,3 +1775,14 @@ func isE164Format(phone string) bool {
 
 	return true
 }
+
+// sanitizePhoneInput removes all non-digit characters except +
+func sanitizePhoneInput(phone string) string {
+	var result strings.Builder
+	for _, ch := range phone {
+		if (ch >= '0' && ch <= '9') || ch == '+' {
+			result.WriteRune(ch)
+		}
+	}
+	return result.String()
+}
