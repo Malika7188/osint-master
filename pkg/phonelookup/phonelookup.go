@@ -1767,3 +1767,11 @@ func isE164Format(phone string) bool {
 			return false
 		}
 	}
+
+	// Check length (max 15 digits per E.164)
+	if len(digits) > MaxPhoneLength {
+		return false
+	}
+
+	return true
+}
