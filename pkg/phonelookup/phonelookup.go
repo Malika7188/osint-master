@@ -1751,3 +1751,11 @@ const (
 	ErrTooLong        = "phone number too long"
 	ErrNoCountryCode  = "missing country code"
 )
+
+// isE164Format checks if phone number is in E.164 format
+func isE164Format(phone string) bool {
+	// E.164 format: +[country code][subscriber number]
+	// Max 15 digits including country code
+	if !strings.HasPrefix(phone, "+") {
+		return false
+	}
