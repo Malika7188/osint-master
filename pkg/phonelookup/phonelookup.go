@@ -1759,3 +1759,11 @@ func isE164Format(phone string) bool {
 	if !strings.HasPrefix(phone, "+") {
 		return false
 	}
+
+	// Remove + and check if all remaining are digits
+	digits := strings.TrimPrefix(phone, "+")
+	for _, ch := range digits {
+		if ch < '0' || ch > '9' {
+			return false
+		}
+	}
