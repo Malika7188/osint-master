@@ -302,3 +302,60 @@ func getCountryFromCodeFallback(callingCode string) string {
 
 	return ""
 }
+
+// lookupPhoneAPI queries phone lookup API
+func lookupPhoneAPI(phone string, info *PhoneInfo) error {
+	// Try FREE API first (veriphone.io - no key required)
+	if err := lookupPhoneFree(phone, info); err == nil {
+		return nil
+	}
+
+	// Fallback to paid API if available (numverify)
+	// Get free API key at: https://numverify.com/product (100 requests/month free)
+	apiKey := "demo_api_key" // Replace with actual key from environment
+	if apiKey == "demo_api_key" {
+		// No valid API key, return with free data already populated
+		return fmt.Errorf("no API key configured")
+	}
+
+	url := fmt.Sprintf("http://apilayer.net/api/validate?access_key=%s&number=%s", apiKey, phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("API returned status: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok && !valid {
+		info.IsValid = false
+		return fmt.Errorf("invalid phone number")
+	}
+
+	if carrier, ok := result["carrier"].(string); ok {
+		info.Carrier = carrier
+	}
+
+	if lineType, ok := result["line_type"].(string); ok {
+		info.LineType = lineType
+	}
+
+	if location, ok := result["location"].(string); ok {
+		info.Region = location
+	}
+
+	return nil
+}
