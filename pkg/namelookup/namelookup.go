@@ -30,3 +30,10 @@ func SearchByName(fullName string) (string, error) {
 	// Note: Most people search APIs are paid or have strict rate limits
 	// Examples: Pipl, Whitepages, etc.
 	// For now, this is a placeholder implementation
+
+	info := &NameInfo{
+		FirstName:   firstName,
+		LastName:    lastName,
+		PhoneNumber: "Not Available (API Required)",
+		Address:     "Not Available (API Required)",
+	}
