@@ -1729,3 +1729,45 @@ func sanitizePhoneInput(phone string) string {
 	}
 	return result.String()
 }
+
+// isMobileNumber checks if a phone number is likely a mobile number
+func isMobileNumber(lineType string) bool {
+	lineType = strings.ToLower(lineType)
+	mobileKeywords := []string{"mobile", "cellular", "cell", "wireless"}
+
+	for _, keyword := range mobileKeywords {
+		if strings.Contains(lineType, keyword) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// isLandlineNumber checks if a phone number is likely a landline
+func isLandlineNumber(lineType string) bool {
+	lineType = strings.ToLower(lineType)
+	landlineKeywords := []string{"landline", "fixed", "fixedline"}
+
+	for _, keyword := range landlineKeywords {
+		if strings.Contains(lineType, keyword) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// isVoIPNumber checks if a phone number is likely a VoIP number
+func isVoIPNumber(lineType string) bool {
+	lineType = strings.ToLower(lineType)
+	voipKeywords := []string{"voip", "voice over ip", "internet"}
+
+	for _, keyword := range voipKeywords {
+		if strings.Contains(lineType, keyword) {
+			return true
+		}
+	}
+
+	return false
+}
