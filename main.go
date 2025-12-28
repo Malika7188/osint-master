@@ -69,3 +69,12 @@ func main() {
 		fmt.Println("Use --help for more information")
 		os.Exit(1)
 	}
+
+	// Process based on the flag provided
+	var result string
+	var err error
+
+	if *nameFlag != "" {
+		fmt.Printf("Searching for: %s\n", *nameFlag)
+		result, err = namelookup.SearchByName(*nameFlag)
+	}
