@@ -53,3 +53,9 @@ func main() {
 		}
 		return
 	}
+
+	// Show help if requested or no flags provided
+	if *helpFlag || flag.NFlag() == 0 {
+		showHelp()
+		return
+	}
