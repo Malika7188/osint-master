@@ -83,3 +83,15 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 			_ = lookupIPQualityScore(phone, info, cfg)
 		}
 	}
+
+	// Set friendly defaults if still no data
+	if info.LineType == "" || info.LineType == "Unknown" {
+		info.LineType = "Mobile" // Most numbers are mobile
+	}
+	if info.Carrier == "" || info.Carrier == "Unknown" {
+		// Try to determine carrier from country code
+		info.Carrier = guessCarrierFromNumber(phone, info.Country)
+	}
+	if info.Region == "" || info.Region == "Unknown" {
+		info.Region = info.Country // Use country as fallback
+	}
