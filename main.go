@@ -59,3 +59,6 @@ func main() {
 		showHelp()
 		return
 	}
+
+	// Load configuration
+	cfg := config.LoadConfig()
