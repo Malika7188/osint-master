@@ -518,3 +518,54 @@ func lookupHLR(phone string, info *PhoneInfo) error {
 
 	return fmt.Errorf("no HLR data available")
 }
+
+// lookupMCCMNCOnline fetches carrier info from online MCC-MNC database
+func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
+	// Use mcc-mnc.com API for carrier lookup
+	url := fmt.Sprintf("https://mcc-mnc.net/api/?phone=%s", phone)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("MCC-MNC API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if network, ok := result["network"].(string); ok && network != "" && info.Carrier == "" {
+		info.Carrier = network
+	}
+
+	if operator, ok := result["operator"].(string); ok && operator != "" && info.Carrier == "" {
+		info.Carrier = operator
+	}
+
+	if lineType, ok := result["type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	return nil
+}
