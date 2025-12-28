@@ -60,3 +60,8 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - ResearchGate: https://www.researchgate.net/search.Search.html?query=%s\n", fullNameEncoded))
 	result.WriteString(fmt.Sprintf("  - ORCID: https://orcid.org/orcid-search/search?searchQuery=%s\n", fullNameEncoded))
 	result.WriteString(fmt.Sprintf("  - Academia.edu: https://www.academia.edu/search?q=%s\n", fullNameEncoded))
+
+	result.WriteString("\nContent & Profiles:\n")
+	result.WriteString(fmt.Sprintf("  - GitHub: https://github.com/search?q=%s&type=users\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - Stack Overflow: https://stackoverflow.com/users?search=%s\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - Medium: https://medium.com/search/people?q=%s\n", fullNameEncoded))
