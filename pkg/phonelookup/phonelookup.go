@@ -492,3 +492,29 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// lookupHLR uses HLR (Home Location Register) lookup from multiple sources
+func lookupHLR(phone string, info *PhoneInfo) error {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try multiple HLR/carrier lookup APIs
+
+	// 1. Try mccmnc.com API (free carrier database)
+	if err := lookupMCCMNCOnline(phoneClean, info); err == nil && info.Carrier != "" {
+		return nil
+	}
+
+	// 2. Try hlr-lookups.com
+	url := fmt.Sprintf("https://hlr-lookups.com/api/free/%s", phoneClean)
+	if err := makeHLRRequest(url, info); err == nil && info.Carrier != "" {
+		return nil
+	}
+
+	// 3. Try freecarrierlookup.com API
+	url = fmt.Sprintf("https://www.freecarrierlookup.com/api/%s", phoneClean)
+	if err := makeCarrierRequest(url, info); err == nil && info.Carrier != "" {
+		return nil
+	}
+
+	return fmt.Errorf("no HLR data available")
+}
