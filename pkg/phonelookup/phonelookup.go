@@ -1612,3 +1612,71 @@ func extractAreaCode(phone string) string {
 
 	return ""
 }
+
+// formatForDisplay formats a phone number for human-readable display
+func formatForDisplay(phone string) string {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Handle US/Canada numbers (+1)
+	if strings.HasPrefix(cleaned, "+1") && len(cleaned) == 12 {
+		// Format as +1 (XXX) XXX-XXXX
+		return fmt.Sprintf("+1 (%s) %s-%s",
+			cleaned[2:5], cleaned[5:8], cleaned[8:12])
+	}
+
+	// Handle international numbers with +
+	if strings.HasPrefix(cleaned, "+") {
+		// Keep as is for international
+		return cleaned
+	}
+
+	// Default: return cleaned
+	return cleaned
+}
+
+// isTollFree checks if a phone number is toll-free
+func isTollFree(phone string) bool {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Remove +1 prefix for US/Canada
+	if strings.HasPrefix(cleaned, "+1") {
+		cleaned = strings.TrimPrefix(cleaned, "+1")
+	}
+
+	// Toll-free area codes in North America
+	tollFreeAreaCodes := []string{"800", "888", "877", "866", "855", "844", "833"}
+
+	// Check if starts with any toll-free area code
+	for _, code := range tollFreeAreaCodes {
+		if strings.HasPrefix(cleaned, code) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// extractCountryCallingCode extracts the country calling code from a phone number
+func extractCountryCallingCode(phone string) string {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Must start with +
+	if !strings.HasPrefix(cleaned, "+") {
+		return ""
+	}
+
+	// Remove + prefix
+	cleaned = strings.TrimPrefix(cleaned, "+")
+
+	// Try to extract country code (1-3 digits)
+	for i := 1; i <= 3 && i <= len(cleaned); i++ {
+		possibleCode := cleaned[:i]
+		// For simplicity, return the code
+		// In a real implementation, validate against known codes
+		if i == 1 || i == 2 || i == 3 {
+			return possibleCode
+		}
+	}
+
+	return ""
+}
