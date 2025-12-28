@@ -44,3 +44,12 @@ func main() {
 		}
 		return
 	}
+
+	// Handle web server mode
+	if *webFlag != "" {
+		if err := webserver.StartServer(*webFlag); err != nil {
+			fmt.Printf("Error starting web server: %v\n", err)
+			os.Exit(1)
+		}
+		return
+	}
