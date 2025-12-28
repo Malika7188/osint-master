@@ -429,3 +429,66 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// lookupPhoneAlternative tries alternative free phone APIs
+func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try numverify free tier (limited requests per month)
+	// Note: This requires an API key, but we'll try the demo endpoint
+	url := fmt.Sprintf("https://phonevalidation.abstractapi.com/v1/?api_key=test&phone=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("alternative API returned status: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse response
+	if valid, ok := result["valid"].(bool); ok {
+		info.IsValid = valid
+	}
+
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if lineType, ok := result["type"].(string); ok && lineType != "" {
+		info.LineType = lineType
+	}
+
+	if country, ok := result["country"].(map[string]interface{}); ok {
+		if countryName, ok := country["name"].(string); ok && countryName != "" {
+			info.Country = countryName
+		}
+		if countryCode, ok := country["code"].(string); ok && countryCode != "" {
+			info.CountryCode = "+" + countryCode
+		}
+	}
+
+	if location, ok := result["location"].(string); ok && location != "" {
+		info.Region = location
+	}
+
+	return nil
+}
