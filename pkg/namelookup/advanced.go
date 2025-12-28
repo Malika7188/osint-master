@@ -48,3 +48,9 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - FastPeopleSearch: https://www.fastpeoplesearch.com/name/%s-%s\n", firstName, lastName))
 	result.WriteString(fmt.Sprintf("  - Spokeo: https://www.spokeo.com/%s-%s\n", firstName, lastName))
 	result.WriteString(fmt.Sprintf("  - Pipl: https://pipl.com/search/?q=%s\n", fullNameEncoded))
+
+	result.WriteString("\nPublic Records:\n")
+	result.WriteString(fmt.Sprintf("  - Court Records: Search county clerk websites\n"))
+	result.WriteString(fmt.Sprintf("  - Property Records: Search county assessor websites\n"))
+	result.WriteString(fmt.Sprintf("  - Voter Registration: Search state voter databases\n"))
+	result.WriteString(fmt.Sprintf("  - Business Filings: Search Secretary of State websites\n"))
