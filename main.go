@@ -99,3 +99,11 @@ func main() {
 		fmt.Printf("Looking up phone: %s\n", *phoneFlag)
 		result, err = phonelookup.LookupPhone(*phoneFlag)
 	}
+
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Display results
+	fmt.Println(result)
