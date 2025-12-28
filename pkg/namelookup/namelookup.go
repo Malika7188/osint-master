@@ -41,3 +41,7 @@ func SearchByName(fullName string) (string, error) {
 		TwitterURL:   fmt.Sprintf("https://twitter.com/search?q=%s+%s", firstName, lastName),
 		InstagramURL: fmt.Sprintf("https://www.instagram.com/explore/tags/%s%s/", strings.ToLower(firstName), strings.ToLower(lastName)),
 	}
+
+	result := formatNameInfo(info)
+	return result, nil
+}
