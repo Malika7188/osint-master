@@ -71,3 +71,13 @@ func formatNameInfo(info *NameInfo) string {
 	sb.WriteString(fmt.Sprintf("Last Name: %s\n", info.LastName))
 	sb.WriteString(fmt.Sprintf("Phone Number: %s\n", info.PhoneNumber))
 	sb.WriteString(fmt.Sprintf("Address: %s\n", info.Address))
+	sb.WriteString("\nSocial Media Search URLs:\n")
+	sb.WriteString(fmt.Sprintf("LinkedIn: %s\n", info.LinkedInURL))
+	sb.WriteString(fmt.Sprintf("Facebook: %s\n", info.FacebookURL))
+	sb.WriteString(fmt.Sprintf("Twitter: %s\n", info.TwitterURL))
+	sb.WriteString(fmt.Sprintf("Instagram: %s\n", info.InstagramURL))
+	sb.WriteString("\nNote: Phone and address require paid API access (e.g., Pipl, Whitepages)\n")
+	sb.WriteString("Visit the URLs above to manually search on each platform.\n")
+
+	return sb.String()
+}
