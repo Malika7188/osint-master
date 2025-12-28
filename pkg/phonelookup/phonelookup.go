@@ -1771,3 +1771,20 @@ func isVoIPNumber(lineType string) bool {
 
 	return false
 }
+
+// API Integration Notes:
+// This package integrates with multiple phone lookup APIs:
+// 1. Veriphone.io - Free tier, no API key required
+// 2. Numverify - Requires API key, more comprehensive data
+// 3. Abstract API - Paid service with phone validation
+// 4. IPQualityScore - Advanced fraud detection
+// 5. HLR Lookup - Carrier and network information
+//
+// Messaging Platform Detection:
+// The package can detect if a phone number is registered on:
+// - WhatsApp (wa.me link validation)
+// - Telegram (t.me link check)
+// - Signal (privacy-focused, manual check required)
+// - Viber (viber:// protocol check)
+// - WeChat (manual verification required)
+// - LINE (line:// protocol check)
