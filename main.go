@@ -24,3 +24,6 @@ func main() {
 	nameFlag := flag.String("n", "", "Search information by full name")
 	ipFlag := flag.String("i", "", "Search information by IP address")
 	usernameFlag := flag.String("u", "", "Search information by username")
+	domainFlag := flag.String("d", "", "Enumerate subdomains and check for takeover risks")
+	emailFlag := flag.String("e", "", "Search information by email address")
+	phoneFlag := flag.String("p", "", "Search information by phone number")
