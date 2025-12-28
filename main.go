@@ -62,3 +62,10 @@ func main() {
 
 	// Load configuration
 	cfg := config.LoadConfig()
+
+	// Validate that at least one search flag is provided
+	if *nameFlag == "" && *ipFlag == "" && *usernameFlag == "" && *domainFlag == "" && *emailFlag == "" && *phoneFlag == "" {
+		fmt.Println("Error: Please provide at least one search option (-n, -i, -u, -d, -e, or -p)")
+		fmt.Println("Use --help for more information")
+		os.Exit(1)
+	}
