@@ -32,8 +32,12 @@ func SearchByName(fullName string) (string, error) {
 	// For now, this is a placeholder implementation
 
 	info := &NameInfo{
-		FirstName:   firstName,
-		LastName:    lastName,
-		PhoneNumber: "Not Available (API Required)",
-		Address:     "Not Available (API Required)",
+		FirstName:    firstName,
+		LastName:     lastName,
+		PhoneNumber:  "Not Available (API Required)",
+		Address:      "Not Available (API Required)",
+		LinkedInURL:  fmt.Sprintf("https://www.linkedin.com/search/results/all/?keywords=%s+%s", firstName, lastName),
+		FacebookURL:  fmt.Sprintf("https://www.facebook.com/search/top/?q=%s+%s", firstName, lastName),
+		TwitterURL:   fmt.Sprintf("https://twitter.com/search?q=%s+%s", firstName, lastName),
+		InstagramURL: fmt.Sprintf("https://www.instagram.com/explore/tags/%s%s/", strings.ToLower(firstName), strings.ToLower(lastName)),
 	}
