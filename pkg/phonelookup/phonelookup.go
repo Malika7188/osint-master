@@ -61,3 +61,25 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 
 	// Parse country code
 	info.CountryCode, info.Country = parseCountryCode(phone)
+
+	// Try multiple phone number APIs for best coverage
+	// Try free APIs that actually work first, then paid ones if available
+
+	// 1. Try veriphone.io (free, no key)
+	_ = lookupPhoneFree(phone, info)
+
+	// 2. Try hlr-lookups.com (free tier)
+	_ = lookupHLR(phone, info)
+
+	// 3. Try paid APIs if configured
+	if cfg != nil {
+		if cfg.NumverifyKey != "" {
+			_ = lookupNumverify(phone, info, cfg)
+		}
+		if cfg.AbstractAPIKey != "" && info.Carrier == "" {
+			_ = lookupPhoneValidator(phone, info, cfg)
+		}
+		if cfg.IPQualityScoreKey != "" && info.Carrier == "" {
+			_ = lookupIPQualityScore(phone, info, cfg)
+		}
+	}
