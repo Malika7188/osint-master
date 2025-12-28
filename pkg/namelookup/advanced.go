@@ -67,3 +67,11 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - Medium: https://medium.com/search/people?q=%s\n", fullNameEncoded))
 	result.WriteString(fmt.Sprintf("  - YouTube: https://www.youtube.com/results?search_query=%s\n", fullNameEncoded))
 	result.WriteString(fmt.Sprintf("  - Vimeo: https://vimeo.com/search?q=%s\n", fullNameEncoded))
+
+	result.WriteString("\nUsername Variations to Try:\n")
+	result.WriteString(fmt.Sprintf("  - %s%s\n", strings.ToLower(firstName), strings.ToLower(lastName)))
+	result.WriteString(fmt.Sprintf("  - %s.%s\n", strings.ToLower(firstName), strings.ToLower(lastName)))
+	result.WriteString(fmt.Sprintf("  - %s_%s\n", strings.ToLower(firstName), strings.ToLower(lastName)))
+	if len(firstName) > 0 && len(lastName) > 0 {
+		result.WriteString(fmt.Sprintf("  - %c%s\n", strings.ToLower(firstName)[0], strings.ToLower(lastName)))
+	}
