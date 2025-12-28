@@ -95,3 +95,19 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	if info.Region == "" || info.Region == "Unknown" {
 		info.Region = info.Country // Use country as fallback
 	}
+
+	// Check messaging platform availability
+	info.OnWhatsApp, info.WhatsAppStatus = checkWhatsApp(phone)
+	info.OnTelegram, info.TelegramStatus = checkTelegram(phone)
+	info.OnSignal, info.SignalStatus = checkSignal(phone)
+	info.OnViber, info.ViberStatus = checkViber(phone)
+	info.OnWeChat, info.WeChatStatus = checkWeChat(phone)
+	info.OnLine, info.LineStatus = checkLine(phone)
+
+	// Try to lookup owner information
+	_ = lookupOwnerInfo(phone, info, cfg)
+
+	// Format output
+	result := formatPhoneInfo(info)
+	return result, nil
+}
