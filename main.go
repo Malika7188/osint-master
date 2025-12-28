@@ -77,4 +77,16 @@ func main() {
 	if *nameFlag != "" {
 		fmt.Printf("Searching for: %s\n", *nameFlag)
 		result, err = namelookup.SearchByName(*nameFlag)
+	} else if *ipFlag != "" {
+		fmt.Printf("Looking up IP: %s\n", *ipFlag)
+		result, err = iplookup.LookupIP(*ipFlag)
+	} else if *usernameFlag != "" {
+		fmt.Printf("Searching for username: %s\n", *usernameFlag)
+
+		// Use advanced mode if flag is set
+		if *advancedFlag {
+			result, err = username.AdvancedSearchUsername(*usernameFlag)
+		} else {
+			result, err = username.SearchUsername(*usernameFlag)
+		}
 	}
