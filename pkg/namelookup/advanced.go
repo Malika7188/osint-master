@@ -19,3 +19,8 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	result.WriteString(standardResult)
+	result.WriteString("\n" + strings.Repeat("-", 70) + "\n")
+	result.WriteString("ADVANCED CHECKS:\n")
+	result.WriteString(strings.Repeat("-", 70) + "\n\n")
