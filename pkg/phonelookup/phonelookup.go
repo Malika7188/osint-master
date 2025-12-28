@@ -167,3 +167,40 @@ func parseCountryCode(phone string) (string, string) {
 
 	return "", ""
 }
+
+// getCountryFromCallingCode gets country name from calling code using online lookup
+func getCountryFromCallingCode(callingCode string) string {
+	// Try online country calling code API
+	url := fmt.Sprintf("https://country.io/phone.json")
+
+	client := &http.Client{
+		Timeout: 3 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		// Fallback to basic reference if API fails
+		return getCountryFromCodeFallback(callingCode)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return getCountryFromCodeFallback(callingCode)
+	}
+
+	var phoneData map[string]string
+	if err := json.NewDecoder(resp.Body).Decode(&phoneData); err != nil {
+		return getCountryFromCodeFallback(callingCode)
+	}
+
+	// The API returns country code -> calling code mapping
+	// We need to reverse lookup
+	for countryCode, phone := range phoneData {
+		if phone == callingCode {
+			// Get country name from country code
+			return getCountryNameFromCode(countryCode)
+		}
+	}
+
+	return getCountryFromCodeFallback(callingCode)
+}
