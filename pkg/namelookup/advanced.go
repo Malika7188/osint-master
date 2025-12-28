@@ -54,3 +54,7 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - Property Records: Search county assessor websites\n"))
 	result.WriteString(fmt.Sprintf("  - Voter Registration: Search state voter databases\n"))
 	result.WriteString(fmt.Sprintf("  - Business Filings: Search Secretary of State websites\n"))
+
+	result.WriteString("\nProfessional & Academic:\n")
+	result.WriteString(fmt.Sprintf("  - Google Scholar: https://scholar.google.com/scholar?q=%s\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - ResearchGate: https://www.researchgate.net/search.Search.html?query=%s\n", fullNameEncoded))
