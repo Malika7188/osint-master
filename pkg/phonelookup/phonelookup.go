@@ -1832,3 +1832,10 @@ func isVoIPNumber(lineType string) bool {
 // - Messaging platform detection may require manual verification
 // - Free tier APIs have rate limits and may be slower
 // - Owner information may not be available for all numbers
+//
+// Troubleshooting:
+// - If lookups fail, check your internet connection
+// - Verify API keys are correctly configured in environment variables
+// - Check API rate limits if getting 429 errors
+// - Ensure phone numbers are in valid E.164 format
+// - Review error messages for specific API failures
