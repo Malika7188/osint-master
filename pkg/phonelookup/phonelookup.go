@@ -1059,3 +1059,84 @@ func trySyncMeAPI(phone string) string {
 
 	return ""
 }
+
+// runTrueCallerPlaywright runs the Playwright scraper for TrueCaller
+func runTrueCallerPlaywright(phone string) string {
+	// Import exec package at runtime
+	cmd := exec.Command("node", "internal/scraper/truecaller_scraper.js", phone)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(output, &result); err != nil {
+		return ""
+	}
+
+	if success, ok := result["success"].(bool); ok && success {
+		if name, ok := result["name"].(string); ok && name != "" {
+			return name
+		}
+	}
+
+	return ""
+}
+
+// tryTrueCallerJSONAPI uses Playwright to scrape TrueCaller with JavaScript execution
+func tryTrueCallerJSONAPI(phone string) string {
+	phoneClean := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Use Playwright scraper for TrueCaller
+	return runTrueCallerPlaywright(phoneClean)
+}
+
+// tryEyeconAPI tries Eyecon caller ID API
+func tryEyeconAPI(phone string) string {
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	url := fmt.Sprintf("https://api.eyecon-app.com/app/getnames.jsp?cli=%s&lang=en", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "Eyecon/9.0.0")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return ""
+	}
+
+	// Extract name from Eyecon response
+	if names, ok := result["names"].([]interface{}); ok && len(names) > 0 {
+		if firstName, ok := names[0].(map[string]interface{}); ok {
+			if name, ok := firstName["name"].(string); ok && name != "" {
+				return name
+			}
+		}
+	}
+
+	return ""
+}
