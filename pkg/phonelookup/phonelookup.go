@@ -359,3 +359,73 @@ func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// lookupPhoneFree uses FREE API (veriphone.io) - no API key required
+func lookupPhoneFree(phone string, info *PhoneInfo) error {
+	// Remove + from phone for API
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try veriphone.io first
+	url := fmt.Sprintf("https://api.veriphone.io/v2/verify?phone=%s", phoneClean)
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Educational-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		// If veriphone fails, try alternative API
+		return lookupPhoneAlternative(phone, info)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		// Try alternative API
+		return lookupPhoneAlternative(phone, info)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Parse veriphone response
+	if phoneValid, ok := result["phone_valid"].(bool); ok {
+		info.IsValid = phoneValid
+	}
+
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		info.Carrier = carrier
+	}
+
+	if phoneType, ok := result["phone_type"].(string); ok && phoneType != "" {
+		info.LineType = phoneType
+	}
+
+	if country, ok := result["country"].(string); ok && country != "" {
+		// Update country if API provides better data
+		if info.Country == "Unknown" || info.Country == "" {
+			info.Country = country
+		}
+	}
+
+	if countryCode, ok := result["country_code"].(string); ok && countryCode != "" {
+		if info.CountryCode == "Unknown" || info.CountryCode == "" {
+			info.CountryCode = "+" + countryCode
+		}
+	}
+
+	// Region/location
+	if region, ok := result["region"].(string); ok && region != "" {
+		info.Region = region
+	}
+
+	return nil
+}
