@@ -75,3 +75,8 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	if len(firstName) > 0 && len(lastName) > 0 {
 		result.WriteString(fmt.Sprintf("  - %c%s\n", strings.ToLower(firstName)[0], strings.ToLower(lastName)))
 	}
+
+	result.WriteString("\nData Breach Checking:\n")
+	result.WriteString("  Check if name appears in data breaches:\n")
+	result.WriteString(fmt.Sprintf("  - HIBP: https://haveibeenpwned.com/\n"))
+	result.WriteString(fmt.Sprintf("  - DeHashed: https://dehashed.com/\n"))
