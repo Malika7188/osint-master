@@ -16,7 +16,9 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	// Perform standard search first
 	startTime := time.Now()
 	standardResult, err := SearchByName(fullName)
-	if err != nil {
+	if err != ni
+	
+	l {
 		return "", err
 	}
 
