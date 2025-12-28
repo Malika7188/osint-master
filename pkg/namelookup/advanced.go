@@ -80,3 +80,9 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString("  Check if name appears in data breaches:\n")
 	result.WriteString(fmt.Sprintf("  - HIBP: https://haveibeenpwned.com/\n"))
 	result.WriteString(fmt.Sprintf("  - DeHashed: https://dehashed.com/\n"))
+
+	result.WriteString("\n⚠️  IMPORTANT NOTES:\n")
+	result.WriteString("  - Always verify information from multiple sources\n")
+	result.WriteString("  - Respect privacy laws and ethical boundaries\n")
+	result.WriteString("  - Some services require paid subscriptions\n")
+	result.WriteString("  - Public records vary by jurisdiction\n")
