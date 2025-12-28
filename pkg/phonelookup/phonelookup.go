@@ -1528,3 +1528,87 @@ func formatPhoneInfo(info *PhoneInfo) string {
 
 	return sb.String()
 }
+
+// isValidPhoneNumber performs basic phone number validation
+func isValidPhoneNumber(phone string) bool {
+	// Remove common separators
+	cleaned := strings.Map(func(r rune) rune {
+		if r >= '0' && r <= '9' || r == '+' {
+			return r
+		}
+		return -1
+	}, phone)
+
+	// Check minimum length (international numbers)
+	if len(cleaned) < 10 {
+		return false
+	}
+
+	// Check maximum length
+	if len(cleaned) > 15 {
+		return false
+	}
+
+	// If starts with +, must have country code
+	if strings.HasPrefix(cleaned, "+") && len(cleaned) < 11 {
+		return false
+	}
+
+	return true
+}
+
+// normalizePhoneNumber normalizes a phone number to E.164 format
+func normalizePhoneNumber(phone, defaultCountryCode string) string {
+	// Clean the phone number
+	cleaned := cleanPhoneNumber(phone)
+
+	// If already has +, return as is
+	if strings.HasPrefix(cleaned, "+") {
+		return cleaned
+	}
+
+	// Add default country code if provided
+	if defaultCountryCode != "" {
+		return "+" + defaultCountryCode + cleaned
+	}
+
+	// Default to + prefix
+	return "+" + cleaned
+}
+
+// getPhoneType determines the type of phone number (mobile, landline, etc.)
+func getPhoneType(lineType string) string {
+	lineType = strings.ToLower(lineType)
+	switch {
+	case strings.Contains(lineType, "mobile"):
+		return "Mobile"
+	case strings.Contains(lineType, "landline"):
+		return "Landline"
+	case strings.Contains(lineType, "voip"):
+		return "VoIP"
+	case strings.Contains(lineType, "toll"):
+		return "Toll-Free"
+	default:
+		return "Unknown"
+	}
+}
+
+// extractAreaCode extracts area code from a phone number
+func extractAreaCode(phone string) string {
+	cleaned := cleanPhoneNumber(phone)
+
+	// Remove + and country code
+	if strings.HasPrefix(cleaned, "+1") {
+		cleaned = strings.TrimPrefix(cleaned, "+1")
+	} else if strings.HasPrefix(cleaned, "+") {
+		// For other countries, logic would be different
+		cleaned = strings.TrimPrefix(cleaned, "+")
+	}
+
+	// For US/Canada numbers, area code is first 3 digits
+	if len(cleaned) >= 3 {
+		return cleaned[:3]
+	}
+
+	return ""
+}
