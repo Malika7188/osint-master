@@ -1325,3 +1325,64 @@ func checkWhatsApp(phone string) (bool, string) {
 	// If all checks fail, we can't confirm
 	return false, fmt.Sprintf("Not confirmed on WhatsApp (try manually: https://wa.me/%s)", cleanedPhone)
 }
+
+// checkTelegram checks if a phone number is registered on Telegram
+func checkTelegram(phone string) (bool, string) {
+	// Telegram doesn't provide a public API for checking registration
+	// We can only provide the link for manual verification
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Try to use Telegram's t.me link (requires Telegram app to verify)
+	url := fmt.Sprintf("https://t.me/%s", cleanedPhone)
+
+	// Note: Without Telegram Bot API token, we cannot verify programmatically
+	// The user would need to check manually or use a bot
+
+	return false, fmt.Sprintf("Manual check required (try: %s or search in Telegram app)", url)
+}
+
+// checkSignal checks if a phone number is registered on Signal
+func checkSignal(phone string) (bool, string) {
+	// Signal is privacy-focused and doesn't provide public APIs for registration checks
+	// The only way to verify is through the Signal app itself
+	cleanedPhone := strings.ReplaceAll(phone, "+", "")
+
+	// Signal requires the app to check registration
+	// We can only provide guidance for manual verification
+
+	return false, fmt.Sprintf("Check manually via Signal app (Signal prioritizes privacy)")
+}
+
+// checkViber checks if a phone number is registered on Viber
+func checkViber(phone string) (bool, string) {
+	// Viber doesn't provide a public API for checking registration
+	// Similar to other messaging apps, verification requires the app
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// Viber verification can only be done through the app
+	url := fmt.Sprintf("viber://add?number=%s", cleanedPhone)
+
+	return false, fmt.Sprintf("Manual check required (try opening: %s in Viber app)", url)
+}
+
+// checkWeChat checks if a phone number is registered on WeChat
+func checkWeChat(phone string) (bool, string) {
+	// WeChat doesn't provide a public API for phone number verification
+	// WeChat primarily uses WeChat IDs rather than phone numbers for contact
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// WeChat verification requires the app and potentially region-specific access
+	return false, fmt.Sprintf("Manual check required via WeChat app (primarily uses WeChat ID)")
+}
+
+// checkLine checks if a phone number is registered on LINE
+func checkLine(phone string) (bool, string) {
+	// LINE doesn't provide a public API for phone number verification
+	// LINE is popular in Asia (Japan, Thailand, Taiwan) and uses phone numbers for registration
+	cleanedPhone := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
+
+	// LINE verification requires the app
+	url := fmt.Sprintf("line://ti/p/~%s", cleanedPhone)
+
+	return false, fmt.Sprintf("Manual check required (try: %s or search in LINE app)", url)
+}
