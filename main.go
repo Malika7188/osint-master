@@ -22,3 +22,5 @@ const version = "1.0.0"
 func main() {
 	// Define command-line flags
 	nameFlag := flag.String("n", "", "Search information by full name")
+	ipFlag := flag.String("i", "", "Search information by IP address")
+	usernameFlag := flag.String("u", "", "Search information by username")
