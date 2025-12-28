@@ -569,3 +569,57 @@ func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 
 	return nil
 }
+
+// makeHLRRequest makes a generic HLR lookup request
+func makeHLRRequest(url string, info *PhoneInfo) error {
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("HLR API error: %d", resp.StatusCode)
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return err
+	}
+
+	// Try common field names for carrier
+	carrierFields := []string{"carrier", "operator", "network", "provider", "mno"}
+	for _, field := range carrierFields {
+		if carrier, ok := result[field].(string); ok && carrier != "" {
+			info.Carrier = carrier
+			break
+		}
+	}
+
+	// Try common field names for line type
+	typeFields := []string{"type", "line_type", "connection_type", "phone_type"}
+	for _, field := range typeFields {
+		if lineType, ok := result[field].(string); ok && lineType != "" {
+			info.LineType = lineType
+			break
+		}
+	}
+
+	return nil
+}
+
+// makeCarrierRequest makes a carrier lookup request
+func makeCarrierRequest(url string, info *PhoneInfo) error {
+	return makeHLRRequest(url, info) // Same logic
+}
