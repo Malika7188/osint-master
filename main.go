@@ -33,3 +33,5 @@ func main() {
 	advancedFlag := flag.Bool("advanced", false, "Use advanced mode (browser automation - slower but more accurate)")
 	setupConfigFlag := flag.Bool("setup-config", false, "Create sample config file for API keys")
 	helpFlag := flag.Bool("help", false, "Display help information")
+
+	flag.Parse()
