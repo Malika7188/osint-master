@@ -16,9 +16,7 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	// Perform standard search first
 	startTime := time.Now()
 	standardResult, err := SearchByName(fullName)
-	if err != ni
-	
-	l {
+	if err != nil {
 		return "", err
 	}
 
@@ -43,3 +41,10 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString(fmt.Sprintf("  - Instagram: https://www.instagram.com/explore/tags/%s/\n", strings.ToLower(strings.ReplaceAll(fullName, " ", ""))))
 	result.WriteString(fmt.Sprintf("  - TikTok: https://www.tiktok.com/search/user?q=%s\n", fullNameEncoded))
 	result.WriteString(fmt.Sprintf("  - Reddit: https://www.reddit.com/search/?q=%s\n", fullNameEncoded))
+
+	result.WriteString("\nPeople Search Services:\n")
+	result.WriteString(fmt.Sprintf("  - Whitepages: https://www.whitepages.com/name/%s-%s\n", firstName, lastName))
+	result.WriteString(fmt.Sprintf("  - TruePeopleSearch: https://www.truepeoplesearch.com/results?name=%s\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - FastPeopleSearch: https://www.fastpeoplesearch.com/name/%s-%s\n", firstName, lastName))
+	result.WriteString(fmt.Sprintf("  - Spokeo: https://www.spokeo.com/%s-%s\n", firstName, lastName))
+	result.WriteString(fmt.Sprintf("  - Pipl: https://pipl.com/search/?q=%s\n", fullNameEncoded))
