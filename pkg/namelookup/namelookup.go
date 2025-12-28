@@ -62,3 +62,12 @@ func parseName(fullName string) (string, string) {
 
 	return firstName, lastName
 }
+
+// formatNameInfo formats the name information into a readable string
+func formatNameInfo(info *NameInfo) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("First Name: %s\n", info.FirstName))
+	sb.WriteString(fmt.Sprintf("Last Name: %s\n", info.LastName))
+	sb.WriteString(fmt.Sprintf("Phone Number: %s\n", info.PhoneNumber))
+	sb.WriteString(fmt.Sprintf("Address: %s\n", info.Address))
