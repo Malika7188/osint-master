@@ -204,3 +204,37 @@ func getCountryFromCallingCode(callingCode string) string {
 
 	return getCountryFromCodeFallback(callingCode)
 }
+
+// getCountryNameFromCode converts ISO country code to country name
+func getCountryNameFromCode(code string) string {
+	url := fmt.Sprintf("https://restcountries.com/v3.1/alpha/%s", code)
+
+	client := &http.Client{
+		Timeout: 3 * time.Second,
+	}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return code
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return code
+	}
+
+	var result []map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return code
+	}
+
+	if len(result) > 0 {
+		if name, ok := result[0]["name"].(map[string]interface{}); ok {
+			if common, ok := name["common"].(string); ok {
+				return common
+			}
+		}
+	}
+
+	return code
+}
