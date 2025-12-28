@@ -16,3 +16,9 @@ type NameInfo struct {
 	TwitterURL   string
 	InstagramURL string
 }
+
+// SearchByName searches for information based on a full name
+func SearchByName(fullName string) (string, error) {
+	if fullName == "" {
+		return "", fmt.Errorf("name cannot be empty")
+	}
