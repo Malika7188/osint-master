@@ -1386,3 +1386,43 @@ func checkLine(phone string) (bool, string) {
 
 	return false, fmt.Sprintf("Manual check required (try: %s or search in LINE app)", url)
 }
+
+// formatPhoneInfo formats phone information into readable string
+func formatPhoneInfo(info *PhoneInfo) string {
+	var sb strings.Builder
+
+	// Header section
+	sb.WriteString(fmt.Sprintf("Phone Number: %s\n", info.Number))
+	sb.WriteString(strings.Repeat("=", 70) + "\n\n")
+
+	// Validation status
+	sb.WriteString("Validation:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+	if info.IsValid {
+		sb.WriteString("Status:       ✓ Valid phone number\n")
+	} else {
+		sb.WriteString("Status:       ✗ Invalid or unverified\n")
+	}
+
+	// Location information
+	sb.WriteString("\nLocation Information:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+	if info.CountryCode != "" {
+		sb.WriteString(fmt.Sprintf("Country Code: +%s\n", info.CountryCode))
+	}
+	if info.Country != "" {
+		sb.WriteString(fmt.Sprintf("Country:      %s\n", info.Country))
+	}
+	if info.Region != "" {
+		sb.WriteString(fmt.Sprintf("Region:       %s\n", info.Region))
+	}
+
+	// Carrier information
+	sb.WriteString("\nCarrier Information:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+	if info.Carrier != "" {
+		sb.WriteString(fmt.Sprintf("Carrier:      %s\n", info.Carrier))
+	}
+	if info.LineType != "" {
+		sb.WriteString(fmt.Sprintf("Line Type:    %s\n", info.LineType))
+	}
