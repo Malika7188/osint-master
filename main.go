@@ -107,3 +107,13 @@ func main() {
 
 	// Display results
 	fmt.Println(result)
+
+	// Save to file if output flag is provided
+	if *outputFlag != "" {
+		err = output.SaveToFile(*outputFlag, result)
+		if err != nil {
+			fmt.Printf("Error saving to file: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Data saved in %s\n", *outputFlag)
+	}
