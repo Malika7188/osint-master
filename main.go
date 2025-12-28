@@ -30,3 +30,6 @@ func main() {
 	outputFlag := flag.String("o", "", "File name to save output")
 	pdfFlag := flag.String("pdf", "", "Generate PDF report (specify filename)")
 	webFlag := flag.String("web", "", "Start web GUI server (specify port, e.g., 8080)")
+	advancedFlag := flag.Bool("advanced", false, "Use advanced mode (browser automation - slower but more accurate)")
+	setupConfigFlag := flag.Bool("setup-config", false, "Create sample config file for API keys")
+	helpFlag := flag.Bool("help", false, "Display help information")
