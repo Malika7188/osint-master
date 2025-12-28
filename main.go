@@ -16,3 +16,9 @@ import (
 	"github.com/malika/osint-master/pkg/username"
 	"github.com/malika/osint-master/pkg/webserver"
 )
+
+const version = "1.0.0"
+
+func main() {
+	// Define command-line flags
+	nameFlag := flag.String("n", "", "Search information by full name")
