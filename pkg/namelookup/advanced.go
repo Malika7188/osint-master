@@ -38,3 +38,6 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString("\nSocial Media Deep Search:\n")
 	result.WriteString(fmt.Sprintf("  - Facebook People: https://www.facebook.com/search/people/?q=%s\n", fullNameEncoded))
 	result.WriteString(fmt.Sprintf("  - Twitter Advanced: https://twitter.com/search?q=%s&f=user\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - Instagram: https://www.instagram.com/explore/tags/%s/\n", strings.ToLower(strings.ReplaceAll(fullName, " ", ""))))
+	result.WriteString(fmt.Sprintf("  - TikTok: https://www.tiktok.com/search/user?q=%s\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - Reddit: https://www.reddit.com/search/?q=%s\n", fullNameEncoded))
