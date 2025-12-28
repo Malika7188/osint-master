@@ -86,3 +86,11 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString("  - Respect privacy laws and ethical boundaries\n")
 	result.WriteString("  - Some services require paid subscriptions\n")
 	result.WriteString("  - Public records vary by jurisdiction\n")
+
+	elapsed := time.Since(startTime)
+	result.WriteString("\n" + strings.Repeat("=", 70) + "\n")
+	result.WriteString(fmt.Sprintf("⏱️  Advanced search completed in %.2f seconds\n", elapsed.Seconds()))
+	result.WriteString("Note: Advanced mode provides comprehensive people search resources\n")
+
+	return result.String(), nil
+}
