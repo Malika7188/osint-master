@@ -1490,3 +1490,41 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	} else {
 		sb.WriteString(fmt.Sprintf("LINE:         ✗ %s\n", info.LineStatus))
 	}
+
+	// Additional lookup resources
+	sb.WriteString("\nAdditional Lookup Resources:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+
+	cleanedForURL := strings.ReplaceAll(info.Number, "+", "")
+	sb.WriteString("\nCaller ID & Reverse Lookup:\n")
+	sb.WriteString(fmt.Sprintf("  - TrueCaller:    https://www.truecaller.com/search/us/%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - WhitePages:    https://www.whitepages.com/phone/%s\n", cleanedForURL))
+	sb.WriteString("  - Spy Dialer:    https://www.spydialer.com/\n")
+	sb.WriteString("  - NumLookup:     https://www.numlookup.com/\n")
+
+	sb.WriteString("\nCarrier & CNAM Lookup:\n")
+	sb.WriteString("  - FreeCarrierLookup: https://freecarrierlookup.com/\n")
+	sb.WriteString("  - Carrier Lookup:    https://www.carrierlookup.com/\n")
+
+	sb.WriteString("\nSocial Media Search:\n")
+	sb.WriteString(fmt.Sprintf("  - Facebook:      https://www.facebook.com/search/people/?q=%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - Twitter:       https://twitter.com/search?q=%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - LinkedIn:      https://www.linkedin.com/search/results/people/?keywords=%s\n", cleanedForURL))
+
+	sb.WriteString("\nSpam & Scam Databases:\n")
+	sb.WriteString(fmt.Sprintf("  - Should I Answer: https://www.shouldianswer.com/phone-number/%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - 800notes:        https://800notes.com/Phone.aspx/%s\n", cleanedForURL))
+	sb.WriteString(fmt.Sprintf("  - CallerSmart:     https://www.callersmart.com/number/%s\n", cleanedForURL))
+
+	sb.WriteString("\nInternational Directories:\n")
+	sb.WriteString("  - Australia:       https://www.whitepages.com.au/\n")
+	sb.WriteString("  - UK:              https://www.192.com/\n")
+	sb.WriteString("  - Canada:          https://www.canada411.ca/\n")
+
+	// Footer note
+	sb.WriteString("\n" + strings.Repeat("=", 70) + "\n")
+	sb.WriteString("Note: Use 'Advanced Mode' for automated platform checks and\n")
+	sb.WriteString("      additional verification resources.\n")
+
+	return sb.String()
+}
