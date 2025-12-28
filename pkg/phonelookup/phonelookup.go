@@ -1680,3 +1680,52 @@ func extractCountryCallingCode(phone string) string {
 
 	return ""
 }
+
+// Constants for phone validation
+const (
+	MinPhoneLength = 10
+	MaxPhoneLength = 15
+)
+
+// Error messages
+const (
+	ErrInvalidFormat = "invalid phone number format"
+	ErrTooShort      = "phone number too short"
+	ErrTooLong       = "phone number too long"
+	ErrNoCountryCode = "missing country code"
+)
+
+// isE164Format checks if phone number is in E.164 format
+func isE164Format(phone string) bool {
+	// E.164 format: +[country code][subscriber number]
+	// Max 15 digits including country code
+	if !strings.HasPrefix(phone, "+") {
+		return false
+	}
+
+	// Remove + and check if all remaining are digits
+	digits := strings.TrimPrefix(phone, "+")
+	for _, ch := range digits {
+		if ch < '0' || ch > '9' {
+			return false
+		}
+	}
+
+	// Check length (max 15 digits per E.164)
+	if len(digits) > MaxPhoneLength {
+		return false
+	}
+
+	return true
+}
+
+// sanitizePhoneInput removes all non-digit characters except +
+func sanitizePhoneInput(phone string) string {
+	var result strings.Builder
+	for _, ch := range phone {
+		if (ch >= '0' && ch <= '9') || ch == '+' {
+			result.WriteRune(ch)
+		}
+	}
+	return result.String()
+}
