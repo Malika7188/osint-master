@@ -35,3 +35,12 @@ func main() {
 	helpFlag := flag.Bool("help", false, "Display help information")
 
 	flag.Parse()
+
+	// Handle setup-config command
+	if *setupConfigFlag {
+		if err := config.CreateSampleEnvFile(); err != nil {
+			fmt.Printf("Error creating config file: %v\n", err)
+			os.Exit(1)
+		}
+		return
+	}
