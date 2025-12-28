@@ -28,3 +28,6 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	// Parse name
 	firstName, lastName := parseName(fullName)
 	fullNameEncoded := strings.ReplaceAll(fullName, " ", "%20")
+
+	result.WriteString("Professional Networks:\n")
+	result.WriteString(fmt.Sprintf("  - LinkedIn: https://www.linkedin.com/search/results/all/?keywords=%s\n", fullNameEncoded))
