@@ -45,3 +45,6 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString("\nPeople Search Services:\n")
 	result.WriteString(fmt.Sprintf("  - Whitepages: https://www.whitepages.com/name/%s-%s\n", firstName, lastName))
 	result.WriteString(fmt.Sprintf("  - TruePeopleSearch: https://www.truepeoplesearch.com/results?name=%s\n", fullNameEncoded))
+	result.WriteString(fmt.Sprintf("  - FastPeopleSearch: https://www.fastpeoplesearch.com/name/%s-%s\n", firstName, lastName))
+	result.WriteString(fmt.Sprintf("  - Spokeo: https://www.spokeo.com/%s-%s\n", firstName, lastName))
+	result.WriteString(fmt.Sprintf("  - Pipl: https://pipl.com/search/?q=%s\n", fullNameEncoded))
