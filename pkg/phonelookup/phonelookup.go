@@ -1426,3 +1426,67 @@ func formatPhoneInfo(info *PhoneInfo) string {
 	if info.LineType != "" {
 		sb.WriteString(fmt.Sprintf("Line Type:    %s\n", info.LineType))
 	}
+
+	// Owner information
+	if info.OwnerName != "" || info.OwnerEmail != "" || info.OwnerAddress != "" {
+		sb.WriteString("\nOwner Information:\n")
+		sb.WriteString(strings.Repeat("-", 70) + "\n")
+		if info.OwnerName != "" {
+			sb.WriteString(fmt.Sprintf("Name:         %s\n", info.OwnerName))
+		}
+		if info.OwnerEmail != "" {
+			sb.WriteString(fmt.Sprintf("Email:        %s\n", info.OwnerEmail))
+		}
+		if info.OwnerAddress != "" {
+			sb.WriteString(fmt.Sprintf("Address:      %s\n", info.OwnerAddress))
+		}
+		if info.OwnerSource != "" {
+			sb.WriteString(fmt.Sprintf("Source:       %s\n", info.OwnerSource))
+		}
+	}
+
+	// Messaging platforms
+	sb.WriteString("\nMessaging Platforms:\n")
+	sb.WriteString(strings.Repeat("-", 70) + "\n")
+
+	// WhatsApp
+	if info.OnWhatsApp {
+		sb.WriteString(fmt.Sprintf("WhatsApp:     ✓ Registered (%s)\n", info.WhatsAppStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("WhatsApp:     ✗ %s\n", info.WhatsAppStatus))
+	}
+
+	// Telegram
+	if info.OnTelegram {
+		sb.WriteString(fmt.Sprintf("Telegram:     ✓ Registered (%s)\n", info.TelegramStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("Telegram:     ✗ %s\n", info.TelegramStatus))
+	}
+
+	// Signal
+	if info.OnSignal {
+		sb.WriteString(fmt.Sprintf("Signal:       ✓ Registered (%s)\n", info.SignalStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("Signal:       ✗ %s\n", info.SignalStatus))
+	}
+
+	// Viber
+	if info.OnViber {
+		sb.WriteString(fmt.Sprintf("Viber:        ✓ Registered (%s)\n", info.ViberStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("Viber:        ✗ %s\n", info.ViberStatus))
+	}
+
+	// WeChat
+	if info.OnWeChat {
+		sb.WriteString(fmt.Sprintf("WeChat:       ✓ Registered (%s)\n", info.WeChatStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("WeChat:       ✗ %s\n", info.WeChatStatus))
+	}
+
+	// LINE
+	if info.OnLine {
+		sb.WriteString(fmt.Sprintf("LINE:         ✓ Registered (%s)\n", info.LineStatus))
+	} else {
+		sb.WriteString(fmt.Sprintf("LINE:         ✗ %s\n", info.LineStatus))
+	}
