@@ -24,3 +24,7 @@ func AdvancedSearchByName(fullName string) (string, error) {
 	result.WriteString("\n" + strings.Repeat("-", 70) + "\n")
 	result.WriteString("ADVANCED CHECKS:\n")
 	result.WriteString(strings.Repeat("-", 70) + "\n\n")
+
+	// Parse name
+	firstName, lastName := parseName(fullName)
+	fullNameEncoded := strings.ReplaceAll(fullName, " ", "%20")
