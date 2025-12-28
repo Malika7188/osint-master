@@ -89,4 +89,13 @@ func main() {
 		} else {
 			result, err = username.SearchUsername(*usernameFlag)
 		}
+	} else if *domainFlag != "" {
+		fmt.Printf("Enumerating domain: %s\n", *domainFlag)
+		result, err = domain.EnumerateDomain(*domainFlag)
+	} else if *emailFlag != "" {
+		fmt.Printf("Looking up email: %s\n", *emailFlag)
+		result, err = emaillookup.LookupEmailWithConfig(*emailFlag, cfg.HIBPAPIKey)
+	} else if *phoneFlag != "" {
+		fmt.Printf("Looking up phone: %s\n", *phoneFlag)
+		result, err = phonelookup.LookupPhone(*phoneFlag)
 	}
