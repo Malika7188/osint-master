@@ -623,3 +623,64 @@ func makeHLRRequest(url string, info *PhoneInfo) error {
 func makeCarrierRequest(url string, info *PhoneInfo) error {
 	return makeHLRRequest(url, info) // Same logic
 }
+
+// guessCarrierFromNumber tries to determine carrier from number patterns using external data
+func guessCarrierFromNumber(phone string, country string) string {
+	// Try to lookup from online carrier database
+	phoneClean := strings.TrimPrefix(phone, "+")
+
+	// Try carrier lookup API
+	if carrier := lookupCarrierFromAPI(phoneClean); carrier != "" {
+		return carrier
+	}
+
+	// If all else fails, return generic info based on country
+	if country != "" && country != "Unknown" {
+		return fmt.Sprintf("%s mobile carrier", country)
+	}
+
+	return "Mobile carrier"
+}
+
+// lookupCarrierFromAPI tries to get carrier from online database
+func lookupCarrierFromAPI(phone string) string {
+	// Try carrier411.com API (free carrier database)
+	url := fmt.Sprintf("https://www.carrier411.com/api/v1/phone/%s", phone)
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return ""
+	}
+
+	req.Header.Set("User-Agent", "OSINT-Master-Tool")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return ""
+	}
+
+	// Try to extract carrier name
+	if carrier, ok := result["carrier"].(string); ok && carrier != "" {
+		return carrier
+	}
+
+	if provider, ok := result["provider"].(string); ok && provider != "" {
+		return provider
+	}
+
+	return ""
+}
