@@ -27,3 +27,6 @@ func main() {
 	domainFlag := flag.String("d", "", "Enumerate subdomains and check for takeover risks")
 	emailFlag := flag.String("e", "", "Search information by email address")
 	phoneFlag := flag.String("p", "", "Search information by phone number")
+	outputFlag := flag.String("o", "", "File name to save output")
+	pdfFlag := flag.String("pdf", "", "Generate PDF report (specify filename)")
+	webFlag := flag.String("web", "", "Start web GUI server (specify port, e.g., 8080)")
