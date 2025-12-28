@@ -117,3 +117,28 @@ func main() {
 		}
 		fmt.Printf("Data saved in %s\n", *outputFlag)
 	}
+
+	// Generate PDF if pdf flag is provided
+	if *pdfFlag != "" {
+		var pdfErr error
+		if *emailFlag != "" {
+			pdfErr = pdfgen.GenerateEmailPDF(*pdfFlag, *emailFlag, result)
+		} else if *phoneFlag != "" {
+			pdfErr = pdfgen.GeneratePhonePDF(*pdfFlag, *phoneFlag, result)
+		} else if *usernameFlag != "" {
+			pdfErr = pdfgen.GenerateUsernamePDF(*pdfFlag, *usernameFlag, result)
+		} else if *ipFlag != "" {
+			pdfErr = pdfgen.GenerateIPPDF(*pdfFlag, *ipFlag, result)
+		} else if *domainFlag != "" {
+			pdfErr = pdfgen.GenerateDomainPDF(*pdfFlag, *domainFlag, result)
+		} else if *nameFlag != "" {
+			pdfErr = pdfgen.GenerateNamePDF(*pdfFlag, *nameFlag, result)
+		}
+
+		if pdfErr != nil {
+			fmt.Printf("Error generating PDF: %v\n", pdfErr)
+			os.Exit(1)
+		}
+		fmt.Printf("PDF report generated: %s\n", *pdfFlag)
+	}
+}
