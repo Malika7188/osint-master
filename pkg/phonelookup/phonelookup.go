@@ -48,6 +48,7 @@ func LookupPhone(phone string) (string, error) {
 }
 
 // LookupPhoneWithConfig performs phone number lookup with API configuration
+// Allows use of paid APIs when config is provided
 func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 	// Clean phone number
 	phone = cleanPhoneNumber(phone)
