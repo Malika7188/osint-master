@@ -693,7 +693,8 @@ func lookupCarrierFromAPI(phone string) string {
 	return ""
 }
 
-// lookupNumverify uses numverify.com API (free tier: 100 requests/month)
+// lookupNumverify uses numverify.com API
+// Free tier: 100 requests/month - requires API key
 func lookupNumverify(phone string, info *PhoneInfo, cfg *config.Config) error {
 	// Skip if no API key configured
 	if cfg == nil || cfg.NumverifyKey == "" {
