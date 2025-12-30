@@ -1883,5 +1883,5 @@ func isVoIPNumber(lineType string) bool {
 // - Integration with additional OSINT data sources
 //
 // Package Version: 1.0.0
-// Last Updated: 2025
+// Last Updated: December 2025
 // For more information, see the project README
