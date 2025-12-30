@@ -650,6 +650,7 @@ func guessCarrierFromNumber(phone string, country string) string {
 }
 
 // lookupCarrierFromAPI tries to get carrier from online database
+// Uses free carrier lookup services
 func lookupCarrierFromAPI(phone string) string {
 	// Try carrier411.com API (free carrier database)
 	url := fmt.Sprintf("https://www.carrier411.com/api/v1/phone/%s", phone)
