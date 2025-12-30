@@ -1642,6 +1642,7 @@ func extractAreaCode(phone string) string {
 }
 
 // formatForDisplay formats a phone number for human-readable display
+// US/Canada: +1 (XXX) XXX-XXXX, International: as-is
 func formatForDisplay(phone string) string {
 	cleaned := cleanPhoneNumber(phone)
 
