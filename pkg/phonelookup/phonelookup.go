@@ -1778,6 +1778,7 @@ func isMobileNumber(lineType string) bool {
 }
 
 // isLandlineNumber checks if a phone number is likely a landline
+// Detects landline/fixed/fixedline keywords
 func isLandlineNumber(lineType string) bool {
 	lineType = strings.ToLower(lineType)
 	landlineKeywords := []string{"landline", "fixed", "fixedline"}
