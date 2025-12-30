@@ -820,6 +820,7 @@ func lookupPhoneValidator(phone string, info *PhoneInfo, cfg *config.Config) err
 }
 
 // lookupIPQualityScore uses IPQualityScore phone validation API
+// Provides advanced fraud detection and phone validation
 func lookupIPQualityScore(phone string, info *PhoneInfo, cfg *config.Config) error {
 	// Skip if no API key configured
 	if cfg == nil || cfg.IPQualityScoreKey == "" {
