@@ -929,7 +929,8 @@ func lookupOwnerInfo(phone string, info *PhoneInfo, cfg *config.Config) error {
 	return fmt.Errorf("no owner information found")
 }
 
-// lookupTrueCaller attempts to get name from TrueCaller using multiple methods
+// lookupTrueCaller attempts to get name from TrueCaller
+// Tries multiple caller ID APIs including GetContact, Sync.me, and Eyecon
 func lookupTrueCaller(phone string) string {
 	// Try local cache first (fastest)
 	name := tryLocalCache(phone)
