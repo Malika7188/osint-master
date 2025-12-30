@@ -1029,6 +1029,7 @@ func tryGetContactAPI(phone string) string {
 }
 
 // trySyncMeAPI tries Sync.me caller ID service
+// Sync.me provides caller identification and contact management
 func trySyncMeAPI(phone string) string {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
