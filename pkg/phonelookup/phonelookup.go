@@ -1361,6 +1361,7 @@ func checkTelegram(phone string) (bool, string) {
 }
 
 // checkSignal checks if a phone number is registered on Signal
+// Signal is privacy-focused, no public API available
 func checkSignal(phone string) (bool, string) {
 	// Signal is privacy-focused and doesn't provide public APIs for registration checks
 	// The only way to verify is through the Signal app itself
