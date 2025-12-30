@@ -497,6 +497,7 @@ func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 }
 
 // lookupHLR uses HLR (Home Location Register) lookup from multiple sources
+// HLR lookup provides carrier and network information
 func lookupHLR(phone string, info *PhoneInfo) error {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
