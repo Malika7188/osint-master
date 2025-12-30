@@ -1751,6 +1751,7 @@ func isE164Format(phone string) bool {
 }
 
 // sanitizePhoneInput removes all non-digit characters except +
+// Cleans user input for phone number processing
 func sanitizePhoneInput(phone string) string {
 	var result strings.Builder
 	for _, ch := range phone {
