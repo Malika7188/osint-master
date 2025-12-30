@@ -1664,6 +1664,7 @@ func formatForDisplay(phone string) string {
 }
 
 // isTollFree checks if a phone number is toll-free
+// Checks against North American toll-free area codes
 func isTollFree(phone string) bool {
 	cleaned := cleanPhoneNumber(phone)
 
