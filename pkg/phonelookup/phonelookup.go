@@ -42,6 +42,7 @@ type PhoneInfo struct {
 }
 
 // LookupPhone performs phone number lookup
+// Main entry point for phone number investigation
 func LookupPhone(phone string) (string, error) {
 	return LookupPhoneWithConfig(phone, nil)
 }
