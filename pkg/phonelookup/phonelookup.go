@@ -433,6 +433,7 @@ func lookupPhoneFree(phone string, info *PhoneInfo) error {
 }
 
 // lookupPhoneAlternative tries alternative free phone APIs
+// Used as fallback when primary API fails
 func lookupPhoneAlternative(phone string, info *PhoneInfo) error {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
