@@ -979,6 +979,7 @@ func tryLocalCache(phone string) string {
 }
 
 // tryGetContactAPI tries GetContact caller ID service
+// GetContact is a popular caller identification app
 func tryGetContactAPI(phone string) string {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
