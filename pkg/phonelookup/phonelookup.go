@@ -1583,6 +1583,7 @@ func isValidPhoneNumber(phone string) bool {
 }
 
 // normalizePhoneNumber normalizes a phone number to E.164 format
+// Adds country code prefix if missing
 func normalizePhoneNumber(phone, defaultCountryCode string) string {
 	// Clean the phone number
 	cleaned := cleanPhoneNumber(phone)
