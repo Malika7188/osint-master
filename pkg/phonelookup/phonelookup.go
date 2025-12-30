@@ -1763,6 +1763,7 @@ func sanitizePhoneInput(phone string) string {
 }
 
 // isMobileNumber checks if a phone number is likely a mobile number
+// Looks for mobile/cellular/wireless keywords in line type
 func isMobileNumber(lineType string) bool {
 	lineType = strings.ToLower(lineType)
 	mobileKeywords := []string{"mobile", "cellular", "cell", "wireless"}
