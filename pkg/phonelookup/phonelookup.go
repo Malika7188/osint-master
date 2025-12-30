@@ -1374,6 +1374,7 @@ func checkSignal(phone string) (bool, string) {
 }
 
 // checkViber checks if a phone number is registered on Viber
+// Viber check requires manual verification through the app
 func checkViber(phone string) (bool, string) {
 	// Viber doesn't provide a public API for checking registration
 	// Similar to other messaging apps, verification requires the app
