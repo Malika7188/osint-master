@@ -1411,6 +1411,7 @@ func checkLine(phone string) (bool, string) {
 }
 
 // formatPhoneInfo formats phone information into readable string
+// Creates a comprehensive report with all collected data
 func formatPhoneInfo(info *PhoneInfo) string {
 	var sb strings.Builder
 
