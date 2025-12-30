@@ -1398,6 +1398,7 @@ func checkWeChat(phone string) (bool, string) {
 }
 
 // checkLine checks if a phone number is registered on LINE
+// LINE is popular in Asia (Japan, Thailand, Taiwan)
 func checkLine(phone string) (bool, string) {
 	// LINE doesn't provide a public API for phone number verification
 	// LINE is popular in Asia (Japan, Thailand, Taiwan) and uses phone numbers for registration
