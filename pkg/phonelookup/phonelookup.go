@@ -134,6 +134,7 @@ func cleanPhoneNumber(phone string) string {
 }
 
 // parseCountryCode extracts country code from phone number
+// Returns country code and country name using online lookup
 func parseCountryCode(phone string) (string, string) {
 	if !strings.HasPrefix(phone, "+") {
 		return "", ""
