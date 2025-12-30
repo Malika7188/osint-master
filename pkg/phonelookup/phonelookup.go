@@ -630,7 +630,8 @@ func makeCarrierRequest(url string, info *PhoneInfo) error {
 	return makeHLRRequest(url, info) // Same logic
 }
 
-// guessCarrierFromNumber tries to determine carrier from number patterns using external data
+// guessCarrierFromNumber tries to determine carrier from number patterns
+// Uses external data sources to infer carrier information
 func guessCarrierFromNumber(phone string, country string) string {
 	// Try to lookup from online carrier database
 	phoneClean := strings.TrimPrefix(phone, "+")
