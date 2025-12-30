@@ -1345,6 +1345,7 @@ func checkWhatsApp(phone string) (bool, string) {
 }
 
 // checkTelegram checks if a phone number is registered on Telegram
+// Telegram verification requires manual check via app
 func checkTelegram(phone string) (bool, string) {
 	// Telegram doesn't provide a public API for checking registration
 	// We can only provide the link for manual verification
