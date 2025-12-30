@@ -1554,6 +1554,7 @@ func formatPhoneInfo(info *PhoneInfo) string {
 }
 
 // isValidPhoneNumber performs basic phone number validation
+// Checks length and format requirements
 func isValidPhoneNumber(phone string) bool {
 	// Remove common separators
 	cleaned := strings.Map(func(r rune) rune {
