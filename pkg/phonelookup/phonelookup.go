@@ -174,6 +174,7 @@ func parseCountryCode(phone string) (string, string) {
 }
 
 // getCountryFromCallingCode gets country name from calling code using online lookup
+// Uses country.io and restcountries.com APIs with fallback to local data
 func getCountryFromCallingCode(callingCode string) string {
 	// Try online country calling code API
 	url := fmt.Sprintf("https://country.io/phone.json")
