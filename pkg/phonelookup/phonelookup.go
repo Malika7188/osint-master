@@ -576,6 +576,7 @@ func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 }
 
 // makeHLRRequest makes a generic HLR lookup request
+// Tries multiple field names for carrier and line type information
 func makeHLRRequest(url string, info *PhoneInfo) error {
 	client := &http.Client{
 		Timeout: 10 * time.Second,
