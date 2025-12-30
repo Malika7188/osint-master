@@ -758,7 +758,8 @@ func lookupNumverify(phone string, info *PhoneInfo, cfg *config.Config) error {
 	return nil
 }
 
-// lookupPhoneValidator uses phone-validator.net API
+// lookupPhoneValidator uses AbstractAPI phone validation service
+// Requires AbstractAPI key for access
 func lookupPhoneValidator(phone string, info *PhoneInfo, cfg *config.Config) error {
 	// Skip if no API key configured
 	if cfg == nil || cfg.AbstractAPIKey == "" {
