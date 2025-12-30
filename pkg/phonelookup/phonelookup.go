@@ -524,6 +524,7 @@ func lookupHLR(phone string, info *PhoneInfo) error {
 }
 
 // lookupMCCMNCOnline fetches carrier info from online MCC-MNC database
+// MCC-MNC is Mobile Country Code - Mobile Network Code
 func lookupMCCMNCOnline(phone string, info *PhoneInfo) error {
 	// Use mcc-mnc.com API for carrier lookup
 	url := fmt.Sprintf("https://mcc-mnc.net/api/?phone=%s", phone)
