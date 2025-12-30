@@ -1387,6 +1387,7 @@ func checkViber(phone string) (bool, string) {
 }
 
 // checkWeChat checks if a phone number is registered on WeChat
+// WeChat primarily uses WeChat IDs rather than phone numbers
 func checkWeChat(phone string) (bool, string) {
 	// WeChat doesn't provide a public API for phone number verification
 	// WeChat primarily uses WeChat IDs rather than phone numbers for contact
