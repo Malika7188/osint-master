@@ -1158,6 +1158,7 @@ func tryEyeconAPI(phone string) string {
 }
 
 // tryNumLookupAPI tries NumLookup free API
+// NumLookup offers phone number validation and owner information
 func tryNumLookupAPI(phone string) string {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
