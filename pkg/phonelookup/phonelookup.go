@@ -892,6 +892,7 @@ func lookupIPQualityScore(phone string, info *PhoneInfo, cfg *config.Config) err
 }
 
 // lookupOwnerInfo tries to find the owner's information from various sources
+// Uses multiple caller ID services and public directories
 func lookupOwnerInfo(phone string, info *PhoneInfo, cfg *config.Config) error {
 	phoneClean := strings.ReplaceAll(strings.ReplaceAll(phone, "+", ""), " ", "")
 
