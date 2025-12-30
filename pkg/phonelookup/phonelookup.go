@@ -304,7 +304,7 @@ func getCountryFromCodeFallback(callingCode string) string {
 	return ""
 }
 
-// lookupPhoneAPI queries phone lookup API
+// lookupPhoneAPI queries phone lookup API with multiple fallback options
 func lookupPhoneAPI(phone string, info *PhoneInfo) error {
 	// Try FREE API first (veriphone.io - no key required)
 	if err := lookupPhoneFree(phone, info); err == nil {
