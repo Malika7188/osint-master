@@ -14,6 +14,7 @@ import (
 )
 
 // PhoneInfo holds information about a phone number
+// Contains carrier details, location, and messaging platform status
 type PhoneInfo struct {
 	Number         string
 	CountryCode    string
