@@ -1621,6 +1621,7 @@ func getPhoneType(lineType string) string {
 }
 
 // extractAreaCode extracts area code from a phone number
+// Primarily for US/Canada numbers (first 3 digits after country code)
 func extractAreaCode(phone string) string {
 	cleaned := cleanPhoneNumber(phone)
 
