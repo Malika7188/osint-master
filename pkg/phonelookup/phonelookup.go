@@ -116,6 +116,7 @@ func LookupPhoneWithConfig(phone string, cfg *config.Config) (string, error) {
 }
 
 // cleanPhoneNumber removes non-digit characters
+// Normalizes phone input for consistent processing
 func cleanPhoneNumber(phone string) string {
 	// Remove all non-digit characters except +
 	reg := regexp.MustCompile(`[^\d+]`)
