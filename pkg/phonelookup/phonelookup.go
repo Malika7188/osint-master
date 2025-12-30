@@ -1808,7 +1808,7 @@ func isVoIPNumber(lineType string) bool {
 }
 
 // API Integration Notes:
-// This package integrates with multiple phone lookup APIs:
+// This package integrates with multiple phone lookup APIs for comprehensive data:
 // 1. Veriphone.io - Free tier, no API key required
 // 2. Numverify - Requires API key, more comprehensive data
 // 3. Abstract API - Paid service with phone validation
