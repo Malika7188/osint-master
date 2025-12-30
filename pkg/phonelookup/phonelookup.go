@@ -1726,6 +1726,7 @@ const (
 )
 
 // isE164Format checks if phone number is in E.164 format
+// E.164: +[country code][subscriber number], max 15 digits
 func isE164Format(phone string) bool {
 	// E.164 format: +[country code][subscriber number]
 	// Max 15 digits including country code
