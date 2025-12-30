@@ -1793,6 +1793,7 @@ func isLandlineNumber(lineType string) bool {
 }
 
 // isVoIPNumber checks if a phone number is likely a VoIP number
+// Identifies VoIP/Voice over IP/internet service numbers
 func isVoIPNumber(lineType string) bool {
 	lineType = strings.ToLower(lineType)
 	voipKeywords := []string{"voip", "voice over ip", "internet"}
