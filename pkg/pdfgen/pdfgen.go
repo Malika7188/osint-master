@@ -207,5 +207,3 @@ func GenerateNamePDF(filename, name, content string) error {
 	title := fmt.Sprintf("Name Lookup: %s", name)
 	return GeneratePDF(filename, title, content)
 }
-
-// tiny edit: commit 1/20
