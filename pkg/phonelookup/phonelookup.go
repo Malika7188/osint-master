@@ -1279,6 +1279,7 @@ func lookupSocialMedia(phone string) string {
 }
 
 // checkWhatsApp checks if a phone number is registered on WhatsApp
+// Uses wa.me link and Wassenger API for verification
 func checkWhatsApp(phone string) (bool, string) {
 	// Method: Try to access the WhatsApp Web API endpoint
 	// Remove + and spaces from phone number
