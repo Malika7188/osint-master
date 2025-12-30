@@ -1108,6 +1108,7 @@ func tryTrueCallerJSONAPI(phone string) string {
 }
 
 // tryEyeconAPI tries Eyecon caller ID API
+// Eyecon provides visual caller ID with photo identification
 func tryEyeconAPI(phone string) string {
 	phoneClean := strings.TrimPrefix(phone, "+")
 
