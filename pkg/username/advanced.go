@@ -65,3 +65,9 @@ func AdvancedSearchUsername(username string) (string, error) {
 				Network: net.Name,
 				Found:   found,
 			}
+
+			if found {
+				fmt.Println("✓ Found")
+			} else {
+				fmt.Println("✗ Not Found")
+			}
