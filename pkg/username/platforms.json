@@ -192,3 +192,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Goodreads",
+      "url": "https://www.goodreads.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
