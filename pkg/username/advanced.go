@@ -137,3 +137,33 @@ func checkWithBrowser(url, platform string) bool {
 		return false
 	}
 	defer context.Close()
+
+	page, err := context.NewPage()
+	if err != nil {
+		return false
+	}
+
+	// Inject JavaScript to hide automation markers
+	err = page.AddInitScript(playwright.Script{
+		Content: playwright.String(`
+			// Hide webdriver property
+			Object.defineProperty(navigator, 'webdriver', {
+				get: () => false
+			});
+
+			// Add chrome object
+			window.chrome = {
+				runtime: {}
+			};
+
+			// Mock plugins
+			Object.defineProperty(navigator, 'plugins', {
+				get: () => [1, 2, 3, 4, 5]
+			});
+
+			// Mock languages
+			Object.defineProperty(navigator, 'languages', {
+				get: () => ['en-US', 'en']
+			});
+		`),
+	})
