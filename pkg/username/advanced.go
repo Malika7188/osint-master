@@ -92,3 +92,8 @@ func AdvancedSearchUsername(username string) (string, error) {
 			Found:   false, // Don't check, add warning instead
 		})
 	}
+
+	// Format results
+	output := formatAdvancedResults(username, results)
+	return output, nil
+}
