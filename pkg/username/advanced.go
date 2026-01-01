@@ -189,3 +189,52 @@ func checkWithBrowser(url, platform string) bool {
 	// Platform-specific detection
 	return detectProfile(content, platform)
 }
+
+// detectProfile checks if a profile exists based on page content
+func detectProfile(content, platform string) bool {
+	content = strings.ToLower(content)
+
+	// Common "not found" indicators
+	notFoundIndicators := []string{
+		"page not found",
+		"this page isn't available",
+		"sorry, this page isn't available",
+		"the page you requested was not found",
+	}
+
+	for _, indicator := range notFoundIndicators {
+		if strings.Contains(content, indicator) {
+			return false
+		}
+	}
+
+	// Platform-specific checks
+	switch platform {
+	case "GitHub":
+		// GitHub shows 404 for non-existent users
+		if strings.Contains(content, "404") && strings.Contains(content, "not found") {
+			return false
+		}
+		// Look for profile indicators
+		return strings.Contains(content, "profile") || strings.Contains(content, "repositories")
+
+	case "Reddit":
+		if strings.Contains(content, "sorry, nobody on reddit goes by that name") {
+			return false
+		}
+		return strings.Contains(content, "karma") || strings.Contains(content, "posts")
+
+	case "Twitter":
+		if strings.Contains(content, "this account doesn't exist") {
+			return false
+		}
+		return strings.Contains(content, "tweets") || strings.Contains(content, "followers")
+
+	case "Medium":
+		return strings.Contains(content, "stories") || strings.Contains(content, "followers")
+
+	default:
+		// Generic check
+		return !strings.Contains(content, "not found")
+	}
+}
