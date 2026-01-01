@@ -85,3 +85,10 @@ func AdvancedSearchUsername(username string) (string, error) {
 		{Name: "Instagram", URL: fmt.Sprintf("https://www.instagram.com/%s/", username)},
 		{Name: "Facebook", URL: fmt.Sprintf("https://www.facebook.com/%s", username)},
 	}
+
+	for _, platform := range blockedPlatforms {
+		results = append(results, UsernameResult{
+			Network: platform.Name,
+			Found:   false, // Don't check, add warning instead
+		})
+	}
