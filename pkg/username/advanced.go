@@ -71,3 +71,6 @@ func AdvancedSearchUsername(username string) (string, error) {
 			} else {
 				fmt.Println("✗ Not Found")
 			}
+
+			// Polite delay between checks
+			time.Sleep(2 * time.Second)
