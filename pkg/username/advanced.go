@@ -252,3 +252,42 @@ func getRandomUserAgent() string {
 	rand.Seed(time.Now().UnixNano())
 	return userAgents[rand.Intn(len(userAgents))]
 }
+
+// formatAdvancedResults formats the search results
+func formatAdvancedResults(username string, results []UsernameResult) string {
+	var sb strings.Builder
+
+	sb.WriteString(fmt.Sprintf("Username: @%s\n", username))
+	sb.WriteString("Search Mode: Advanced (Browser Automation)\n\n")
+	sb.WriteString("Social Network Presence:\n")
+
+	foundCount := 0
+	for _, result := range results {
+		status := "Not Found"
+		if result.Found {
+			status = "Found ✓"
+			foundCount++
+		}
+		sb.WriteString(fmt.Sprintf("  %s: %s\n", result.Network, status))
+	}
+
+	sb.WriteString(fmt.Sprintf("\nTotal Found: %d out of %d networks\n", foundCount, len(results)))
+
+	// Add warnings
+	sb.WriteString("\n⚠️  IMPORTANT NOTES:\n")
+	sb.WriteString("- LinkedIn, Instagram, Facebook still require login for verification\n")
+	sb.WriteString("- This mode respects rate limits (slower but polite)\n")
+	sb.WriteString("- Always verify manually for critical investigations\n")
+	sb.WriteString("- Use only for authorized testing\n")
+
+	sb.WriteString("\nManual Verification URLs:\n")
+	sb.WriteString(fmt.Sprintf("  - https://linkedin.com/in/%s\n", username))
+	sb.WriteString(fmt.Sprintf("  - https://instagram.com/%s\n", username))
+	sb.WriteString(fmt.Sprintf("  - https://facebook.com/%s\n", username))
+
+	if foundCount > 0 {
+		sb.WriteString("\nRecent Activity: Check individual platforms for details\n")
+	}
+
+	return sb.String()
+}
