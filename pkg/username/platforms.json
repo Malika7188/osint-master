@@ -1,0 +1,244 @@
+{
+  "platforms": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Twitter",
+      "url": "https://twitter.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/{}/",
+      "errorType": "message",
+      "errorMsg": "Sorry, this page isn't available"
+    },
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Reddit",
+      "url": "https://www.reddit.com/user/{}",
+      "errorType": "message",
+      "errorMsg": "nobody on reddit goes by that name"
+    },
+    {
+      "name": "Medium",
+      "url": "https://medium.com/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "TikTok",
+      "url": "https://www.tiktok.com/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Pinterest",
+      "url": "https://www.pinterest.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Snapchat",
+      "url": "https://www.snapchat.com/add/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Twitch",
+      "url": "https://www.twitch.tv/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Discord",
+      "url": "https://discord.com/users/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Telegram",
+      "url": "https://t.me/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Tumblr",
+      "url": "https://{}.tumblr.com",
+      "errorType": "message",
+      "errorMsg": "There's nothing here"
+    },
+    {
+      "name": "Patreon",
+      "url": "https://www.patreon.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "DeviantArt",
+      "url": "https://www.deviantart.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Behance",
+      "url": "https://www.behance.net/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Dribbble",
+      "url": "https://dribbble.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Steam",
+      "url": "https://steamcommunity.com/id/{}",
+      "errorType": "message",
+      "errorMsg": "The specified profile could not be found"
+    },
+    {
+      "name": "Spotify",
+      "url": "https://open.spotify.com/user/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "SoundCloud",
+      "url": "https://soundcloud.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Vimeo",
+      "url": "https://vimeo.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Dailymotion",
+      "url": "https://www.dailymotion.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Flickr",
+      "url": "https://www.flickr.com/people/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "500px",
+      "url": "https://500px.com/p/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "GitLab",
+      "url": "https://gitlab.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Bitbucket",
+      "url": "https://bitbucket.org/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "StackOverflow",
+      "url": "https://stackoverflow.com/users/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "HackerNews",
+      "url": "https://news.ycombinator.com/user?id={}",
+      "errorType": "message",
+      "errorMsg": "No such user"
+    },
+    {
+      "name": "ProductHunt",
+      "url": "https://www.producthunt.com/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "AngelList",
+      "url": "https://angel.co/u/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Goodreads",
+      "url": "https://www.goodreads.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Quora",
+      "url": "https://www.quora.com/profile/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "AboutMe",
+      "url": "https://about.me/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Keybase",
+      "url": "https://keybase.io/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Mastodon",
+      "url": "https://mastodon.social/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Letterboxd",
+      "url": "https://letterboxd.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Codecademy",
+      "url": "https://www.codecademy.com/profiles/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Codepen",
+      "url": "https://codepen.io/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    }
+  ]
+}
