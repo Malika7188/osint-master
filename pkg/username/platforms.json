@@ -228,3 +228,17 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Codecademy",
+      "url": "https://www.codecademy.com/profiles/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
+    {
+      "name": "Codepen",
+      "url": "https://codepen.io/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    }
+  ]
+}
