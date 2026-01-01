@@ -14,4 +14,7 @@
     },
     {
       "name": "Instagram",
-      "url": "https://www.instagram.com/{}/"
+      "url": "https://www.instagram.com/{}/",
+      "errorType": "message",
+      "errorMsg": "Sorry, this page isn't available"
+    },
