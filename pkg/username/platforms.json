@@ -174,3 +174,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "HackerNews",
+      "url": "https://news.ycombinator.com/user?id={}",
+      "errorType": "message",
+      "errorMsg": "No such user"
+    },
