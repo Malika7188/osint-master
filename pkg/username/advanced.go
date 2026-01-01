@@ -61,3 +61,7 @@ func AdvancedSearchUsername(username string) (string, error) {
 
 			fmt.Printf("Checking %s... ", net.Name)
 			found := checkWithBrowser(net.URL, net.Name)
+			results[index] = UsernameResult{
+				Network: net.Name,
+				Found:   found,
+			}
