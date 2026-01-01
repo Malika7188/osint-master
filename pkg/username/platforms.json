@@ -102,3 +102,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Behance",
+      "url": "https://www.behance.net/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
