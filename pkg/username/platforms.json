@@ -162,3 +162,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Bitbucket",
+      "url": "https://bitbucket.org/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
