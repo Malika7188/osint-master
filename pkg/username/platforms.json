@@ -78,3 +78,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Telegram",
+      "url": "https://t.me/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
