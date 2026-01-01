@@ -121,3 +121,19 @@ func checkWithBrowser(url, platform string) bool {
 		return false
 	}
 	defer browser.Close()
+
+	// Create context with realistic settings
+	userAgent := getRandomUserAgent()
+	context, err := browser.NewContext(playwright.BrowserNewContextOptions{
+		UserAgent: &userAgent,
+		Viewport: &playwright.Size{
+			Width:  1920,
+			Height: 1080,
+		},
+		Locale:     playwright.String("en-US"),
+		TimezoneId: playwright.String("America/New_York"),
+	})
+	if err != nil {
+		return false
+	}
+	defer context.Close()
