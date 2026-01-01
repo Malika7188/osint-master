@@ -72,3 +72,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Discord",
+      "url": "https://discord.com/users/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
