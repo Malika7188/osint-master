@@ -167,3 +167,25 @@ func checkWithBrowser(url, platform string) bool {
 			});
 		`),
 	})
+
+	// Navigate to URL
+	_, err = page.Goto(url, playwright.PageGotoOptions{
+		WaitUntil: playwright.WaitUntilStateNetworkidle,
+		Timeout:   playwright.Float(30000), // 30 second timeout
+	})
+	if err != nil {
+		return false
+	}
+
+	// Wait a bit to simulate human behavior
+	page.WaitForTimeout(1000 + float64(rand.Intn(2000))) // Random 1-3 second delay
+
+	// Get page content
+	content, err := page.Content()
+	if err != nil {
+		return false
+	}
+
+	// Platform-specific detection
+	return detectProfile(content, platform)
+}
