@@ -23,3 +23,8 @@ import (
 func AdvancedSearchUsername(username string) (string, error) {
 	// Remove @ symbol if present
 	username = strings.TrimPrefix(username, "@")
+
+	// Validate username format
+	if username == "" {
+		return "", fmt.Errorf("username cannot be empty")
+	}
