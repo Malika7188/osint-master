@@ -50,4 +50,7 @@
     },
     {
       "name": "TikTok",
-      "url": "https://www.tiktok.com/@{}"
+      "url": "https://www.tiktok.com/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
