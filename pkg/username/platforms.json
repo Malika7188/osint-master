@@ -66,3 +66,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Twitch",
+      "url": "https://www.twitch.tv/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
