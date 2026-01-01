@@ -48,3 +48,7 @@ func AdvancedSearchUsername(username string) (string, error) {
 		{Name: "Twitter", URL: fmt.Sprintf("https://twitter.com/%s", username)},
 		{Name: "Medium", URL: fmt.Sprintf("https://medium.com/@%s", username)},
 	}
+
+	// Use browser automation for checking
+	var wg sync.WaitGroup
+	results := make([]UsernameResult, len(networks))
