@@ -120,3 +120,9 @@
       "errorType": "message",
       "errorMsg": "The specified profile could not be found"
     },
+    {
+      "name": "Spotify",
+      "url": "https://open.spotify.com/user/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
