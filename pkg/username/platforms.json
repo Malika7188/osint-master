@@ -54,3 +54,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Pinterest",
+      "url": "https://www.pinterest.com/{}"
