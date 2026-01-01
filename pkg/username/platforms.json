@@ -26,4 +26,7 @@
     },
     {
       "name": "LinkedIn",
-      "url": "https://www.linkedin.com/in/{}"
+      "url": "https://www.linkedin.com/in/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
