@@ -198,3 +198,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Quora",
+      "url": "https://www.quora.com/profile/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
