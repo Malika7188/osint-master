@@ -30,3 +30,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Reddit",
+      "url": "https://www.reddit.com/user/{}"
