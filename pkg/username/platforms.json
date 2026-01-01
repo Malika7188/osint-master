@@ -84,3 +84,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Tumblr",
+      "url": "https://{}.tumblr.com",
+      "errorType": "message",
+      "errorMsg": "There's nothing here"
+    },
