@@ -36,3 +36,7 @@ func AdvancedSearchUsername(username string) (string, error) {
 	if !isValidUsername(username) {
 		return "", fmt.Errorf("invalid username: only letters, numbers, underscores, and hyphens allowed")
 	}
+
+	// fmt.Println("⚠️  Advanced Mode: Using browser automation")
+	// fmt.Println("⚠️  This mode is slower but more accurate")
+	// fmt.Println("⚠️  Use only for authorized testing")
