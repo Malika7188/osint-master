@@ -210,3 +210,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Keybase",
+      "url": "https://keybase.io/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
