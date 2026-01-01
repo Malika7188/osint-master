@@ -97,3 +97,12 @@ func AdvancedSearchUsername(username string) (string, error) {
 	output := formatAdvancedResults(username, results)
 	return output, nil
 }
+
+// checkWithBrowser uses Playwright to check if username exists
+func checkWithBrowser(url, platform string) bool {
+	// Initialize Playwright
+	pw, err := playwright.Run()
+	if err != nil {
+		return false
+	}
+	defer pw.Stop()
