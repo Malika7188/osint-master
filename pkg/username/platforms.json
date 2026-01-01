@@ -60,3 +60,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Snapchat",
+      "url": "https://www.snapchat.com/add/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
