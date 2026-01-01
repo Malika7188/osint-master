@@ -204,3 +204,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "AboutMe",
+      "url": "https://about.me/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
