@@ -144,3 +144,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Flickr",
+      "url": "https://www.flickr.com/people/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
