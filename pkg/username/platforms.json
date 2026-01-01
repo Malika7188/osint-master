@@ -150,3 +150,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "500px",
+      "url": "https://500px.com/p/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
