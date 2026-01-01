@@ -74,3 +74,7 @@ func AdvancedSearchUsername(username string) (string, error) {
 
 			// Polite delay between checks
 			time.Sleep(2 * time.Second)
+		}(i, network)
+
+		wg.Wait() // Wait for each to complete (sequential, not parallel)
+	}
