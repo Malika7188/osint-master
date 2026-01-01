@@ -52,3 +52,12 @@ func AdvancedSearchUsername(username string) (string, error) {
 	// Use browser automation for checking
 	var wg sync.WaitGroup
 	results := make([]UsernameResult, len(networks))
+
+	// Rate limiting: check one at a time to be polite
+	for i, network := range networks {
+		wg.Add(1)
+		go func(index int, net SocialNetwork) {
+			defer wg.Done()
+
+			fmt.Printf("Checking %s... ", net.Name)
+			found := checkWithBrowser(net.URL, net.Name)
