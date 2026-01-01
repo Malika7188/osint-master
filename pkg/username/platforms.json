@@ -6,3 +6,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Twitter",
+      "url": "https://twitter.com/{}"
