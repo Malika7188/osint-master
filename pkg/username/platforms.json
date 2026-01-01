@@ -48,3 +48,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "TikTok",
+      "url": "https://www.tiktok.com/@{}"
