@@ -18,3 +18,8 @@ import (
 // - Testing on YOUR OWN systems
 //
 // DO NOT use for unauthorized access or ToS violations
+
+// AdvancedSearchUsername uses browser automation to bypass basic bot detection
+func AdvancedSearchUsername(username string) (string, error) {
+	// Remove @ symbol if present
+	username = strings.TrimPrefix(username, "@")
