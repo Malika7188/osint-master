@@ -40,3 +40,11 @@ func AdvancedSearchUsername(username string) (string, error) {
 	// fmt.Println("⚠️  Advanced Mode: Using browser automation")
 	// fmt.Println("⚠️  This mode is slower but more accurate")
 	// fmt.Println("⚠️  Use only for authorized testing")
+
+	// Define social networks to check
+	networks := []SocialNetwork{
+		{Name: "GitHub", URL: fmt.Sprintf("https://github.com/%s", username)},
+		{Name: "Reddit", URL: fmt.Sprintf("https://www.reddit.com/user/%s", username)},
+		{Name: "Twitter", URL: fmt.Sprintf("https://twitter.com/%s", username)},
+		{Name: "Medium", URL: fmt.Sprintf("https://medium.com/@%s", username)},
+	}
