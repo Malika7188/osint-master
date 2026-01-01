@@ -216,3 +216,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Mastodon",
+      "url": "https://mastodon.social/@{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
