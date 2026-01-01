@@ -32,4 +32,7 @@
     },
     {
       "name": "Reddit",
-      "url": "https://www.reddit.com/user/{}"
+      "url": "https://www.reddit.com/user/{}",
+      "errorType": "message",
+      "errorMsg": "nobody on reddit goes by that name"
+    },
