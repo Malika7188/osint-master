@@ -36,3 +36,6 @@
       "errorType": "message",
       "errorMsg": "nobody on reddit goes by that name"
     },
+    {
+      "name": "Medium",
+      "url": "https://medium.com/@{}"
