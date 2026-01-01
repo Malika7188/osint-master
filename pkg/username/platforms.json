@@ -222,3 +222,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Letterboxd",
+      "url": "https://letterboxd.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
