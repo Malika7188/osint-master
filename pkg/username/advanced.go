@@ -32,3 +32,7 @@ func AdvancedSearchUsername(username string) (string, error) {
 	if strings.Contains(username, " ") {
 		return "", fmt.Errorf("invalid username: usernames cannot contain spaces")
 	}
+
+	if !isValidUsername(username) {
+		return "", fmt.Errorf("invalid username: only letters, numbers, underscores, and hyphens allowed")
+	}
