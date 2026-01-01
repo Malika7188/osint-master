@@ -186,3 +186,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "AngelList",
+      "url": "https://angel.co/u/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
