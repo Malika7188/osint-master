@@ -106,3 +106,18 @@ func checkWithBrowser(url, platform string) bool {
 		return false
 	}
 	defer pw.Stop()
+
+	// Launch browser with stealth settings
+	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
+		Headless: playwright.Bool(true), // Run without visible window
+		Args: []string{
+			"--disable-blink-features=AutomationControlled", // Hide automation
+			"--disable-dev-shm-usage",
+			"--no-sandbox",
+			"--disable-setuid-sandbox",
+		},
+	})
+	if err != nil {
+		return false
+	}
+	defer browser.Close()
