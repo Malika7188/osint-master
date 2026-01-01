@@ -138,3 +138,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Dailymotion",
+      "url": "https://www.dailymotion.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
