@@ -20,4 +20,7 @@
     },
     {
       "name": "Facebook",
-      "url": "https://www.facebook.com/{}"
+      "url": "https://www.facebook.com/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
