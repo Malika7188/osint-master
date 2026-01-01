@@ -12,3 +12,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/{}/"
