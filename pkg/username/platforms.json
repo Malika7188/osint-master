@@ -42,3 +42,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@{}"
