@@ -24,3 +24,6 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/{}"
