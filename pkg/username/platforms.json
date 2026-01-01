@@ -168,3 +168,9 @@
       "errorType": "status_code",
       "errorCode": 404
     },
+    {
+      "name": "StackOverflow",
+      "url": "https://stackoverflow.com/users/{}",
+      "errorType": "status_code",
+      "errorCode": 404
+    },
