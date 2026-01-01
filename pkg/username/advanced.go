@@ -78,3 +78,10 @@ func AdvancedSearchUsername(username string) (string, error) {
 
 		wg.Wait() // Wait for each to complete (sequential, not parallel)
 	}
+
+	// Also check platforms that block bots (with warnings)
+	blockedPlatforms := []SocialNetwork{
+		{Name: "LinkedIn", URL: fmt.Sprintf("https://linkedin.com/in/%s", username)},
+		{Name: "Instagram", URL: fmt.Sprintf("https://www.instagram.com/%s/", username)},
+		{Name: "Facebook", URL: fmt.Sprintf("https://www.facebook.com/%s", username)},
+	}
